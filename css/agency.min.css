@@ -39,7 +39,7 @@ text-transform:none;font-family:'Droid Serif','Helvetica Neue',Helvetica,Arial,s
 
 ::selection{background:#fed136;text-shadow:none}img::selection{background:0 0}img::-moz-selection{background:0 0}
 
-#mainNav{background-color:#212529}
+#mainNav{background-color:#eaaed6 }
 
 #mainNav .navbar-toggler{font-size:12px;
 right:0;
