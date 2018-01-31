@@ -39,6 +39,25 @@ text-transform:none;font-family:'Droid Serif','Helvetica Neue',Helvetica,Arial,s
 
 ::selection{background:#fed136;text-shadow:none}img::selection{background:0 0}img::-moz-selection{background:0 0}
 
+.login-btn{
+    font-size:12px;
+    right:0;
+    padding: 10px;
+    border-radius: 5px;
+    text-transform:uppercase;
+    font-weight: bolder;
+    color:#fff;
+    border:0;
+    cursor: pointer;
+    background-color:#fed136;
+    font-family:Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.login-btn:hover{
+    opacity: 0.8;
+}
+
+
 #mainNav{background-color:#5b6771}
 
 #mainNav .navbar-toggler{font-size:12px;
