@@ -27,7 +27,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/agency.min.css" rel="stylesheet">
-    <link href="css/login.css" rel="stylesheet">
+    <link href="css/login-register.css" rel="stylesheet">
   </head>
 
   <body id="page-top">
@@ -36,26 +36,24 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src ="img/Logo33.png"width="80" height="40"/></a>
-        
-        <!-- Login Modal & Button -->
+         
           
-
+        <!-- Login Modal & Button -->
        <button class="login-btn" type="button" onclick="document.getElementById('id01').style.display='block'">Login</button>
     
-          
-          
         <!-- The Modal -->
         <div id="id01" class="modal">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+       
 
         <!-- Modal Content -->
-        <form class="loginform modal-content animate" action="/action_page.php">
+        <form class="loginform modal-content animate" action="/login.php">
+         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
         <div class="imgcontainer">
         <img src="img/Logo33.png" alt="log" width="30%" height="">
         </div>
         <div class="container">
-        <label><b >Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+        <label><b >E-mail</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
 
         <label><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="psw" required>
@@ -64,20 +62,57 @@
         <div class="container registerc" style="background-color:#f1f1f1">
         <button class="loginb" type="submit">Login</button>
         <label>Not A member?</label>
-        <button type="button" class="loginb regbtn"  onclick="window.location='#'">Register Now!</button>
+        <button type="button" class="loginb regbtn"  onclick="document.getElementById('id02').style.display='block'">Register Now!</button>
+        </div>
+        </form>
+        </div>
+          
+                  <!-- Register Modal -->
+        <div id="id02" class="modal">
+    
+        <!-- Modal Content -->
+        <form class="loginform modal-content animate" action="/register.php">
+        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <div class="imgcontainer">
+        <img src="img/Logo33.png" alt="log" width="30%" height="">
+        </div>
+        <div class="container">
+        
+        <label><b >First Name </b><label class="redstar">*</label></label>
+        <input type="text" placeholder="Enter Your First Name" name="fname" required>
+        <label><b >Last Name </b><label class="redstar">*</label></label>
+        <input type="text" placeholder="Enter Your Last Name" name="lname" required>
+        
+        <label><b>Password</b><label class="redstar">*</label></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+        <label><b>Re-enter Password</b><label class="redstar">*</label></label>
+        <input type="password" placeholder="Re-Enter Password" name="psw2" required>
+        <label><b >E-mail</b><label class="redstar">*</label></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+         <label><b >City</b></label>
+        <select name="city">
+        <option>example</option>
+        </select>
+        </div>
+            
+        <div class="container registerc" style="background-color:#f1f1f1">
+        <button class="loginb" type="submit">Register</button>
         </div>
         </form>
         </div>
         <!-- Closing the modal script -->  
+        
+          
         <script>
-            // Get the modal
-        var modal = document.getElementById('id01');
+         // Get the modal
+        var modal = document.getElementById('id02');
         window.onclick = function(event) {
         if (event.target == modal) {
         modal.style.display = "none";
         }
         }
-        </script>          
+        </script>
+    
           
           
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -345,7 +380,7 @@ It is an opportunity to show our passion for creating such an application.
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Contact Us</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+           <br>
           </div>
         </div>
         <div class="row">
