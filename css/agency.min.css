@@ -1,4 +1,26 @@
 body
+
+
+
+div.menuAdmin a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
+
+div.menuAdmin a:hover {
+    background-color: #777;
+}
+
+.content {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 10px;
+}
+
 {overflow-x:hidden;
 font-family:'Roboto Slab','Helvetica Neue',Helvetica,Arial,sans-serif}
 
@@ -39,7 +61,7 @@ text-transform:none;font-family:'Droid Serif','Helvetica Neue',Helvetica,Arial,s
 
 ::selection{background:#fed136;text-shadow:none}img::selection{background:0 0}img::-moz-selection{background:0 0}
 
-.login-btn{
+#mainNav .login-btn{
     font-size:12px;
     right:0;
     padding: 10px;
