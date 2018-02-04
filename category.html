@@ -1,0 +1,87 @@
+<html>
+    <head>
+    <title>Category Management</title>
+    
+      <!-----logo--------->
+    <link rel="shortcut icon"
+           href="img/logo21.png"width="16" height="16" />
+        
+        <style>
+            body {
+            background: #555; }
+
+            .content {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 10px;
+}
+            .btn{
+                text-align: center;
+                margin: 20px;
+            }
+            .btn input {
+                font-size: 12pt;
+                font-weight: bold;
+            }
+            .center {
+                text-align: center;
+            }
+        </style>
+        
+        
+    </head>
+    
+    <body>
+        <div class="content">
+            <div class="center">
+            <img src="img/Logo33.png" width="30%">
+            </div>
+            <h1 style="text-align:center;">Vendor Category Management</h1>
+            
+            <!-- Category addition -->
+            <form action="/category.php">   
+            
+            <fieldset>
+            <legend>Adding New Category</legend>
+            <br>
+            Category Name:  
+                <input type="text" size="40"> <br>
+                <div class="btn"><input type="submit" value="Add" name="submit"></div>
+            </fieldset>
+            </form>
+            
+            <!-- Updating Category -->
+            <form action="/category.php">   
+            
+            <fieldset>
+            <legend>Updating Category</legend>
+            <br>
+            Category:
+                <select style="width: 60%;">
+                <option>example1</option>
+                </select> <br><br>
+            New Category Name:  
+                <input type="text" size="40"> <br>
+                <div class="btn"><input type="submit" value="Update" name="submit"></div>
+            </fieldset>
+            </form>
+            
+            <!-- Deleting Category -->
+            <form action="/category.php">   
+            
+            <fieldset>
+            <legend>Deleting Category</legend>
+            <br>
+            Category:
+                <select style="width: 60%;">
+                <option>example1</option>
+                </select> <br>
+                
+                <div class="btn"><input type="submit" value="Delete" name="submit"></div>
+            </fieldset>
+            </form>
+        </div>
+    
+    </body>
+</html>
