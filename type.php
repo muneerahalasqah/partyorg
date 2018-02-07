@@ -1,8 +1,7 @@
 <html>
     <head>
-    <title>Location Management</title>
-        <link href="css/agency.min.css" rel="stylesheet">
-
+    <title>type Management</title>
+    <link href="css/agency.min.css" rel="stylesheet">
       <!-----logo--------->
     <link rel="shortcut icon"
            href="img/logo21.png"width="16" height="16" />
@@ -29,7 +28,7 @@
     
     <body>
         
-        <div class="menuAdmin" >
+       <div class="menuAdmin" >
         <ul>
 <a href="vendor.html">Vendor Manage</a>
 <a href="Customer.html">Customer</a>
@@ -44,34 +43,32 @@
             <div class="center">
             <img src="img/Logo33.png" width="30%">
             </div>
-            <h1 style="text-align:center;">Location Management</h1>
+            <h1 style="text-align:center;">Vendor Type Management</h1>
             
-            <!-- Location addition -->
-            <form method="POST" action="addloc.php">   
+            <!-- Vendor Type addition -->
+            <form method="POST" action="addtype.php">   
             
             <fieldset>
-            <legend>Adding New Location</legend>
+            <legend>Adding New Venndor Type</legend>
             <br>
-            Location Name:  
-                <input type="text" size="40" name="locname" id="locname"> <br>
-                <div class="btn">
-                    <input type="submit" value="Add" name="add-btn">&nbsp;
-                    <input type="reset"value="reset"></div>
+            Vendor Type Name:  
+                <input type="text" size="40" name="tname"> <br>
+                <div class="btn"><input type="submit" value="Add" name="add-btn">&nbsp;<input type="reset"value="reset"></div>
             </fieldset>
             </form>
             
-            <!-- Updating Location -->
-            <form method="POST" action="location.php">   
+            <!-- Updating Vendor Type -->
+            <form method="POST" action="type.php">   
             
             <fieldset>
-            <legend>Updating Location</legend>
+            <legend>Updating Vendor Type</legend>
             <br>
-            Location:
-               <?php
+            Vendor Type:
+                <?php
                 $db=mysqli_connect('localhost', 'root', '','partyorg');
-                $result = mysqli_query($db,"SELECT location_name FROM location");
+                $result = mysqli_query($db,"SELECT type_name FROM v_type");
 
-                echo "<select name='location_name' style='width: 60%;'>";
+                echo "<select name='type_name' style='width: 60%;'>";
                                 
                 while ($myrow = mysqli_fetch_row($result)) {
                 printf("<option value= '%s'> %s </option>",$myrow[0], $myrow[0]);
@@ -79,59 +76,56 @@
                 echo "</select>";
                 ?>
                 <br><br>
-            New Location Name:  
-                <input type="text" size="40" name="new_name" id="new_name"> <br>
-                <div class="btn"><input type="submit" name="update-btn" value="Update">&nbsp;<input type="reset" value="reset"></div>
+            New Vendor Type Name:  
+                <input type="text" size="40" name="new_name"> <br>
+                <div class="btn"><input type="submit" value="Update" name="update-btn">&nbsp;<input type="reset"value="reset"></div>
             </fieldset>
             </form>
             
-            <!-- Deleting Location -->
-            <form method="POST"action="location.php">   
+            <!-- Deleting Vendor Type -->
+            <form method="POST" action="type.php">   
             
             <fieldset>
-            <legend>Deleting Location</legend>
+            <legend>Deleting Vendor Type</legend>
             <br>
-            Location:
+            Vendor Type:
                 <?php
                 $db=mysqli_connect('localhost', 'root', '','partyorg');
+                $result = mysqli_query($db,"SELECT type_name FROM v_type");
 
-                $result = mysqli_query($db,"SELECT location_name FROM location");
-
-                echo "<select name='location1' style='width: 60%;'>";
+                echo "<select name='type1' style='width: 60%;'>";
                                 
                 while ($myrow = mysqli_fetch_row($result)) {
                 printf("<option value= '%s'> %s </option>",$myrow[0], $myrow[0]);
                 }
                 echo "</select>";
                 ?>
-                <br>
+                 <br>
                 
-                <div class="btn"><input type="submit" name="delete-btn" value="Delete">&nbsp;<input type="reset"value="reset"></div>
+                <div class="btn"><input type="submit" value="Delete" name="delete-btn">&nbsp;<input type="reset"value="reset"></div>
             </fieldset>
             </form>
         </div>
-        
-     <?php
+    <?php
         $db1 = mysqli_connect("localhost", "root", "", "partyorg");
         if(isset($_POST['update-btn'])){
-        $location_name = $_POST['location_name'];
+        $type_name = $_POST['type_name'];
         $new_name = $_POST['new_name'];
-        $sql1 = "UPDATE location SET location_name='$new_name' WHERE location_name='$location_name'";
+        $sql1 = "UPDATE v_type SET type_name='$new_name' WHERE type_name='$type_name'";
         $query1 = mysqli_query($db1, $sql1);
         
         if ($query1 === TRUE) { 
-        //header('location: profile.html');
         
         ?>
-        <script> alert('The location '+'<?php echo $location_name; ?>'+' has been updated sucessfully!'); 
-         window.location = "location.php";
+        <script> alert('The Vendor Type '+'<?php echo $type_name; ?>'+' has been updated sucessfully!'); 
+         window.location = "type.php";
         </script>
         <?php
         
         } else {
         
         ?>
-        <script> alert('There was a proplem updating the location.'); 
+        <script> alert('There was a proplem updating the vendor type.'); 
          window.location = "location.php";
         </script>
         <?php
@@ -140,23 +134,23 @@
                                         } 
 
         else if (isset($_POST['delete-btn'])){
-        $location1 = $_POST['location1'];
-        $sql2 = "DELETE FROM location WHERE location_name='$location1'";
+        $type1 = $_POST['type1'];
+        $sql2 = "DELETE FROM v_type WHERE type_name='$type1'";
         $query2 = mysqli_query($db1, $sql2);
         
         if ($query2 === TRUE) { 
         ?>
 
-       <script> alert('The location '+'<?php echo $location1; ?>'+' has been deleted sucessfully!'); 
-         window.location = "location.php";
+       <script> alert('The Vendor Type '+'<?php echo $type1; ?>'+' has been deleted sucessfully!'); 
+         window.location = "type.php";
         </script>
         
         <?php
         } else {
         ?>
 
-        <script> alert('There was a proplem deletin the location.'); 
-         window.location = "location.php";
+        <script> alert('There was a proplem deletin the vendor type.'); 
+         window.location = "type.php";
         </script>
         
         <?php
