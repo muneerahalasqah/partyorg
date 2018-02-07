@@ -1,6 +1,6 @@
 <html>
     <head>
-    <title>Category Management</title>
+    <title>Location Management</title>
         <link href="css/agency.min.css" rel="stylesheet">
 
       <!-----logo--------->
@@ -28,11 +28,12 @@
     </head>
     
     <body>
-       <div class="menuAdmin" >
+        
+        <div class="menuAdmin" >
         <ul>
 <a href="vendor.html">Vendor Manage</a>
 <a href="Customer.html">Customer</a>
-<a href="category.html">Category</a>
+<a href="category.php">Category</a>
 <a href="location.html">City</a>
 <a href="type.html">Vendor Type</a>
 
@@ -43,96 +44,95 @@
             <div class="center">
             <img src="img/Logo33.png" width="30%">
             </div>
-            <h1 style="text-align:center;">Vendor Category Management</h1>
+            <h1 style="text-align:center;">Location Management</h1>
             
-            <!-- Category addition -->
-            <form method="POST" action="addcat.php">   
+            <!-- Location addition -->
+            <form method="POST" action="addloc.php">   
             
             <fieldset>
-            <legend>Adding New Category</legend>
+            <legend>Adding New Location</legend>
             <br>
-            Category Name:  
-                <input type="text" size="40" name="cname" id="cname"> <br>
-                <div class="btn"><input type="submit" value="Add" name="add-btn">&nbsp;<input type="reset"value="reset"></div>
+            Location Name:  
+                <input type="text" size="40" name="locname" id="locname"> <br>
+                <div class="btn">
+                    <input type="submit" value="Add" name="add-btn">&nbsp;
+                    <input type="reset"value="reset"></div>
             </fieldset>
             </form>
             
-            <!-- Updating Category -->
-            <form method="POST" action="category.php">   
+            <!-- Updating Location -->
+            <form method="POST" action="location.php">   
             
             <fieldset>
-            <legend>Updating Category</legend>
+            <legend>Updating Location</legend>
             <br>
-            Category:
-                <?php
+            Location:
+               <?php
                 $db=mysqli_connect('localhost', 'root', '','partyorg');
-                $result = mysqli_query($db,"SELECT category_name FROM category");
+                $result = mysqli_query($db,"SELECT location_name FROM location");
 
-                echo "<select name='category_name' style='width: 60%;'>";
+                echo "<select name='location_name' style='width: 60%;'>";
                                 
                 while ($myrow = mysqli_fetch_row($result)) {
                 printf("<option value= '%s'> %s </option>",$myrow[0], $myrow[0]);
                 }
                 echo "</select>";
                 ?>
-               <br><br>
-            New Category Name:  
+                <br><br>
+            New Location Name:  
                 <input type="text" size="40" name="new_name" id="new_name"> <br>
-                <div class="btn"><input type="submit" value="Update" name="update-btn">&nbsp;<input type="reset"value="reset"></div>
+                <div class="btn"><input type="submit" name="update-btn" value="Update">&nbsp;<input type="reset" value="reset"></div>
             </fieldset>
             </form>
             
-            <!-- Deleting Category -->
-            <form method="POST" action="category.php">   
+            <!-- Deleting Location -->
+            <form method="POST"action="location.php">   
             
             <fieldset>
-            <legend>Deleting Category</legend>
+            <legend>Deleting Location</legend>
             <br>
-            Category:
+            Location:
                 <?php
                 $db=mysqli_connect('localhost', 'root', '','partyorg');
 
-                //$sql = "SELECT category_name FROM category";
-                $result = mysqli_query($db,"SELECT category_name FROM category");
+                $result = mysqli_query($db,"SELECT location_name FROM location");
 
-                echo "<select name='category1' style='width: 60%;'>";
+                echo "<select name='location1' style='width: 60%;'>";
                                 
                 while ($myrow = mysqli_fetch_row($result)) {
                 printf("<option value= '%s'> %s </option>",$myrow[0], $myrow[0]);
                 }
                 echo "</select>";
                 ?>
+                <br>
                 
-                <div class="btn"><input type="submit" value="Delete" name="delete-btn">&nbsp;<input type="reset"value="reset"></div>
+                <div class="btn"><input type="submit" name="delete-btn" value="Delete">&nbsp;<input type="reset"value="reset"></div>
             </fieldset>
             </form>
-        </div>        
-    </body>
-</html>
-
-       
-        <?php
+        </div>
+        
+     <?php
         $db1 = mysqli_connect("localhost", "root", "", "partyorg");
         if(isset($_POST['update-btn'])){
-        $category_name = $_POST['category_name'];
+        $location_name = $_POST['location_name'];
         $new_name = $_POST['new_name'];
-        $sql1 = "UPDATE category SET category_name='$new_name' WHERE category_name='$category_name'";
+        $sql1 = "UPDATE location SET location_name='$new_name' WHERE location_name='$location_name'";
         $query1 = mysqli_query($db1, $sql1);
         
         if ($query1 === TRUE) { 
         //header('location: profile.html');
         
         ?>
-        <script> alert('The category '+'<?php echo $category_name; ?>'+' has been updated sucessfully!'); 
-         window.location = "category.php";
+        <script> alert('The location '+'<?php echo $location_name; ?>'+' has been updated sucessfully!'); 
+         window.location = "location.php";
         </script>
         <?php
         
         } else {
         
         ?>
-        <script> alert('There was a proplem updating the category.'); 
-         window.location = "category.php";
+        <script> alert('There was a proplem updating the location.'); 
+         window.location = "location.php";
         </script>
         <?php
 
@@ -140,25 +140,27 @@
                                         } 
 
         else if (isset($_POST['delete-btn'])){
-        $category1 = $_POST['category1'];
-        $sql2 = "DELETE FROM category WHERE category_name='$category1'";
+        $location1 = $_POST['location1'];
+        $sql2 = "DELETE FROM location WHERE location_name='$location1'";
         $query2 = mysqli_query($db1, $sql2);
         
         if ($query2 === TRUE) { 
         ?>
 
-       <script> alert('The category '+'<?php echo $category1; ?>'+' has been deleted sucessfully!'); 
-         window.location = "category.php";
+       <script> alert('The location '+'<?php echo $location1; ?>'+' has been deleted sucessfully!'); 
+         window.location = "location.php";
         </script>
         
         <?php
         } else {
         ?>
 
-        <script> alert('There was a proplem deletin the category.'); 
-         window.location = "category.php";
+        <script> alert('There was a proplem deletin the location.'); 
+         window.location = "location.php";
         </script>
         
         <?php
         } }
         ?>
+    </body>
+</html>
