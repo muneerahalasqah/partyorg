@@ -64,5 +64,37 @@
         
             </form>    
         </div>
+       <?php
+        
+        $db = mysqli_connect("localhost", "root", "", "partyorg");
+        
+        if (isset($_POST['delete-btn'])){
+        $email = $_POST['email'];
+        $result = mysqli_query($db,"SELECT fname,lname FROM customer WHERE email=$email");
+        $row = mysqli_fetch_row($result);
+        $fname = $row[0];
+        $lname = $row[1];
+        
+        $sql = "DELETE FROM customer WHERE email='$email'";
+        $query = mysqli_query($db, $sql);
+        
+        if ($query === TRUE) { 
+        ?>
+
+       <script> alert('The customer '+'<?php echo $fname." ".$lname; ?>'+' has been deleted sucessfully!'); 
+         window.location = "customer.php";
+        </script>
+        
+        <?php
+        } else {
+        ?>
+
+        <script> alert('There was a proplem deletin the customer.'); 
+         window.location = "customer.php";
+        </script>
+        
+        <?php
+        } }
+        ?>
     </body>
 </html>

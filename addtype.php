@@ -20,7 +20,15 @@ if(isset($_POST['add-btn'])){
     </html>
     <?php
     } else {
-    echo "<html><body><script> alert('And error in adding new type.'); </script></body></html>" . $conn->error;
+  ?>
+    <html>
+        <body>
+            <script> alert('There was a problem adding the new vendor type.'); 
+            window.location = "type.php";
+            </script>
+        </body>
+    </html>
+    <?php
     }
 }
 

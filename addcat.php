@@ -20,7 +20,15 @@ if(isset($_POST['add-btn'])){
     </html>
     <?php
     } else {
-    echo "<html><body><script> alert('And error in adding new categroy.'); </script></body></html>" . $conn->error;
+     ?>
+    <html>
+        <body>
+            <script> alert('There was a proplem adding the new category.'); 
+            window.location = "category.php";
+            </script>
+        </body>
+    </html>
+    <?php
     }
 }
 
