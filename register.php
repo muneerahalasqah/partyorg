@@ -1,4 +1,4 @@
-<?php
+    <?php
 $db = mysqli_connect('localhost','root','','partyorg');
 
 //هذا يصير بحالة ضغط زر الريجستر
@@ -11,6 +11,28 @@ if(isset($_POST['submit'])){
     $location=$_POST['location'];
     
     //echo $fname.$lname.$password.$pass_confirm.$email.$email.$location;
+    
+    ////يتأكد من الايميل
+    $sql="SELECT * from customer WHERE (email='$email');";    
+    $result=mysqli_query($db,$sql);
+    if(mysqli_num_rows($result)>0)
+    {$row=mysqli_fetch_assoc($result);
+    if($email==$row['email'])
+    {
+         ?>
+        <html>
+            <body>
+            <script> alert('Email already exists'); 
+            window.location = "index.php";
+            </script>
+            </body>
+        </html>
+        <?php 
+    }
+    
+    }
+    
+    
     
     //يتأكد من الباسوور لو يتطابفون أو لا
     if($password==$pass_confirm){
