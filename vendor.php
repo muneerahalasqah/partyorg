@@ -77,10 +77,13 @@
         Category: <br>
         <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
-        $result = mysqli_query($db,"SELECT category_id,category_name FROM category");               
+        $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
+        echo "<select name='category[]' multiple='multiple' style='width: 40%;'>";
         while ($myrow = mysqli_fetch_row($result)) {
-        printf("<input type='checkbox' name='category[]' value='%d'> %s <br>",$myrow[0], $myrow[1]);
+        printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
+            //printf("<input type='checkbox' name='category[]' value='%d'> %s <br>",$myrow[0], $myrow[1]);
                 }
+        echo "</select>";
         ?>
         <br><br>
      
