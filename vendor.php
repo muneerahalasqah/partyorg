@@ -139,7 +139,7 @@
     </form>
     
     <!-- Vendor Updation Form -->
-    <form method="post" action="vendor.php">
+    <form method="post" action="upvendor.php">
     <fieldset>
     <legend>Updating Vendor</legend><br>
     Vendor:  
@@ -155,53 +155,6 @@
         <br><br>
         <div class="btn"><input type="submit" value="Update" name="update-btn">&nbsp;<input type="reset"value="reset"></div>
 
-        <?php
-        $db = mysqli_connect("localhost","root","","partyorg");
-        if (isset($_POST['update-btn'])){
-            $vid = $_POST['vendor'];
-            $result = mysqli_query($db,"SELECT v_name,description,location_id,start_price,phone,email,instgram,twitter,google_maps,type_id FROM vendor WHERE vendor_id=$vid");
-            $row=mysqli_fetch_row($result);
-            $vname=$row[0];
-            $desc=$row[1];
-            $location=$row[2];
-            $price=$row[3];
-            $phone=$row[4];
-            $email=$row[5];
-            $insta=$row[6];
-            $twitter=$row[7];
-            $maps=$row[8];
-            $type=$row[9];
-            
-            echo "Name: <br><input type='text' size='40' name='newname' value='$vname'><br>";
-            echo "Email:<br><input type='email' size='40' name='newemail' value='$email'><br>";
-            echo "Type: <br>";
-            $result1 = mysqli_query($db,"SELECT type_id,type_name FROM v_type");
-            echo "<select name='newtype' style='width: 40%;'>";               
-            while ($myrow = mysqli_fetch_row($result1)) {
-            printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
-                }
-            echo "</select> <br>";
-            echo "Description: <br>";
-            echo "<textarea name='newdesc' rows='4' cols='30'>$desc</textarea> <br>";
-            $result2 = mysqli_query($db,"SELECT category_id,category_name FROM category");
-            echo "<select name='newcategory[]' multiple='multiple' style='width: 40%;'>";
-            while ($myrow1 = mysqli_fetch_row($result2)) {
-            printf("<option value= '%d'> %s </option>",$myrow1[0], $myrow1[1]); }
-            echo "</select> <br>";
-            echo "Location: <br>";
-            $result3 = mysqli_query($db,"SELECT location_id,location_name FROM location");
-            echo "<select name='newlocation' style='width: 40%;'>";           
-            while ($myrow2 = mysqli_fetch_row($result3)) {
-            printf("<option value= '%d'> %s </option>",$myrow2[0], $myrow2[1]);
-                }
-            echo "</select> <br>";
-            echo "Strarting Price: <br><input type='text' size='40' name='newprice' value='$price'><br>";
-            echo "Phone Number: <br><input type='text' size='40' name='newphone' value='$phone'><br>";
-            echo "Instagram Account: <br><input type='text' size='40' name='newinsta' value='$insta'><br>";
-            echo "Twitter Account: <br><input type='text' size='40' name='newtwitter' value='$twitter'><br>";
-            echo "Google Maps: <br><input type='text' name='newmaps' value='$maps'><br>";
-        }
-        ?>
         </fieldset>
     </form>
     </div>
