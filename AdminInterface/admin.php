@@ -9,7 +9,7 @@ if($username == 'admin' && $password == '1995')
     <html>
         <body>
             <script> alert('Hello Adminstrator!');
-            window.location = "vendor.html";
+            window.location = "vendor.php";
             </script>
         </body>
     </html>

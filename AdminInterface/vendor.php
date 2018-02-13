@@ -1,7 +1,7 @@
 <html>
     <head>
     <title>vendor management</title>
-    <link href="partyorg/css/agency.min.css" rel="stylesheet">
+    <link href="css/agency.min.css" rel="stylesheet">
     <link href="css/admin.css" rel="stylesheet">
 
         
@@ -17,7 +17,7 @@
     <body>
         <div class="menuAdmin" >
         <ul>
-<a href="vendor.html">Vendor Manage</a>
+<a href="vendor.php">Vendor Manage</a>
 <a href="customer.php">Customer</a>
 <a href="category.php">Category</a>
 <a href="location.php">City</a>
