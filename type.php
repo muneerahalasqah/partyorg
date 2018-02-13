@@ -2,27 +2,13 @@
     <head>
     <title>type Management</title>
     <link href="css/agency.min.css" rel="stylesheet">
-      <!-----logo--------->
+     <link href="css/admin.css" rel="stylesheet">
+
+        
+        <!-----logo--------->
     <link rel="shortcut icon"
            href="img/logo21.png"width="16" height="16" />
-        
-        <style>
-            body {
-            background: #555; }
-
-            .btn{
-                text-align: center;
-                margin: 20px;
-            }
-            .btn input {
-                font-size: 12pt;
-                font-weight: bold;
-            }
-            .center {
-                text-align: center;
-            }
-        </style>
-        
+      
         
     </head>
     

@@ -16,7 +16,7 @@
     <body>
         <div class="menuAdmin" >
         <ul>
-<a href="vendor.html">Vendor Manage</a>
+<a href="vendor.php">Vendor Manage</a>
 <a href="Customer.php">Customer</a>
 <a href="category.php">Category</a>
 <a href="location.php">City</a>

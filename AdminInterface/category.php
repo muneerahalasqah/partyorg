@@ -1,7 +1,7 @@
 <html>
     <head>
     <title>Category Management</title>
-        <link href="css/agency.min.css" rel="stylesheet">
+    <link href="css/agency.min.css" rel="stylesheet">
     <link href="css/admin.css" rel="stylesheet">
 
       <!-----logo--------->
@@ -13,11 +13,11 @@
     <body>
        <div class="menuAdmin" >
         <ul>
-<a href="vendor.html">Vendor Manage</a>
-<a href="Customer.html">Customer</a>
-<a href="category.html">Category</a>
-<a href="location.html">City</a>
-<a href="type.html">Vendor Type</a>
+<a href="vendor.php">Vendor Manage</a>
+<a href="customer.php">Customer</a>
+<a href="category.php">Category</a>
+<a href="location.php">City</a>
+<a href="type.php">Vendor Type</a>
 
 </ul>
         </div>
