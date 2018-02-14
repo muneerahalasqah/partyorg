@@ -33,7 +33,7 @@ if(isset($_POST['add'])){
         <html>
             <body>
             <script> alert('The New Vendor '+'<?php echo $vname; ?>'+' has been added sucessfully!'); 
-            //window.location = "vendor.php";
+            window.location = "vendor.php";
             </script>
             </body>
         </html>
