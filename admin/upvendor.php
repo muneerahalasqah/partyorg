@@ -2,29 +2,10 @@
     <head>
     <title>vendor management</title>
     <link href="css/agency.min.css" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
       <!-----logo--------->
     <link rel="shortcut icon"
-           href="img/logo21.png"width="16" height="16" />
-        
-        
-<style> 
-    body {
-    background: #555;
-}
-         .btn{
-                text-align: center;
-                margin: 20px;
-            }
-            .btn input {
-                font-size: 12pt;
-                font-weight: bold;
-            }
-            .center {
-                text-align: center;
-            }
-        
-        </style>
-   
+           href="img/logo21.png"width="16" height="16" />   
     </head>
     
     
@@ -79,7 +60,11 @@
             $result1 = mysqli_query($db,"SELECT type_id,type_name FROM v_type");
             echo "<select name='newtype' style='width: 40%;'>";               
             while ($myrow = mysqli_fetch_row($result1)) {
-            printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
+                if($myrow[0]==$type){
+                   printf("<option value= '%d' selected> %s </option>",$myrow[0],$myrow[1]); 
+                } else {
+                 printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);   
+                }
                 }
             echo "</select> <br>";
             echo "Description: <br>";
@@ -87,14 +72,24 @@
             echo "Category: <br>";
             $result2 = mysqli_query($db,"SELECT category_id,category_name FROM category");
             echo "<select name='newcategory[]' multiple='multiple' style='width: 40%;'>";
+            
             while ($myrow1 = mysqli_fetch_row($result2)) {
-            printf("<option value= '%d'> %s </option>",$myrow1[0], $myrow1[1]); }
+            printf("<option value= '%d' > %s </option>",$myrow1[0], $myrow1[1]);
+                
+            }
+            
+            
             echo "</select> <br>";
             echo "Location: <br>";
             $result3 = mysqli_query($db,"SELECT location_id,location_name FROM location");
             echo "<select name='newlocation' style='width: 40%;'>";           
             while ($myrow2 = mysqli_fetch_row($result3)) {
-            printf("<option value= '%d'> %s </option>",$myrow2[0], $myrow2[1]);
+                if($myrow2[0]==$location){
+                    printf("<option value='%d' selected> %s</option>",$myrow2[0],$myrow2[1]);
+                } else {
+                  printf("<option value= '%d'> %s </option>",$myrow2[0], $myrow2[1]);  
+                }
+            
                 }
             echo "</select> <br>";
             echo "Strarting Price: <br><input type='text' size='40' name='newprice' value='$price'><br>";
@@ -123,11 +118,30 @@
             $newinsta=$_POST['newinsta'];
             $newtwitter=$_POST['newtwitter'];
             $newmaps=$_POST['newmaps'];
-            //$vid=$_POST['vendor'];
             $vendor=$_SESSION['vid'];
             
             $sql="UPDATE vendor SET v_name='".$newname."',description='".$newdesc."',location_id='".$newlocation."',start_price='".$newprice."',phone='".$newphone."',email='".$newemail."',instgram='".$newinsta."',twitter='".$newtwitter."',google_maps='".$newmaps."',type_id='".$newtype."' WHERE vendor_id='".$vendor."'";
             $query = mysqli_query($db,$sql);
+            
+            if($query){
+                $catdelete = mysqli_query($db,"DELETE FROM belong WHERE vendor_id=$vendor");
+                foreach($_POST['newcategory'] as $option){
+                $sql1="INSERT INTO belong(vendor_id,category_id) VALUES('$vendor','$option')";
+                mysqli_query($db,$sql1);
+            }
+            ?>
+
+            <script> alert('The vendor '+'<?php echo $newname; ?>'+' has been updated sucessfully!'); 
+            window.location = "vendor.php";
+            </script>
+            <?php
+            } else {
+            ?>
+            <script> alert('There was a proplem updated the vendor.'); 
+            window.location = "vendor.php";
+            </script>
+            <?php
+            }
         }
         ?>
     </body>
