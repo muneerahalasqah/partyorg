@@ -29,25 +29,50 @@ if (isset($_POST['email']) AND isset($_POST['password']))
     $response->CloseCursor();
 
    // التأكد من أن العضو موجود في قاعدة البيانات 
-   if(!$member)
-   header('location:index.html');
+   if(!$member){
+        ?>
+    <html>
+        <body>
+            <script> alert('Sorry, You are not a register member');
+            //window.location = "index.php";
+            </script>
+        </body>
+    </html>
+        <?php  
+
+   }
+   
    
     // مقارنة كلمة المرور التي أرسلها العضو بالموجودة في القاعدة 
-   if($password != $member['password']) header('location:index.html');
-   
-    // إذا كان كل شيء على ما يرام . نقوم بإنشاء متغيرات الجلسة 
+   else if($password != $member['password']){
+      
+        ?>
+    <html>
+        <body>
+            <script> alert('Sorry, You have entered the wrong password.');
+            //window.location = "index.php";
+            </script>
+        </body>
+    </html>
+        <?php 
+   } else {
+        // إذا كان كل شيء على ما يرام . نقوم بإنشاء متغيرات الجلسة 
    $_SESSION['id'] = $member['customer_id'];
    $_SESSION['email'] = $member['email'];
+   $fname= $member['fname'];
    // ثم تحويله تلقائيا إلى أي صفحة نريد 
     ?>
     <html>
         <body>
-            <script> alert('Hello  ');
-            window.location = "index.html";
+            <script> alert('Hello <?php echo $fanme; ?> ');
+            //window.location = "index.html";
             </script>
         </body>
     </html>
   <?php  
+       
+   }
+                                                 
 }
 ?>
 
