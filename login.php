@@ -34,14 +34,14 @@ if (isset($_POST['email']) AND isset($_POST['password']))
     <html>
         <body>
             <script> alert('Sorry, You are not a register member');
-            //window.location = "index.php";
+            window.location = "index.php";
             </script>
         </body>
     </html>
         <?php  
 
    }
-   
+
    
     // مقارنة كلمة المرور التي أرسلها العضو بالموجودة في القاعدة 
    else if($password != $member['password']){
@@ -50,7 +50,7 @@ if (isset($_POST['email']) AND isset($_POST['password']))
     <html>
         <body>
             <script> alert('Sorry, You have entered the wrong password.');
-            //window.location = "index.php";
+            window.location = "index.php#id01";
             </script>
         </body>
     </html>
@@ -64,8 +64,8 @@ if (isset($_POST['email']) AND isset($_POST['password']))
     ?>
     <html>
         <body>
-            <script> alert('Hello <?php echo $fanme; ?> ');
-            //window.location = "index.html";
+            <script> alert('Hello '+'<?php echo $fname; ?>'+'!');
+            window.location = "index.php";
             </script>
         </body>
     </html>
