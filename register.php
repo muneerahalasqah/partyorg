@@ -16,7 +16,7 @@ if(isset($_POST['submit'])){
     $sql="SELECT * from customer WHERE (email='$email');";    
     $result=mysqli_query($db,$sql);
     if(mysqli_num_rows($result)>0)
-    {$row=mysqli_fetch_assoc($result);
+    { $row=mysqli_fetch_assoc($result);
     if($email==$row['email'])
     {
          ?>
@@ -28,16 +28,12 @@ if(isset($_POST['submit'])){
             </body>
         </html>
         <?php 
-    }
-    
-    }
-    
-    
+    } 
     
     //يتأكد من الباسوور لو يتطابفون أو لا
-    if($password==$pass_confirm){
+    else if($password==$pass_confirm){
      $sql = "INSERT INTO customer(fname,lname,email,password,location_id) VALUES('$fname','$lname','$email','$password','$location')";
-    $query = mysqli_query($db,$sql);
+     $query = mysqli_query($db,$sql);
         if($query){
              ?>
         <html>
@@ -52,7 +48,7 @@ if(isset($_POST['submit'])){
              ?>
         <html>
             <body>
-            <script> alert('there was a proplem'); 
+            <script> alert('there was a problem registering'); 
             //window.location = "vendor.php";
             </script>
             </body>
@@ -61,6 +57,6 @@ if(isset($_POST['submit'])){
         }
     }
     
-
+  }
 }
 ?>
