@@ -81,7 +81,7 @@
         <input type="password" placeholder="Enter Password" name="password" required>
         </div>
         <div class="container registerc" style="background-color:#f1f1f1">
-        <button class="login-btn" type="submit">Login</button>
+        <button class="loginb" type="submit">Login</button>
         <label>Not A member?</label>
         <button type="button" class="loginb regbtn"  onclick="document.getElementById('id02').style.display='block'">Register Now!</button>
         </div>
