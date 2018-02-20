@@ -1,6 +1,8 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
 
     <meta charset="utf-8">
@@ -37,7 +39,32 @@
       
         <div class="container">
           <!-- Login Modal & Button -->
-       <button class="login-btn" type="button" onclick="document.getElementById('id01').style.display='block'">Login</button>
+       <?php
+        $cid = $_SESSION['cid'];
+        if ($cid){
+            $db=mysqli_connect('localhost','root','','partyorg');
+            $result=mysqli_query($db,"SELECT fname FROM customer WHERE customer_id=$cid");
+            $row=mysqli_fetch_row($result);
+            $fname=$row[0];
+            ?>
+            <div class="dropdown">
+            <button class="dropbtn" type="button"><i class="fa fa-chevron-circle-down"></i> <?php echo $fname;?></button>
+            <div class="dropdown-content">
+                <a href="#"><i class="fa fa-user"></i> Account</a>
+                <a href="#"><i class="fa fa-bars"></i> Party Plan</a>
+                <a href="logout.php"><i class="fa fa-power-off"></i> Logout</a>
+            </div>
+            </div>
+            <?php            
+        } else {
+            ?>
+            <button class="login-btn" type="button" onclick="document.getElementById('id01').style.display='block'">Login</button>
+            <?php
+        }
+        
+            ?>
+
+
       <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src ="img/Logo33.png"width="80" height="40"/></a>
           <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
