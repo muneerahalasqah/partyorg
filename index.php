@@ -105,66 +105,24 @@ session_start();
         <label><b >E-mail</b></label>
         <input type="email" placeholder="Enter Email" name="email" required>
         <label><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" required>
+        <input type="pass" placeholder="Enter Password" name="password" required>
         </div>
         <div class="container registerc" style="background-color:#f1f1f1">
         <button class="loginb" type="submit">Login</button>
         <label>Not A member?</label>
-        <button type="button" class="loginb regbtn"  onclick="document.getElementById('id02').style.display='block'">Register Now!</button>
+        <button type="button" class="loginb regbtn"  onclick= "window.location.href='register.php';" >Register Now!</button>
         </div>
         </form>
         </div> 
           
-        <!-- Register Modal -->
-        <div id="id02" class="modal">
+        <!-- Register Modal-->
     
         <!-- Modal Content -->
-        <form id="form" class="loginform modal-content animate" action="register.php" method="post" >
-        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <div class="imgcontainer">
-        <img src="img/Logo33.png" alt="log" width="30%" height="">
-        </div>
-        <div class="container">
         
-        <label><b >First Name </b><label class="redstar">*</label></label>
-        <input type="text" placeholder="Enter Your First Name" name="fname" id="fname" required><br>
-        <label><b >Last Name </b><label class="redstar">*</label></label>
-        <input type="text" placeholder="Enter Your Last Name" name="lname" id="lname" required><br>
-        <label><b>Password</b><label class="redstar">*</label></label>
-        <input type="password" placeholder="Enter Password" name="password"id="password" required><br>
-        <label><b>Re-enter Password</b><label class="redstar">*</label></label>
-        <input type="password" placeholder="Re-Enter Password" name="pass_confirm" id="pass_confirm" required><br>
-        <label><b >E-mail</b><label class="redstar">*</label></label>
-        <input type="email" placeholder="Enter Email" name="email" id="email"  required><br>
-         <label><b >City</b></label> <br>
-        <?php
-        $db=mysqli_connect('localhost', 'root', '','partyorg');
-        $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
-        echo "<select name='location' style='width: 40%;'>";                
-        while ($myrow = mysqli_fetch_row($result)) {
-        printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
-                }
-        echo "</select>";
-        ?>
-        </div>    
-             <div class="container registerc" style="background-color:#f1f1f1">
-        <button class="loginb" name="submit" type="submit">Register</button>
-        </div>
-        </form>
-        </div>
-        
+     
         <!-- Closing the modal script -->  
         
-          
-        <script>
-         // Get the modal
-        var modal = document.getElementById('id02');
-        window.onclick = function(event) {
-        if (event.target == modal) {
-        modal.style.display = "none";
-        }
-        }
-        </script>
+         
     
     </nav>
 
