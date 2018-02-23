@@ -33,7 +33,15 @@ if(!empty($_POST["register-user"])) {
     $email=$_POST['email'];
     $location=$_POST['location'];
         
-        
+        $sql="SELECT * from customer WHERE (email='$email');";    
+    $result=mysqli_query($db,$sql);
+    if(mysqli_num_rows($result)>0)
+    { $row=mysqli_fetch_assoc($result);
+    if($email==$row['email'])
+    {
+         $error_message = "Email already exists";
+    } }
+     else {
 		 $sql = "INSERT INTO customer(fname,lname,email,password,location_id) VALUES('$fname','$lname','$email','$password','$location')";
      $query = mysqli_query($db,$sql);
 		if($query) {
@@ -43,7 +51,7 @@ if(!empty($_POST["register-user"])) {
 		} else {
 			$error_message = "Problem in registration. Try Again!";	
 		}   
-    }}
+     } }}
 ?>
 
 <!DOCTYPE html>
