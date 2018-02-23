@@ -43,7 +43,7 @@ if(!empty($_POST["register-user"])) {
 		} else {
 			$error_message = "Problem in registration. Try Again!";	
 		}   
-        
+    }}
 ?>
 
 <!DOCTYPE html>
