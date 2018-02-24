@@ -26,14 +26,14 @@ if(!empty($_POST["register-user"])) {
 	
 
 	if(!isset($error_message)) {
-         $fname=$_POST['fname'];
+    $fname=$_POST['fname'];
     $lname=$_POST['lname'];
     $password=$_POST['password'];
     $confirm_password=$_POST['confirm_password'];
     $email=$_POST['email'];
     $location=$_POST['location'];
         
-        $sql="SELECT * from customer WHERE (email='$email');";    
+    $sql="SELECT * from customer WHERE (email='$email');";    
     $result=mysqli_query($db,$sql);
     if(mysqli_num_rows($result)>0)
     { $row=mysqli_fetch_assoc($result);
@@ -132,7 +132,30 @@ if(!empty($_POST["register-user"])) {
       
         <div class="container">
           <!-- Login Modal & Button -->
-       <button class="login-btn" type="button" onclick="document.getElementById('id01').style.display='block'">Login</button>
+        <?php
+        if (isset($_SESSION['cid'])){
+            $cid = $_SESSION['cid'];
+            $db=mysqli_connect('localhost','root','','partyorg');
+            $result=mysqli_query($db,"SELECT fname FROM customer WHERE customer_id=$cid");
+            $row=mysqli_fetch_row($result);
+            $fname=$row[0];
+            ?>
+            <div class="dropdown">
+            <button class="dropbtn" type="button"><i class="fa fa-chevron-circle-down"></i> <?php echo $fname;?></button>
+            <div class="dropdown-content">
+                <a href="account.php"><i class="fa fa-user"></i> Account</a>
+                <a href="#"><i class="fa fa-bars"></i> Party Plan</a>
+                <a href="logout.php"><i class="fa fa-power-off"></i> Logout</a>
+            </div>
+            </div>
+            <?php            
+            } else {
+            ?>
+            <button class="login-btn" type="button" onclick="document.getElementById('id01').style.display='block'">Login</button>
+            <?php
+            }
+        
+            ?>
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
           <a href ="index.php"><img src ="img/Logo33.png"width="80" height="40"/></a></a>
           <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -157,11 +180,33 @@ if(!empty($_POST["register-user"])) {
      
         </div>
       </div>
-            </nav>
+        <!-- The Modal -->
+        <div id="id01" class="modal">
+            
+        <!-- Modal Content -->
+            
+        <form class="loginform modal-content animate" action="login.php" method="post">
+         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <div class="imgcontainer">
+        <img src="img/Logo33.png" alt="log" width="30%" height="">
+        </div>
+        <div class="container">
+        <label><b >E-mail</b></label>
+        <input type="email" placeholder="Enter Email" name="email" required>
+        <label><b>Password</b></label>
+        <input type="pass" placeholder="Enter Password" name="password" required>
+        </div>
+        <div class="container registerc" style="background-color:#f1f1f1">
+        <button class="loginb" type="submit">Login</button>
+        <label>Not A member?</label>
+        <button type="button" class="loginb regbtn"  onclick= "window.location.href='register.php';" >Register Now!</button>
+        </div>
+        </form>
+        </div>
+   </nav>
 
     
-              <div id="id02">
-  
+        <div id="id02">
         <form  style="margin-top:200px"  name="frmRegistration" method="post" action="" >
 
 <?php if(!empty($success_message)) { ?>	

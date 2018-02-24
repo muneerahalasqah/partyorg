@@ -40,8 +40,8 @@ session_start();
         <div class="container">
           <!-- Login Modal & Button -->
        <?php
-        $cid = $_SESSION['cid'];
-        if ($cid){
+        if (isset($_SESSION['cid'])){
+            $cid = $_SESSION['cid'];
             $db=mysqli_connect('localhost','root','','partyorg');
             $result=mysqli_query($db,"SELECT fname FROM customer WHERE customer_id=$cid");
             $row=mysqli_fetch_row($result);
@@ -50,7 +50,7 @@ session_start();
             <div class="dropdown">
             <button class="dropbtn" type="button"><i class="fa fa-chevron-circle-down"></i> <?php echo $fname;?></button>
             <div class="dropdown-content">
-                <a href="#"><i class="fa fa-user"></i> Account</a>
+                <a href="account.php"><i class="fa fa-user"></i> Account</a>
                 <a href="#"><i class="fa fa-bars"></i> Party Plan</a>
                 <a href="logout.php"><i class="fa fa-power-off"></i> Logout</a>
             </div>
@@ -114,15 +114,6 @@ session_start();
         </div>
         </form>
         </div> 
-          
-        <!-- Register Modal-->
-    
-        <!-- Modal Content -->
-        
-     
-        <!-- Closing the modal script -->  
-        
-         
     
     </nav>
 
