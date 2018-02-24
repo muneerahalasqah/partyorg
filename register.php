@@ -78,24 +78,7 @@ if(!empty($_POST["register-user"])) {
  margin-left: 10px;
         width: 43%;
     }
-.demo-table {
-	background:white;
-	width: 700px;
-	border-spacing: initial;
-	margin: 2px 0px;
-	word-break: break-word;
-	table-layout: auto;
-	line-height: 1.8em;
-	color: #333;
-	border-radius: 4px;
-	padding: 20px 40px;
-    margin-left: 350px;
-border: #a9a9a9 1px solid;
-    }
-.demo-table td {
-	padding: 20px;
-    
-}
+
 .demoInputBox {
 	font-family:'Roboto Slab','Helvetica Neue',Helvetica,Arial,sans-serif;
     width: 50%;
@@ -150,7 +133,8 @@ border: #a9a9a9 1px solid;
         <div class="container">
           <!-- Login Modal & Button -->
        <button class="login-btn" type="button" onclick="document.getElementById('id01').style.display='block'">Login</button>
-      <a class="navbar-brand js-scroll-trigger" href="#page-top"><a href ="index.php"></a><img src ="img/Logo33.png"width="80" height="40"/></a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">
+          <a href ="index.php"><img src ="img/Logo33.png"width="80" height="40"/></a></a>
           <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -176,7 +160,7 @@ border: #a9a9a9 1px solid;
             </nav>
 
     
-              <div id="id02" >
+              <div id="id02">
   
         <form  style="margin-top:200px"  name="frmRegistration" method="post" action="" >
 
@@ -219,8 +203,8 @@ border: #a9a9a9 1px solid;
      <label><b >City</b></label> <br>
         <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
-        $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
-        echo "<select name='location' style='width: 50%;'>";                
+    $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
+        echo "<select name='location' class='demoInputBox' style='width: 50%;'>";                
         while ($myrow = mysqli_fetch_row($result)) {
         printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
                 }
