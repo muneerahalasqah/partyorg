@@ -220,7 +220,7 @@ border: #a9a9a9 1px solid;
         <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
-        echo "<select name='location' style='width: 40%;'>";                
+        echo "<select name='location' style='width: 50%;'>";                
         while ($myrow = mysqli_fetch_row($result)) {
         printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
                 }
@@ -236,7 +236,7 @@ border: #a9a9a9 1px solid;
       </div>  
 
     <!-- Footer -->
-    <footer>
+    <footer  style="background-color:white">
       <div class="container">
         <div class="row">
           <div class="col-md-4">
