@@ -99,7 +99,7 @@ session_start();
         <form class="loginform modal-content animate" action="login.php" method="post">
          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
         <div class="imgcontainer">
-        <img src="img/Logo33.png" alt="log" width="30%" height="">
+        <img src="img/Logo33.png" alt="log" width="30%">
         </div>
         <div class="container">
         <label><b >E-mail</b></label>
