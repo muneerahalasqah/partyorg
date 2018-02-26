@@ -39,10 +39,8 @@ if (isset($_POST['email']) AND isset($_POST['password']))
         </body>
     </html>
         <?php  
-
    }
 
-   
     // مقارنة كلمة المرور التي أرسلها العضو بالموجودة في القاعدة 
    else if($password != $member['password']){
       
@@ -50,15 +48,14 @@ if (isset($_POST['email']) AND isset($_POST['password']))
     <html>
         <body>
             <script> alert('Sorry, You have entered the wrong password.');
-            window.location = "index.php#id01";
+            window.location = "index.php";
             </script>
         </body>
     </html>
         <?php 
    } else {
-        // إذا كان كل شيء على ما يرام . نقوم بإنشاء متغيرات الجلسة 
-   $_SESSION['id'] = $member['customer_id'];
-   $_SESSION['email'] = $member['email'];
+        //ذا كان كل شيء على ما يرام . نقوم بإنشاء متغير الجلسة وطبع رسالة ترحيبية 
+   $_SESSION['cid'] = $member['customer_id'];
    $fname= $member['fname'];
    // ثم تحويله تلقائيا إلى أي صفحة نريد 
     ?>
