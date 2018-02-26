@@ -128,7 +128,7 @@ if(!empty($_POST["register-user"])) {
   <body id="page-top" style="background-color:#f1f1f1">
 
     <!-- Navigation -->
-    <nav style="background-color:#5b6771 " class="navbar navbar-expand-lg navbar-dark fixed-top " id="mainNav" >
+    <nav style="background-color:#5b6771;" class="navbar navbar-expand-lg navbar-dark fixed-top " id="mainNav" >
       
         <div class="container">
           <!-- Login Modal & Button -->
@@ -256,7 +256,8 @@ if(!empty($_POST["register-user"])) {
         echo "</select>";
         ?>
     <br><br>
-    <button style="margin-left:20%" class="loginb" name="register-user" type="submit"value="Register" class="btnRegister">Register</button>
+    <button style="margin-left:20%" class="btn btn-primary" name="register-user" type="submit"value="Register" class="btnRegister">Register</button> &nbsp;
+    <button type="reset" class="btn btn-secondary">Reset</button>
     </div>  
             
             

@@ -164,7 +164,8 @@ session_start();
                     }
                     echo "</select>";
                     echo "</div>";
-                    echo "<button type='submit' name='update' class='btn btn-primary'>Update</button>";
+                    echo "<button type='submit' name='update' class='btn btn-primary'>Update</button> &nbsp;";
+                    echo "<button type='reset' class='btn btn-secondary'>Reset</button>";
                     echo "</form>";
                 }
                 ?>            
@@ -181,7 +182,8 @@ session_start();
                         echo "<b>Re-enter Password: </b><input type='password' class='form-control' placeholder='Re-enter the new password' name='passconfirm'><br/>";
                         echo "<b>Old Password: </b><input type='password' class='form-control' name='oldpass' placeholder='Enter old password'><br/>";
                         echo "</div>";
-                        echo "<button type='submit' name='uppass' class='btn btn-primary'>Update</button>";
+                        echo "<button type='submit' name='uppass' class='btn btn-primary'>Update</button> &nbsp;";
+                        echo "<button type='reset' class='btn btn-secondary'>Reset</button>";
                         echo "</form>";
                     }
                     ?>
