@@ -93,7 +93,7 @@
      Google Maps:<br>
         <input type="url" size="40" name="map" id="map"><br>
      <br><br>
-               <input type="file"  name="samples" multiple><br> <br>
+     <input type="file"  name="samples" multiple><br> <br>
 
      <div class="btn">
          <input type="submit" value="submit" name="add">&nbsp;<input type="reset"value="reset">
@@ -207,10 +207,11 @@
         $result = mysqli_query($db,"SELECT v_name FROM vendor WHERE vendor_id=$vendor");
         $row = mysqli_fetch_row($result);
         $vname = $row[0];
-        $sql = "DELETE FROM vendor WHERE vendor_id='$vendor'";
+        $sql = "DELETE FROM belong WHERE vendor_id='$vendor'";
         $query = mysqli_query($db, $sql);
         
         if ($query === TRUE) { 
+            mysqli_query($db,"DELETE FROM vendor WHERE vendor_id='$vendor'");
         ?>
 
        <script> alert('The vendor '+'<?php echo $vname; ?>'+' has been deleted sucessfully!'); 
