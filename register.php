@@ -194,7 +194,7 @@ if(!empty($_POST["register-user"])) {
         <label><b >E-mail</b></label>
         <input type="email" placeholder="Enter Email" name="email" required>
         <label><b>Password</b></label>
-        <input type="pass" placeholder="Enter Password" name="password" required>
+        <input type="password" placeholder="Enter Password" name="password" required>
         </div>
         <div class="container registerc" style="background-color:#f1f1f1">
         <button class="loginb" type="submit">Login</button>
@@ -231,12 +231,12 @@ if(!empty($_POST["register-user"])) {
 <br>
     
 <lable><b>Password</b><label class="redstar">*</label></lable><br>
-<input type="password" class="demoInputBox" name="password" value="">
+<input style="width: 50%" type="password" class="demoInputBox" name="password" value="">
     
 <br>
     
 <lable><b>Confirm Password</b><label class="redstar">*</label></lable><br>
-<input type="password" class="demoInputBox" name="confirm_password" value="">
+<input style="width: 50%" type="password" class="demoInputBox" name="confirm_password" value="">
 
 <br>
     
