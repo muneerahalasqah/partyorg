@@ -92,15 +92,23 @@
         <input type="text" size="40" name="twitter"><br>
      Google Maps:<br>
         <input type="url" size="40" name="map" id="map"><br>
-     Samples URLs:<br>
-       <!--<input type="file"  name="samples" multiple><br> -->
-                  
      <br><br>
+               <input type="file"  name="samples" multiple><br> <br>
+
      <div class="btn">
          <input type="submit" value="submit" name="add">&nbsp;<input type="reset"value="reset">
     </div>  
+        
     </fieldset>
       </form>
+            
+      <!--uploade files--->      
+<form action="file.php" method="post" enctype="multipart/form-data">  
+ Samples URLs:<br>
+       <input type="file"  name="samples" multiple><br> <br>
+             <input type="submit" value="upload" name="upload">      
+</form> 
+   
             
     <!-- Vendor Deletion Form -->     
     <form method="post" action="vendor.php">
