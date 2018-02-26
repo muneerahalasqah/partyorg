@@ -188,7 +188,16 @@ session_start();
                 
                 </div>
             <div role="tabpanel" class="tab-pane fade" id="histo">
-                <h3>History!</h3>
+                <?php
+                $sql2="SELECT party_id FROM party_plan WHERE c_id=$cid";
+                $query2=mysqli_query($db,$sql2);
+                $plan=mysqli_fetch_row($query2);
+                if($plan!==NULL){
+                    echo "Here";
+                }else{
+                    echo "<h4>No previous plans yet ..</h4>";
+                }
+                ?>
                 </div>
                 </div>
             </div>
