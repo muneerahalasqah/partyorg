@@ -103,6 +103,17 @@
         <div class="btn"><input type="submit" value="Update" name="update">&nbsp;<input type="reset" value="reset"></div>
         </fieldset>
     </form>
+            
+    <form method="post" action="upvendor.php" enctype="multipart/form-data">
+    <fieldset>
+    <legend>Uploading New Vendor Samples</legend><br>
+        Choose Samples: <br>
+        <input type="file" name="samples[]" multiple><br>
+        <br><br>
+        <div class="btn"><input type="submit" value="Upload" name="upload">&nbsp;<input type="reset"value="reset"></div>
+        </fieldset>
+    </form>
+            
     </div>
     <?php
         $db = mysqli_connect("localhost","root","","partyorg");
@@ -143,6 +154,32 @@
             <?php
             }
         }
-        ?>
+    if(isset($_POST['upload'])){
+        $vendor=$_SESSION['vid'];
+        $q=mysqli_query($db,"DELETE FROM samples WHERE v_id='$vendor'");
+        if($q){
+            $count = count($_FILES['samples']['name']);
+            $location = 'samples/';
+   
+            //عشان يدور على كل الفايلات
+            for($i=0;$i<$count;$i++){
+            $sample=$_FILES['samples']['name'][$i];
+            $path=$location.$sample;
+            
+            //يرفع الفايلات
+            $result=move_uploaded_file($_FILES['samples']['tmp_name'][$i],$path);
+            if($result){
+                mysqli_query($db,"INSERT INTO samples(sample_path,v_id) VALUES('".$path."', '".$vendor."')");
+            }
+            }?>
+            <script>
+            alert('The vendor new samples have been uploaded successfully');
+            window.location.href="vendor.php";
+    </script>
+    <?php
+        }  
+}
+
+ ?>
     </body>
 </html>
