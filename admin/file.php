@@ -1,29 +1,34 @@
- <?php   
+<html>
+<body>
+<?php   
 
 $db=mysqli_connect("localhost","root","","partyorg");
-$name = $_FILES['samples']['name'];
-$tmp_name = $_FILES ['samples']['tmp_name'];
+//$name = $_FILES['samples']['name'];
+//$tmp_name = $_FILES['samples']['tmp_name'];
 
-if (isset($name)){
-    if(!empty($name)){
-        $location = '';
-        
-        if (move_uploaded_file($tmp_name,$location.$name)){
-            echo 'uploaded! ';
-            $path="admin/".$name;
-            echo $path;
-            $vid=11;
-            $sql = "INSERT INTO samples(sample_path,v_id) VALUES($path,$vid)";
-            $query = mysqli_query($db,$sql);
-            if($query){
-                echo "Added!!!!";
-            } else {
-                echo "Noo";
+if (isset($_POST['upload'])){
+        $count = count($_FILES['samples']['name']);
+        $location = 'samples/';
+        $vid = $_POST['vendor'];
+   
+    //عشان يدور على كل الفايلات
+        for($i=0;$i<$count;$i++){
+            $sample=$_FILES['samples']['name'][$i];
+            $path=$location.$sample;
+            
+            //يرفع الفايلات
+            $result=move_uploaded_file($_FILES['samples']['tmp_name'][$i],$path);
+            if($result){
+                mysqli_query($db,"INSERT INTO samples(sample_path,v_id) VALUES('".$path."', '".$vid."')");
             }
-        }}
-        else {
-            echo 'choose file';
-        }
-    
+        }?>
+        <script>
+            alert('The vendor samples have been uploaded successfully');
+            window.location.href="vendor.php";
+    </script>
+    <?php
 }
+
  ?>
+</body>
+</html>
