@@ -93,7 +93,6 @@
      Google Maps:<br>
         <input type="url" size="40" name="map" id="map"><br>
      <br><br>
-     <input type="file"  name="samples" multiple><br> <br>
 
      <div class="btn">
          <input type="submit" value="submit" name="add">&nbsp;<input type="reset"value="reset">
@@ -102,12 +101,28 @@
     </fieldset>
       </form>
             
-      <!--uploade files--->      
-<form action="file.php" method="post" enctype="multipart/form-data">  
- Samples URLs:<br>
-       <input type="file"  name="samples" multiple><br> <br>
-             <input type="submit" value="upload" name="upload">      
-</form> 
+            <!-- Vendor Uloading samples -->
+    <form method="post" action="file.php" enctype="multipart/form-data">
+    <fieldset>
+    <legend>Uploading Vendor Samples</legend><br>
+    Vendor:  
+        <?php
+        $db=mysqli_connect('localhost', 'root', '','partyorg');
+        $result = mysqli_query($db,"SELECT vendor_id, v_name FROM vendor");
+        echo "<select name='vendor' style='width: 60%;'>";                
+        while ($myrow = mysqli_fetch_row($result)) {
+        printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
+                }
+        echo "</select>";
+        ?>
+        <br><br>
+        Choose Samples: <br>
+        <input type="file" name="samples[]" multiple><br>
+        <br><br>
+        <div class="btn"><input type="submit" value="Upload" name="upload">&nbsp;<input type="reset"value="reset"></div>
+        </fieldset>
+            </form>
+     
    
             
     <!-- Vendor Deletion Form -->     
@@ -212,6 +227,7 @@
         
         if ($query === TRUE) { 
             mysqli_query($db,"DELETE FROM vendor WHERE vendor_id='$vendor'");
+            mysqli_query($db,"DELETE FROM samples WHERE v_id='$vendor'");
         ?>
 
        <script> alert('The vendor '+'<?php echo $vname; ?>'+' has been deleted sucessfully!'); 
