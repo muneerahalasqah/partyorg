@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 ?>
@@ -45,10 +44,77 @@ session_start();
  
  
   <style>
-body {
-    font-family: "Lato", sans-serif;
+/* Modal Style */
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #9a9a9a;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #9a9a9a;
+    color: white;
+}
+/* Search Style */   
 .sidenav {
     height: 65%;
     width: 0;
@@ -62,7 +128,6 @@ body {
     padding-top: 10px;
     margin-top: 150px;
 }
-
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -71,11 +136,9 @@ body {
     display: block;
     transition: 0.3s;
 }
-
 .sidenav a:hover {
     color: #f1f1f1;
 }
-
 .sidenav .closebtn {
     position: absolute;
     top: 0;
@@ -83,13 +146,11 @@ body {
     font-size: 36px;
     margin-left: 50px;
 }
-
 #main {
     transition: margin-left .5s;
     padding: 16px;
     margin-top: 200px;
 }
-
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
@@ -123,7 +184,26 @@ body {
             <button class="dropbtn" type="button"><i class="fa fa-chevron-circle-down"></i> <?php echo $fname;?></button>
             <div class="dropdown-content">
                 <a href="account.php"><i class="fa fa-user"></i> Account</a>
-                <a href="#"><i class="fa fa-bars"></i> Party Plan</a>
+                <a href="#"id="myBtn"><i class="fa fa-bars"></i> Party Plan
+             <!-- The Modal -->
+             <div id="myModal" class="modal">
+
+              <!-- Modal content -->
+                <div class="modal-content">
+               <div class="modal-header">
+           <span class="close">&times;</span>
+                 <h2>Modal Header</h2>
+             </div>
+              <div class="modal-body">
+             <p>Some text in the Modal Body</p>
+                 <p>Some other text...</p>
+              </div>
+             <div class="modal-footer">
+             <h3>Modal Footer</h3>
+            </div>
+              </div>
+                </div>
+                       </a>
                 <a href="logout.php"><i class="fa fa-power-off"></i> Logout</a>
             </div>
             </div>
@@ -231,13 +311,10 @@ Budget : <br>
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
 output.innerHTML = slider.value;
-
 slider.oninput = function() {
   output.innerHTML = this.value;
 }
 </script>
-
-            
 
     <button  class="btn btn-primary" name="" type="submit"value="" class="btnRegister">Search</button> &nbsp;
     <button type="reset" class="btn btn-secondary">Reset</button>
@@ -256,10 +333,36 @@ function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     document.getElementById("main").style.marginLeft = "250px";
 }
-
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 </script>
      
