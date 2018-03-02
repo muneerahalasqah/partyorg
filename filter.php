@@ -10,7 +10,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Title & Logo -->
-    <title>Besher - »ˆ‘—</title>
+    <title>Besher - ÿ®Ÿêÿ¥ÿ±</title>
     <link rel="shortcut icon"
        href="img/logo21.png"width="16" height="16"/>
       
@@ -43,71 +43,22 @@ session_start();
         <!-- Custom scripts for this template -->
         <script src="js/agency.min.js"></script>
  
- 
-  <style>
-body {
-    font-family: "Lato", sans-serif;
-}
-
-.sidenav {
-    height: 65%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: whitesmoke;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 10px;
-    margin-top: 150px;
-}
-
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidenav a:hover {
-    color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-#main {
-    transition: margin-left .5s;
-    padding: 16px;
-    margin-top: 200px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
       
-  
+      <!-----FilterContent--------->
+      
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+	<script src="js/modernizr.js"></script> <!-- Modernizr -->
       
       
       
-      
-</style>
-
   </head>
 
   <body id="page-top" style="background-color:#f1f1f1">
-
     <!-- Navigation -->
-    <nav style="background-color:#5b6771;" class="navbar navbar-expand-lg navbar-dark fixed-top " id="mainNav" >
+    <nav style="background-color:#5b6771;" class="navbar navbar-expand-lg navbar-dark  " id="mainNav" >
       
         <div class="container">
           <!-- Login Modal & Button -->
@@ -183,16 +134,53 @@ body {
         </div>
    </nav>
      
+  
  
+      
+    <!----Filering--------->  
+      
+	<main class="cd-main-content">
+		<div class="cd-tab-filter-wrapper">
+			<div class="cd-tab-filter">
+				<ul class="cd-filters">
+					<li class="placeholder"> 
+						<a data-type="all" href="#0">All</a> <!-- selected option on mobile -->
+					</li> 
+					<li class="filter"><a class="selected" href="#0" data-type="all">All</a></li>
+					<li class="filter" data-filter=".color-1"><a href="#0" data-type="color-1">Color 1</a></li>
+					<li class="filter" data-filter=".color-2"><a href="#0" data-type="color-2">Color 2</a></li>
+				</ul> <!-- cd-filters -->
+			</div> <!-- cd-tab-filter -->
+		</div> <!-- cd-tab-filter-wrapper -->
 
-<div id="mySidenav" class="sidenav" >
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
- <form  name="searchForm" method="post" action="" >
+		<section class="cd-gallery">
+			<ul>
+				<li class="mix color-1 check1 radio2 option3"><img src="img/img-1.jpg" alt="Image 1"></li>
+				<li class="mix color-2 check2 radio2 option2"><img src="img/img-2.jpg" alt="Image 2"></li>
+				<li class="mix color-1 check3 radio3 option1"><img src="img/img-3.jpg" alt="Image 3"></li>
+				<li class="mix color-1 check3 radio2 option4"><img src="img/img-4.jpg" alt="Image 4"></li>
+				<li class="mix color-1 check1 radio3 option2"><img src="img/img-5.jpg" alt="Image 5"></li>
+				<li class="mix color-2 check2 radio3 option3"><img src="img/img-6.jpg" alt="Image 6"></li>
+				<li class="mix color-2 check2 radio2 option1"><img src="img/img-7.jpg" alt="Image 7"></li>
+				<li class="mix color-1 check1 radio3 option4"><img src="img/img-8.jpg" alt="Image 8"></li>
+				<li class="mix color-2 check1 radio2 option3"><img src="img/img-9.jpg" alt="Image 9"></li>
+				<li class="mix color-1 check3 radio2 option4"><img src="img/img-10.jpg" alt="Image 10"></li>
+				<li class="mix color-1 check3 radio3 option2"><img src="img/img-11.jpg" alt="Image 11"></li>
+				<li class="mix color-2 check1 radio3 option1"><img src="img/img-12.jpg" alt="Image 12"></li>
+				<li class="gap"></li>
+				<li class="gap"></li>
+				<li class="gap"></li>
+			</ul>
+			<div class="cd-fail-message">No results found</div>
+		</section> <!-- cd-gallery -->
+
+		<div class="cd-filter">
+			<form  name="searchForm" method="post" action="" >
 
     
-<div class="container" >
+<div class="container"  >
 
-Category :<br>
+Category :<br><br>
         <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
@@ -206,7 +194,7 @@ Category :<br>
     
      <br><br>
      
-Location : <br>
+Location : <br><br>
         <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
@@ -238,38 +226,31 @@ slider.oninput = function() {
 </script>
 
             
-
+<br>
     <button  class="btn btn-primary" name="" type="submit"value="" class="btnRegister">Search</button> &nbsp;
     <button type="reset" class="btn btn-secondary">Reset</button>
     </div>  
                       
 </form>
-</div>
 
-<div id="main">
-  
-  <span style="font-size:30px;cursor:pointer; position: fixed" onclick="openNav()"><i class="fa fa-search"></i></span>
-</div>
+			<a href="#0" class="cd-close">Close</a>
+		</div> <!-- cd-filter -->
 
-<script>
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-}
-</script>
-     
+		<a href="#0" class="cd-filter-trigger">Filters</a>
+	</main> <!-- cd-main-content -->
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/jquery.mixitup.min.js"></script>
+<script src="js/main.js"></script> <!-- Resource jQuery -->
       
+      
+      
+ 
     <!-- Footer -->
-    <footer  style="background-color:white; margin-top:300px">
+    <footer  style="background-color:white; ">
       <div class="container">
         <div class="row">
           <div class="col-md-4">
-            <span class="copyright">Copyright &copy; <b>Besher - ???</b> Party Orgnizer 2018</span>
+            <span class="copyright">Copyright &copy; <b>Besher - ÿ®ÿ¥ÿ±</b> Party Orgnizer 2018</span>
           </div>
           <div class="col-md-4">
             <ul class="list-inline social-buttons">
