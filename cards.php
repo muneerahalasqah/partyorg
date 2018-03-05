@@ -45,7 +45,7 @@ session_start();
       
   </head>
 
-  <body id="page-top" style="background-color:#f1f1f1">
+  <body id="page-top" style="background-color:#f1f1f1; margin-top:150px;">
 
     <!-- Navigation -->
     <nav style="background-color:#5b6771;" class="navbar navbar-expand-lg navbar-dark fixed-top " id="mainNav" >
@@ -143,16 +143,17 @@ session_start();
         </div>
    </nav>
       
-
+      <!-- Container -->
+      <div class="container">
       <!-- The vendors cards -->
       <?php
       $db=mysqli_connect('localhost','root','','partyorg');
       $vendors=mysqli_query($db,"SELECT vendor_id,v_name,description FROM vendor");
-      echo "<div class='row'>";
+      echo "<div class='row' style='padding:10pt;'>";
       while($vrow=mysqli_fetch_row($vendors)){
         ?>
-       <div class="col-sm-6">
-       <div class="card text-center" style="width: 20rem;margin:10px;padding:2pt;">
+       <div class="col-lg-4 col-sm-6 portfolio-item">
+       <div class="card text-center h-100">
         <div class="card-block">
         <h4 class="card-title"><?php echo $vrow[1];?></h4>
         <p class="card-text"><?php echo $vrow[2];?></p>
@@ -164,7 +165,7 @@ session_start();
       }
       echo "</div>";
       ?>
-
+</div>
       
       <script>
 // Get the modal
