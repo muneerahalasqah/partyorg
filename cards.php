@@ -27,6 +27,7 @@ session_start();
     <link href="css/agency.min.css" rel="stylesheet">
     <link href="css/login-register.css" rel="stylesheet">
     <link href="css/modal.css" rel="stylesheet">
+    <link href="css/3-col-portfolio.css" rel="stylesheet">
       
       
                 <!-- Bootstrap core JavaScript -->
@@ -45,7 +46,7 @@ session_start();
       
   </head>
 
-  <body id="page-top" style="background-color:#f1f1f1; margin-top:150px;">
+  <body id="page-top" style="background-color:#f1f1f1; margin-top:80px;">
 
     <!-- Navigation -->
     <nav style="background-color:#5b6771;" class="navbar navbar-expand-lg navbar-dark fixed-top " id="mainNav" >
