@@ -26,6 +26,7 @@ session_start();
     <!-- Custom styles for this template -->
     <link href="css/agency.min.css" rel="stylesheet">
     <link href="css/login-register.css" rel="stylesheet">
+    <link href="css/modal.css" rel="stylesheet">
       
       
                 <!-- Bootstrap core JavaScript -->
@@ -41,81 +42,6 @@ session_start();
 
         <!-- Custom scripts for this template -->
         <script src="js/agency.min.js"></script>
- <style>
-/* Modal Style */
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-}
-
-/* Add Animation */
-@-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
-}
-
-@keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
-}
-
-/* The Close Button */
-.close {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-header {
-    padding: 2px 16px;
-    background-color: #9a9a9a;
-    color: white;
-}
-
-.modal-body {padding: 2px 16px;}
-
-.modal-footer {
-    padding: 2px 16px;
-    background-color: #9a9a9a;
-    color: white;
-}
-     
-</style>
-
-     
       
   </head>
 
@@ -217,16 +143,29 @@ session_start();
         </div>
    </nav>
       
-     
- <div class="card" style="width: 20rem; margin-left:20px;margin-top:200px;margin-bottom:90px;" >
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-block">
-    <h4 class="card-title">name</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">ADD</a>
-      
-  </div>
+
+      <!-- The vendors cards -->
+      <?php
+      $db=mysqli_connect('localhost','root','','partyorg');
+      $vendors=mysqli_query($db,"SELECT vendor_id,v_name,description FROM vendor");
+      echo "<div class='row'>";
+      while($vrow=mysqli_fetch_row($vendors)){
+        ?>
+       <div class="col-sm-6">
+       <div class="card text-center" style="width: 20rem;margin:10px;padding:2pt;">
+        <div class="card-block">
+        <h4 class="card-title"><?php echo $vrow[1];?></h4>
+        <p class="card-text"><?php echo $vrow[2];?></p>
+        <a href="addplan.php?id=<?php echo $vrow[0];?>" class="btn btn-primary">ADD</a> 
+     </div>
       </div>
+      </div>
+      <?php  
+      }
+      echo "</div>";
+      ?>
+
+      
       <script>
 // Get the modal
 var modal = document.getElementById('myModal');
