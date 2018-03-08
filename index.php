@@ -30,82 +30,7 @@ session_start();
     <!-- Custom styles for this template -->
     <link href="css/agency.min.css" rel="stylesheet">
     <link href="css/login-register.css" rel="stylesheet">
-      
-          
-      <style>
-      /* Modal Style */
-          /* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-}
-
-/* Add Animation */
-@-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
-}
-
-@keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
-}
-
-/* The Close Button */
-.close {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-header {
-    padding: 2px 16px;
-    background-color: #9a9a9a;
-    color: white;
-}
-
-.modal-body {padding: 2px 16px;}
-
-.modal-footer {
-    padding: 2px 16px;
-    background-color: #9a9a9a;
-    color: white;
-}
-      
-      </style>
-      
+    <link href="css/modal.css" rel="stylesheet">  
       
   </head>
 
@@ -129,27 +54,61 @@ session_start();
             <div class="dropdown-content">
                 <a href="account.php"><i class="fa fa-user"></i> Account</a>
                 <a href="#" id="myBtn"><i class="fa fa-bars"></i> Party Plan
-                
-<!-- The Modal -->
-<div id="myModal" class="modal">
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal">
 
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2>Modal Header</h2>
-    </div>
-    <div class="modal-body">
-      <p>Some text in the Modal Body</p>
-      <p>Some other text...</p>
-    </div>
-    <div class="modal-footer">
-      <h3>Modal Footer</h3>
-    </div>
-  </div>
+                      <!-- Modal content -->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Party Plan</h2>
+                            <img src ="img/Logo33.png"width="80" height="40"/>
+                        </div>
+                        <div class="modal-body">
+                          <table class="table">
+                              <thead class="thead-default">
+                                <tr>
+                                  <th>Vendor Name</th>
+                                  <th>Vendor Type</th>
+                                  <th>Price</th>
+                                  <th style="color=red;">Delete</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <?php
+                                 if(isset($_SESSION['plan'])){    
+                                  $total=0;
+                                  $whereIn = implode(',',$_SESSION['plan']);
+                                  $vsql = "SELECT vendor.vendor_id,vendor.v_name,vendor.start_price,v_type.type_name FROM vendor LEFT JOIN v_type ON vendor.type_id=v_type.type_id WHERE vendor_id IN($whereIn)";
+                                  $vquery = mysqli_query($db,$vsql);
+                                  while($vrow=mysqli_fetch_row($vquery)){
+                                     echo "<tr>";
+                                     echo "<td>$vrow[1]</td>";
+                                     echo "<td>$vrow[3]</td>";
+                                     echo "<td>$vrow[2]</td>";
+                                     echo "<td><a href='delplan.php?id=$vrow[0]'><i class='fa fa-trash'></i></a></td>";
+                                     echo "</tr>";
+                                     $total = $total+$vrow[2];
+                                  }
+                                  ?>
+                                  <tr>
+                                      <td colspan="3" style="text-align:right"><b>Total=</b></td>
+                                      <td><?php echo $total;?> <b>S.R.</b></td>
+                                  </tr>
+                                  <?php
+                                 } else {
+                                     echo "<tr><td colspan='4'>No Vendors added yet ..</td></tr>";
+                                 }
+                                  ?>
+                              </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="loginb regbtn" onclick="document.getElementById('myModal').style.display='none'">Close</button>
+                            <button class="loginb" type="submit">Commit</button>
+                        </div>
+                      </div>
 
-</div>
-                
+                    </div>    
                 </a>
                 <a href="logout.php"><i class="fa fa-power-off"></i> Logout</a>
             </div>
@@ -550,7 +509,7 @@ window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
-}
+} 
 </script>
  
 
