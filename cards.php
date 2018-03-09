@@ -87,7 +87,7 @@ session_start();
                               </thead>
                               <tbody>
                                 <?php
-                                 if(isset($_SESSION['plan'])){    
+                                 if(isset($_SESSION['plan']) && !empty($_SESSION['plan'])){    
                                   $total=0;
                                   $whereIn = implode(',',$_SESSION['plan']);
                                   $vsql = "SELECT vendor.vendor_id,vendor.v_name,vendor.start_price,v_type.type_name FROM vendor LEFT JOIN v_type ON vendor.type_id=v_type.type_id WHERE vendor_id IN($whereIn)";
