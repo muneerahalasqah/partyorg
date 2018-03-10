@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 ?>
@@ -27,7 +26,8 @@ session_start();
     <!-- Custom styles for this template -->
     <link href="css/agency.min.css" rel="stylesheet">
     <link href="css/login-register.css" rel="stylesheet">
-      
+    <link href="css/modal.css" rel="stylesheet">
+    <link href="css/3-col-portfolio.css" rel="stylesheet"> 
       
                 <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
@@ -47,7 +47,6 @@ session_start();
       <!-----FilterContent--------->
       
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-
 	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
 	<script src="js/modernizr.js"></script> <!-- Modernizr -->
@@ -72,9 +71,64 @@ session_start();
             ?>
             <div class="dropdown">
             <button class="dropbtn" type="button"><i class="fa fa-chevron-circle-down"></i> <?php echo $fname;?></button>
-            <div class="dropdown-content">
+            <div class="dropdown-content"  style=" z-index: 4;">
                 <a href="account.php"><i class="fa fa-user"></i> Account</a>
-                <a href="#"><i class="fa fa-bars"></i> Party Plan</a>
+                <a href="#" id="myBtn"><i class="fa fa-bars"></i> Party Plan</a>
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+
+                      <!-- Modal content -->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Party Plan</h2>
+                            <img src ="img/Logo33.png"width="80" height="40"/>
+                        </div>
+                        <div class="modal-body">
+                          <table class="table">
+                              <thead class="thead-default">
+                                <tr>
+                                  <th>Vendor Name</th>
+                                  <th>Vendor Type</th>
+                                  <th>Price</th>
+                                  <th style="color=red;">Delete</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <?php
+                                 if(isset($_SESSION['plan']) && !empty($_SESSION['plan'])){
+                                  $total=0;
+                                  $whereIn = implode(',',$_SESSION['plan']);
+                                  $vsql = "SELECT vendor.vendor_id,vendor.v_name,vendor.start_price,v_type.type_name FROM vendor LEFT JOIN v_type ON vendor.type_id=v_type.type_id WHERE vendor_id IN($whereIn)";
+                                  $vquery = mysqli_query($db,$vsql);
+                                  while($vrow=mysqli_fetch_row($vquery)){
+                                     echo "<tr>";
+                                     echo "<td>$vrow[1]</td>";
+                                     echo "<td>$vrow[3]</td>";
+                                     echo "<td>$vrow[2]</td>";
+                                     echo "<td><a href='delplan.php?id=$vrow[0]'><i class='fa fa-trash'></i></a></td>";
+                                     echo "</tr>";
+                                     $total = $total+$vrow[2];
+                                  }
+                                  ?>
+                                  <tr>
+                                      <td colspan="3" style="text-align:right"><b>Total=</b></td>
+                                      <td><?php echo $total;?> <b>S.R.</b></td>
+                                  </tr>
+                                  <?php
+                                 } else {
+                                     echo "<tr><td colspan='4'>No Vendors added yet ..</td></tr>";
+                                 }
+                                  ?>
+                              </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="loginb regbtn" onclick="document.getElementById('myModal').style.display='none'">Close</button>
+                            <button class="loginb" type="submit">Commit</button>
+                        </div>
+                      </div>
+
+                    </div>    
                 <a href="logout.php"><i class="fa fa-power-off"></i> Logout</a>
             </div>
             </div>
@@ -144,32 +198,46 @@ session_start();
 			<div class="cd-tab-filter">
 				<ul class="cd-filters">
 					<li class="placeholder"> 
-						<a data-type="all" href="#0">All</a> <!-- selected option on mobile -->
+				 <!-- selected option on mobile -->
 					</li> 
-					<li class="filter"><a class="selected" href="#0" data-type="all">All</a></li>
-					<li class="filter" data-filter=".color-1"><a href="#0" data-type="color-1">Color 1</a></li>
-					<li class="filter" data-filter=".color-2"><a href="#0" data-type="color-2">Color 2</a></li>
+					<?php
+        $db=mysqli_connect('localhost', 'root', '','partyorg');
+        $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
+        echo "<select name='category[]' class='loginform' style='margin-top: 10px'>";
+        while ($myrow = mysqli_fetch_row($result)) {
+        printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
+            //printf("<input type='checkbox' name='category[]' value='%d'> %s <br>",$myrow[0], $myrow[1]);
+                }
+        echo "</select>";
+        ?>
 				</ul> <!-- cd-filters -->
 			</div> <!-- cd-tab-filter -->
 		</div> <!-- cd-tab-filter-wrapper -->
 
 		<section class="cd-gallery">
 			<ul>
-				<li class="mix color-1 check1 radio2 option3"><img src="img/img-1.jpg" alt="Image 1"></li>
-				<li class="mix color-2 check2 radio2 option2"><img src="img/img-2.jpg" alt="Image 2"></li>
-				<li class="mix color-1 check3 radio3 option1"><img src="img/img-3.jpg" alt="Image 3"></li>
-				<li class="mix color-1 check3 radio2 option4"><img src="img/img-4.jpg" alt="Image 4"></li>
-				<li class="mix color-1 check1 radio3 option2"><img src="img/img-5.jpg" alt="Image 5"></li>
-				<li class="mix color-2 check2 radio3 option3"><img src="img/img-6.jpg" alt="Image 6"></li>
-				<li class="mix color-2 check2 radio2 option1"><img src="img/img-7.jpg" alt="Image 7"></li>
-				<li class="mix color-1 check1 radio3 option4"><img src="img/img-8.jpg" alt="Image 8"></li>
-				<li class="mix color-2 check1 radio2 option3"><img src="img/img-9.jpg" alt="Image 9"></li>
-				<li class="mix color-1 check3 radio2 option4"><img src="img/img-10.jpg" alt="Image 10"></li>
-				<li class="mix color-1 check3 radio3 option2"><img src="img/img-11.jpg" alt="Image 11"></li>
-				<li class="mix color-2 check1 radio3 option1"><img src="img/img-12.jpg" alt="Image 12"></li>
-				<li class="gap"></li>
-				<li class="gap"></li>
-				<li class="gap"></li>
+				 <div class="container">
+      <!-- The vendors cards -->
+      <?php
+      $db=mysqli_connect('localhost','root','','partyorg');
+      $vendors=mysqli_query($db,"SELECT vendor_id,v_name,description FROM vendor");
+      echo "<div class='row' style='padding:10pt;'>";
+      while($vrow=mysqli_fetch_row($vendors)){
+        ?>
+       <div class="col-lg-4 col-sm-6 portfolio-item">
+       <div class="card text-center h-100">
+        <div class="card-block">
+        <h4 class="card-title"><?php echo $vrow[1];?></h4>
+        <p class="card-text"><?php echo $vrow[2];?></p>
+        <a href="addplan.php?id=<?php echo $vrow[0];?>" class="btn btn-primary">ADD</a> 
+     </div>
+      </div>
+      </div>
+      <?php  
+      }
+      echo "</div>";
+      ?>
+</div>
 			</ul>
 			<div class="cd-fail-message">No results found</div>
 		</section> <!-- cd-gallery -->
@@ -180,25 +248,22 @@ session_start();
     
 <div class="container"  >
 
-Category :<br><br>
+Type:<br><br>
         <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
-        $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
-        echo "<select name='category[]'  style='width: 40%;'>";
+        $result = mysqli_query($db,"SELECT type_id,type_name FROM v_type");
+        echo "<select name='type' class='loginform'>";                
         while ($myrow = mysqli_fetch_row($result)) {
         printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
-            //printf("<input type='checkbox' name='category[]' value='%d'> %s <br>",$myrow[0], $myrow[1]);
                 }
         echo "</select>";
         ?>
-    
-     <br><br>
-     
+ <br><br>   
 Location : <br><br>
         <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
-        echo "<select name='location' style='width: 40%;'>";                
+        echo "<select name='location' class='loginform' style='width: 130px'>";                
         while ($myrow = mysqli_fetch_row($result)) {
         printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
                 }
@@ -211,7 +276,7 @@ Rating :<br><br>
 
 Budget : <br>
 <div class="""slidecontainer">
-  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+  <input type="range" min="1000" max="5000" value="2500" class="slider" id="myRange">
   <p>Price: <span id="demo"></span></p>
 </div>
 
@@ -274,7 +339,30 @@ slider.oninput = function() {
         </div>
       </div>
     </footer>
-   
+   <script>
+// Get the modal
+var modal = document.getElementById('myModal');
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+} 
+</script>
+ 
+ 
   </body>
 
 </html>

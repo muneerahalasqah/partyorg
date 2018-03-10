@@ -63,7 +63,8 @@ session_start();
             <button class="dropbtn" type="button"><i class="fa fa-chevron-circle-down"></i> <?php echo $fname;?></button>
             <div class="dropdown-content">
                 <a href="account.php"><i class="fa fa-user"></i> Account</a>
-                <a href="#"id="myBtn"><i class="fa fa-bars"></i> Party Plan
+                <a href="#"id="myBtn"><i class="fa fa-bars"></i> Party Plan</a>
+
                     <!-- The Modal -->
                     <div id="myModal" class="modal">
 
@@ -118,9 +119,7 @@ session_start();
                         </div>
                       </div>
 
-                    </div>    
-                </a>
-                
+                    </div>                    
                 <a href="logout.php"><i class="fa fa-power-off"></i> Logout</a>
             </div>
             </div>
