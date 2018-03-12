@@ -200,13 +200,12 @@ session_start();
 					<li class="placeholder"> 
 				 <!-- selected option on mobile -->
 					</li> 
-					<?php
+					 <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
-        $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
-        echo "<select name='category[]' class='loginform' style='margin-top: 10px'>";
+        $result = mysqli_query($db,"SELECT type_id,type_name FROM v_type");
+        echo "<select name='type' class='loginform' style='margin-top: 10px'>";                
         while ($myrow = mysqli_fetch_row($result)) {
         printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
-            //printf("<input type='checkbox' name='category[]' value='%d'> %s <br>",$myrow[0], $myrow[1]);
                 }
         echo "</select>";
         ?>
@@ -248,13 +247,15 @@ session_start();
     
 <div class="container"  >
 
-Type:<br><br>
-        <?php
+Category:<br><br>
+       
+    <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
-        $result = mysqli_query($db,"SELECT type_id,type_name FROM v_type");
-        echo "<select name='type' class='loginform'>";                
+        $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
+        echo "<select name='category[]' class='loginform' >";
         while ($myrow = mysqli_fetch_row($result)) {
         printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
+            //printf("<input type='checkbox' name='category[]' value='%d'> %s <br>",$myrow[0], $myrow[1]);
                 }
         echo "</select>";
         ?>
