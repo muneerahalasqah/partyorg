@@ -122,7 +122,6 @@ session_start();
 
                     </div>    
                 </a>
-                </a>
                 <a href="logout.php"><i class="fa fa-power-off"></i> Logout</a>
             </div>
             </div>
@@ -184,10 +183,41 @@ session_start();
       
       <!-- Container -->
       <div class="container">
+      <!-- The search form -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+
+      <li class="nav-item active">
+        <a class="nav-link" href="cards.php?cid=<?php if(isset($_GET['cid'])) echo $_GET['cid'];?>">All <span class="sr-only">(current)</span></a>
+      </li>
+    <?php
+    if(isset($_GET['cid'])){
+    $cid=$_GET['cid'];
+    $result = mysqli_query($db,"SELECT type_id,type_name FROM v_type WHERE type_id IN (SELECT type_id FROM vendor where vendor.vendor_id IN (SELECT belong.vendor_id FROM belong WHERE belong.category_id=$cid))");    
+    while ($myrow = mysqli_fetch_row($result)) {
+    printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d'>%s</a></li>",$myrow[0], $myrow[1]);
+            }
+        }
+        ?>
+        
+    </ul>
+  </div>
+</nav>
       <!-- The vendors cards -->
       <?php
       $db=mysqli_connect('localhost','root','','partyorg');
-      $vendors=mysqli_query($db,"SELECT vendor_id,v_name,description FROM vendor");
+        if(isset($_GET['cid'])){
+            $vendors=mysqli_query($db,"SELECT vendor_id,v_name,description FROM vendor");
+        }
+          if(isset($_GET['tid'])){
+            $tid = $_GET['tid'];
+            $vendors=mysqli_query($db,"SELECT vendor_id,v_name,description FROM vendor WHERE type_id='$tid'");  
+          }
+    
       echo "<div class='row' style='padding:10pt;'>";
       while($vrow=mysqli_fetch_row($vendors)){
         ?>
