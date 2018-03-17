@@ -219,7 +219,8 @@ session_start();
           }
     
       echo "<div class='row' style='padding:10pt;'>";
-      while($vrow=mysqli_fetch_row($vendors)){
+      if(isset($_GET['cid'])){
+          while($vrow=mysqli_fetch_row($vendors)){
         ?>
        <div class="col-lg-4 col-sm-6 portfolio-item">
        <div class="card text-center h-100">
@@ -231,6 +232,9 @@ session_start();
       </div>
       </div>
       <?php  
+      }
+      } else {
+          echo "<div class='alert alert-warning' role='alert'><strong>Sorry ..</strong> There are no vendors showing because you need to select a category first</div>";
       }
       echo "</div>";
       ?>
