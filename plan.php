@@ -29,7 +29,22 @@ session_start();
     <!-- Custom styles for this template -->
     <link href="css/agency.min.css" rel="stylesheet">
     <link href="css/login-register.css" rel="stylesheet">
-    <link href="css/modal.css" rel="stylesheet">  
+    <link href="css/modal.css" rel="stylesheet">
+    
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Contact form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/agency.min.js"></script>
+    <script src="js/print.js"></script>
       
   </head>
   <body id="page-top" style="background-color:#f1f1f1; margin-top:80px;">
@@ -128,7 +143,7 @@ session_start();
           <ul class="navbar-nav text-uppercase ml-auto text-left">
                 <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#about">About us</a>
-            </li>
+              </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#portfolio">Categories</a>
             </li>
@@ -178,6 +193,7 @@ session_start();
               <?php
               } else { ?>
               <div>
+                  <div id="plan">
                   <h3>Your current party plan</h3>
                   <ul>
                   <?php
@@ -213,9 +229,10 @@ session_start();
                   }
                   ?>
                   </ul>
+                  </div>
                   <form class="registerc" method="post" action="plan.php">
-                  <butotn type="submit" name="print" class="loginb regbtn">Print The Plan</butotn>
-                  <button type="submit" name="save" class="loginb">Save The Plan</button>
+                  <button type="submit" class="loginb regbtn" onClick="printContent('plan')"><i class="fa fa-print"></i> Print</button>
+                  <button type="submit" name="save" class="loginb"><i class="fa fa-save solid"></i> Save</button>
                   </form>
                   
               </div>
