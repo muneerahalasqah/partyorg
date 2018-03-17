@@ -51,7 +51,7 @@ session_start();
             <button class="dropbtn" type="button"><i class="fa fa-chevron-circle-down"></i> <?php echo $fname;?></button>
             <div class="dropdown-content">
                 <a href="account.php"><i class="fa fa-user"></i> Account</a>
-                <a href="#" id="myBtn"><i class="fa fa-bars"></i> Party Plan
+                <a href="#" id="myBtn"><i class="fa fa-bars"></i> Party Plan </a>
                     <!-- The Modal -->
                     <div id="myModal" class="modal">
 
@@ -107,7 +107,7 @@ session_start();
                       </div>
 
                     </div>    
-                </a>
+                
                 <a href="logout.php"><i class="fa fa-power-off"></i> Logout</a>
             </div>
             </div>
@@ -186,11 +186,12 @@ session_start();
                   $vq=mysqli_query($db,$vsql1);
                   while($vrow1=mysqli_fetch_row($vq)){
                       echo "<div class='container bg-white'>";
+                      echo "<div class='container'>";
                       echo "<h5><li>$vrow1[0]</li></h5>";
                       echo $vrow1[1];
-                      echo "<table>";
+                      echo "<table style='margin-left:50px;width:50%'>";
                       echo "<tr><td><b>Starting Price: </b></td>";
-                      echo "<td>$vrow1[2] <b>S.R.</b></td></tr>";
+                      echo "<td >$vrow1[2] <b>S.R.</b></td></tr>";
                       echo "<tr><td><b>Type: </b></td>";
                       echo "<td>$vrow1[8]</td></tr>";
                       echo "<tr><td><b>City: </b></td>";
@@ -206,6 +207,8 @@ session_start();
                       echo "<tr><td><b>Google Maps: </b></td>";
                       echo "<td>$vrow1[7]</td></tr>";
                       echo "</table>";
+                      echo "<hr>";
+                      echo "</div>";
                       echo "</div>";
                   }
                   ?>
