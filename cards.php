@@ -227,7 +227,7 @@ session_start();
         <div class="card-block">
         <h4 class="card-title"><?php echo $vrow[1];?></h4>
         <p class="card-text"><?php echo $vrow[2];?></p>
-        <a href="addplan.php?id=<?php echo $vrow[0];?>" class="btn btn-primary">ADD</a> 
+        <a href="addplan.php?id=<?php echo $vrow[0]."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a> 
      </div>
       </div>
       </div>

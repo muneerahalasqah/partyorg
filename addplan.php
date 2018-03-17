@@ -24,7 +24,7 @@ if (in_array($_GET['id'],$_SESSION['plan'])){
 <body>
     <script>
     alert('The vendor has been added successfully!');
-    window.location.href="index.php";
+    window.location.href="cards.php?cid=<?php echo $_GET['cid']?>";
     </script>
 </body>
 </html>
