@@ -43,7 +43,12 @@ session_start();
 
         <!-- Custom scripts for this template -->
         <script src="js/agency.min.js"></script>
-      
+            
+      <!-----FilterContent--------->
+   
+	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+	<script src="js/modernizr.js"></script> <!-- Modernizr -->
+       
   </head>
 
   <body id="page-top" style="background-color:#f1f1f1; margin-top:80px;">
@@ -181,6 +186,12 @@ session_start();
         </div>
    </nav>
       
+      
+     <!----------------> 
+      
+      <main class="cd-main-content">
+      <section class="cd-gallery">
+
       <!-- Container -->
       <div class="container">
       <!-- The search form -->
@@ -239,27 +250,95 @@ session_start();
       echo "</div>";
       ?>
 </div>
+           </section>    
       
+      
+      
+  <!------------FILTER section------------->     
+      
+		<div class="cd-filter">
+			<form  name="searchForm" method="post" action="" >
+
+    
+<div class="container"  >
+
+Category:<br><br>
+       
+    <?php
+        $db=mysqli_connect('localhost', 'root', '','partyorg');
+        $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
+        echo "<select name='category[]' class='loginform' >";
+        while ($myrow = mysqli_fetch_row($result)) {
+        printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
+            //printf("<input type='checkbox' name='category[]' value='%d'> %s <br>",$myrow[0], $myrow[1]);
+                }
+        echo "</select>";
+        ?>
+ <br><br>   
+Location : <br><br>
+        <?php
+        $db=mysqli_connect('localhost', 'root', '','partyorg');
+        $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
+        echo "<select name='location' class='loginform' style='width: 130px'>";                
+        while ($myrow = mysqli_fetch_row($result)) {
+        printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
+                }
+        echo "</select>";
+        ?>
+    
+    <br><br>
+    
+Rating :<br><br>
+
+Budget : <br>
+<div class="""slidecontainer">
+  <input type="range" min="1000" max="5000" value="2500" class="slider" id="myRange">
+  <p>Price: <span id="demo"></span></p>
+</div>
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+</script>
+
+            
+<br>
+    <button  class="btn btn-primary" name="" type="submit"value="" class="btnRegister">Search</button> &nbsp;
+    <button type="reset" class="btn btn-secondary">Reset</button>
+    </div>  
+                      
+</form>
+
+			<a href="#0" class="cd-close">Close</a>
+		</div> <!-- cd-filter -->
+
+		<a href="#0" class="cd-filter-trigger">Filters</a>
+	</main> <!-- cd-main-content -->
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/main.js"></script> <!-- Resource jQuery -->
+  
+
+
       <script>
 // Get the modal
 var modal = document.getElementById('myModal');
-
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
-
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-
 // When the user clicks the button, open the modal 
 btn.onclick = function() {
     modal.style.display = "block";
 }
-
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     modal.style.display = "none";
 }
-
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
