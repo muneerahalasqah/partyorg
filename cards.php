@@ -254,7 +254,7 @@ session_start();
       
       
       
-  <!------------FILTER section------------->     
+  <!-----FILTER------->     
       
 		<div class="cd-filter">
 			<form  name="searchForm" method="post" action="" >
