@@ -61,7 +61,7 @@ session_start();
         <?php
         if (isset($_SESSION['cid'])){
             $cid = $_SESSION['cid'];
-            $db=mysqli_connect('localhost','root','','partyorg');
+            require('connect.php');
             $result=mysqli_query($db,"SELECT fname FROM customer WHERE customer_id=$cid");
             $row=mysqli_fetch_row($result);
             $fname=$row[0];
@@ -207,6 +207,7 @@ session_start();
       </li>
     <?php
     if(isset($_GET['cid'])){
+    require('connect.php');
     $cid=$_GET['cid'];
     $result = mysqli_query($db,"SELECT type_id,type_name FROM v_type WHERE type_id IN (SELECT type_id FROM vendor where vendor.vendor_id IN (SELECT belong.vendor_id FROM belong WHERE belong.category_id=$cid))");    
     while ($myrow = mysqli_fetch_row($result)) {
@@ -257,10 +258,10 @@ session_start();
   <!-----FILTER------->     
       
 		<div class="cd-filter">
-			<form  name="searchForm" method="post" action="" >
+			<form  name="searchForm" method="post" action="filter.php" >
 
     
-<div class="container"  >
+<div class="container">
 
 Category:<br><br>
        
@@ -270,7 +271,6 @@ Category:<br><br>
         echo "<select name='category[]' class='loginform' >";
         while ($myrow = mysqli_fetch_row($result)) {
         printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
-            //printf("<input type='checkbox' name='category[]' value='%d'> %s <br>",$myrow[0], $myrow[1]);
                 }
         echo "</select>";
         ?>
@@ -308,7 +308,7 @@ slider.oninput = function() {
 
             
 <br>
-    <button  class="btn btn-primary" name="" type="submit"value="" class="btnRegister">Search</button> &nbsp;
+    <button  class="btn btn-primary" name="submit" type="submit" class="btnRegister">Search</button> &nbsp;
     <button type="reset" class="btn btn-secondary">Reset</button>
     </div>  
                       
