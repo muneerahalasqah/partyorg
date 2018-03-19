@@ -45,8 +45,9 @@ session_start();
         <script src="js/agency.min.js"></script>
             
       <!-----FilterContent--------->
-<link rel="stylesheet" href="css/style.css"> <!-- Resource style-->
-<script src="js/modernizr.js"></script> <!-- Modernizr -->
+   
+	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+	<script src="js/modernizr.js"></script> <!-- Modernizr -->
        
   </head>
 
@@ -186,7 +187,7 @@ session_start();
    </nav>
       
       
-     <!-------filter & category --------> 
+     <!----------------> 
       
       <main class="cd-main-content">
       <section class="cd-gallery">
@@ -222,27 +223,32 @@ session_start();
       <?php
       $db=mysqli_connect('localhost','root','','partyorg');
         if(isset($_GET['cid'])){
-            $vendors=mysqli_query($db,"SELECT vendor_id,v_name,description FROM vendor");
+            $cid=$_GET['cid'];
+            $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid");
         }
-          if(isset($_GET['tid'])){
-            $tid = $_GET['tid'];
-            $vendors=mysqli_query($db,"SELECT vendor_id,v_name,description FROM vendor WHERE type_id='$tid'");  
+          if(isset($_GET['tid'])&&$_GET['cid']){
+            $tid=$_GET['tid'];
+            $cid=$_GET['cid'];
+            $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid");  
           }
     
       echo "<div class='row' style='padding:10pt;'>";
       if(isset($_GET['cid'])){
-          while($vrow=mysqli_fetch_row($vendors)){
+          while($vrow=mysqli_fetch_assoc($vendors)){
         ?>
        <div class="col-lg-4 col-sm-6 portfolio-item">
        <div class="card text-center h-100">
         <div class="card-block">
-        <h4 class="card-title"><?php echo $vrow[1];?></h4>
-        <p class="card-text"><?php echo $vrow[2];?></p>
-        <a href="addplan.php?id=<?php echo $vrow[0]."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a>
-
-     <!------- BUTTON & MODAL of VENDOR DETAILS-------------->
-                       
-<a class="portfolio-link btn btn-secondary" data-toggle="modal" href="#portfolioModal1">DETAILS</a>            
+        <h4 class="card-title"><?php echo $vrow['v_name'];?></h4>
+        <p class="card-text">
+            <?php
+              $vid=$vrow['vendor_id'];
+              $r=mysqli_query($db,"SELECT v_type.type_name FROM v_type LEFT JOIN vendor ON v_type.type_id=vendor.type_id WHERE vendor.vendor_id=$vid");
+              $type=mysqli_fetch_row($r);
+              echo $type[0];
+            ?>
+            </p>
+        <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a> 
      </div>
       </div>
       </div>
@@ -255,12 +261,15 @@ session_start();
       ?>
 </div>
            </section>    
-
+      
+      
+      
   <!-----FILTER------->     
       
 		<div class="cd-filter">
-		<form  name="searchForm" method="post" action="filter.php" >
+			<form  name="searchForm" method="post" action="filter.php" >
 
+    
 <div class="container">
 
 Category:<br><br>
@@ -268,7 +277,7 @@ Category:<br><br>
     <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
-        echo "<select name='category[]' class='loginform' >";
+        echo "<select name='category' class='loginform' >";
         while ($myrow = mysqli_fetch_row($result)) {
         printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
                 }
@@ -314,7 +323,7 @@ slider.oninput = function() {
                       
 </form>
 
-			<a href="#0" class="cd-close">Close</a>
+			<a href="#0" class="cd-close"><b>&times;</b></a>
 		</div> <!-- cd-filter -->
 
 		<a href="#0" class="cd-filter-trigger">Filters</a>
@@ -376,47 +385,6 @@ window.onclick = function(event) {
       </div>
     </footer>
    
-      
-      
-<!-- Portfolio Modals --> 
-<!-- Modal 1 -->
- 
-<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true" style="">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-              <div class="rl"></div>
-            </div>
-          </div>
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-8 mx-auto">
-                <div class="modal-body">
-                  
-<!-- Project Details Go Here -->
-                  
-<h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/01-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                  <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Threads</li>
-                    <li>Category: Illustration</li>
-                  </ul>
-                  <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fa fa-times"></i>
-                    Close Project</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-      
-      
   </body>
 
 </html>
