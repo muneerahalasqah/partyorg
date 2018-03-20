@@ -25,8 +25,8 @@ session_start();
 
     <!-- Custom styles for this template -->
     <link href="css/agency.min.css" rel="stylesheet">
-    <link href="css/login-register.css" rel="stylesheet">
-    <link href="css/modal.css" rel="stylesheet">  
+   <link href="css/login-register.css" rel="stylesheet">
+    <link href="css/modal.css" rel="stylesheet">
       
                 <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
@@ -40,7 +40,8 @@ session_start();
         <script src="js/contact_me.js"></script>
 
         <!-- Custom scripts for this template -->
-        <script src="js/agency.min.js"></script>  
+        <script src="js/agency.min.js"></script>
+        <script src="js/print.js"></script>
       
   </head>
 
@@ -54,7 +55,7 @@ session_start();
         <?php
         if (isset($_SESSION['cid'])){
             $cid = $_SESSION['cid'];
-            $db=mysqli_connect('localhost','root','','partyorg');
+            require_once('connect.php');
             $result=mysqli_query($db,"SELECT fname FROM customer WHERE customer_id=$cid");
             $row=mysqli_fetch_row($result);
             $fname=$row[0];
@@ -63,10 +64,8 @@ session_start();
             <button class="dropbtn" type="button"><i class="fa fa-chevron-circle-down"></i> <?php echo $fname;?></button>
             <div class="dropdown-content">
                 <a href="account.php"><i class="fa fa-user"></i> Account</a>
-                <a href="#"id="myBtn"><i class="fa fa-bars"></i> Party Plan</a>
-
-                    <!-- The Modal -->
-                    <div id="myModal" class="modal">
+                <a href="#plan"id="myBtn" data-toggle="modal"><i class="fa fa-bars"></i> Party Plan</a> 
+                <div id="myModal" class="modal">
 
                       <!-- Modal content -->
                       <div class="modal-content">
@@ -86,7 +85,7 @@ session_start();
                               </thead>
                               <tbody>
                                 <?php
-                                 if(isset($_SESSION['plan']) && !empty($_SESSION['plan'])){    
+                                 if(isset($_SESSION['plan']) && !empty($_SESSION['plan'])){
                                   $total=0;
                                   $whereIn = implode(',',$_SESSION['plan']);
                                   $vsql = "SELECT vendor.vendor_id,vendor.v_name,vendor.start_price,v_type.type_name FROM vendor LEFT JOIN v_type ON vendor.type_id=v_type.type_id WHERE vendor_id IN($whereIn)";
@@ -119,7 +118,7 @@ session_start();
                         </div>
                       </div>
 
-                    </div>                    
+                    </div>    
                 <a href="logout.php"><i class="fa fa-power-off"></i> Logout</a>
             </div>
             </div>
@@ -183,13 +182,13 @@ session_start();
             <div class="container">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                    <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">profile</a>
+                    <a class="nav-link active" href="#profile" role="tab" data-toggle="tab"><h6>Profile</h6></a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#pass" role="tab" data-toggle="tab">Update Password</a>
+                    <a class="nav-link" href="#pass" role="tab" data-toggle="tab"><h6>Update Password</h6></a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#histo" role="tab" data-toggle="tab">History</a>
+                    <a class="nav-link" href="#histo" role="tab" data-toggle="tab"><h6>History</h6></a>
                     </li>
                 </ul>
 
@@ -198,7 +197,7 @@ session_start();
             <div role="tabpanel" class="tab-pane fade in active" id="profile">
                 <?php
                 if(isset($_SESSION['cid'])){
-                    $db = mysqli_connect("localhost","root","","partyorg");
+                    require_once('connect.php');
                     $cid = $_SESSION['cid'];
                     $result1 = mysqli_query($db,"SELECT fname,lname,password,email,location_id FROM customer WHERE customer_id=$cid");
                     $row1 = mysqli_fetch_row($result1);
@@ -234,7 +233,7 @@ session_start();
                 <div role="tabpanel" class="tab-pane fade" id="pass">
                     <?php
                     if($cid){
-                        $db = mysqli_connect("localhost","root","","partyorg");
+                        require_once('connect.php');
                         $cid = $_SESSION['cid'];
                         
                         echo "<form method='POST' action='update.php'>";
@@ -252,13 +251,31 @@ session_start();
                 </div>
             <div role="tabpanel" class="tab-pane fade" id="histo">
                 <?php
-                $sql2="SELECT party_id FROM party_plan WHERE c_id=$cid";
+                $sql2="SELECT * FROM party_plan WHERE c_id=$cid";
                 $query2=mysqli_query($db,$sql2);
-                $plan=mysqli_fetch_row($query2);
-                if($plan!==NULL){
-                    echo "Here";
+                if(mysqli_fetch_assoc($query2)!==NULL){
+                    $i=1;
+                    echo "<div class='card-columns' style='padding:10pt;'>";
+                    while($plan=mysqli_fetch_assoc($query2)){
+                ?>
+                <div class="card bg-white text-black text-center p-3">
+                    <div class="card-body">
+                    <h5 class="card-title">Party Plan #<?php echo $i++;?></h5>
+                    <p class="card-text">
+                    <?php
+                        $pid=$plan['party_id'];
+                        $ven=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN contain ON vendor.vendor_id=contain.v_id WHERE contain.p_id=$pid");
+                        while($v=mysqli_fetch_assoc($ven)){ echo $v['v_name'].", ";}
+                        ?></p>
+                        <p><b>Estimated Cost: </b><?php echo $plan['estimated_cost'];?> <b> S.R.</b></p>
+                    <a href="#<?php echo $plan['party_id'];?>" class="btn btn-primary" data-toggle="modal">More</a>
+                    </div>
+                </div>
+                <?php
+                    }
+                    echo "</div>";
                 }else{
-                    echo "<h4>No previous plans yet ..</h4>";
+                    echo "<div class='alert alert-warning' role='alert'><strong>You haven't added party plans yet ..</strong></div>";
                 }
                 ?>
                 </div>
@@ -326,7 +343,79 @@ window.onclick = function(event) {
         </div>
       </div>
     </footer>
-   
+      <?php
+      $query2=mysqli_query($db,"SELECT * FROM party_plan WHERE c_id=$cid");
+      while($plan1=mysqli_fetch_assoc($query2)){
+      ?>
+      <div class="portfolio-modal modal fade" id="<?php echo $plan1['party_id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <h2 class="text-uppercase">Party Plan #<?php echo $plan1['party_id'];?></h2>
+                  <div id="plan">
+                      <div class="tevt-center"><img src="img/Logo33.png" alt="log" width="30%"></div>
+                  <ul>
+                  <?php
+                 $pid=$plan1['party_id'];
+                 $vsql1 = "SELECT vendor.* FROM vendor LEFT JOIN contain ON vendor.vendor_id=contain.v_id WHERE contain.p_id=$pid";
+                  $vq=mysqli_query($db,$vsql1);
+                  while($vrow1=mysqli_fetch_assoc($vq)){
+                      echo "<div class='container bg-white'>";
+                      echo "<div class='container'>";
+                      echo "<h5>".$vrow1['v_name']."</li></h5>";
+                      echo $vrow1['description'];
+                      echo "<table style='margin-left:50px;width:50%'>";
+                      echo "<tr><td class='text-left'><b>Starting Price: </b></td>";
+                      echo "<td>".$vrow1['start_price']." <b>S.R.</b></td></tr>";
+                      $vid=$vrow1['vendor_id'];
+                      $type= mysqli_query($db,"SELECT v_type.type_name FROM v_type WHERE v_type.type_id IN (SELECT vendor.type_id FROM vendor WHERE vendor.vendor_id=$vid)");
+                      $t=mysqli_fetch_assoc($type);
+                      echo "<tr><td class='text-left'><b>Type: </b></td>";
+                      echo "<td>".$t['type_name']."</td></tr>";
+                      $loc= mysqli_query($db,"SELECT * FROM location WHERE location.location_id IN (SELECT vendor.location_id FROM vendor WHERE vendor.vendor_id=$vid)");
+                      $l=mysqli_fetch_assoc($loc);
+                      echo "<tr><td class='text-left'><b>City: </b></td>";
+                      echo "<td>".$l['location_name']."</td></tr>";
+                      echo "<tr><td class='text-left'><b>Phone: </b></td>";
+                      echo "<td>".$vrow1['phone']."</td></tr>";
+                      echo "<tr><td class='text-left'><b>Email: </b></td>";
+                      echo "<td>".$vrow1['email']."</td></tr>";
+                      echo "<tr><td class='text-left'><b>Instgram Account: </b></td>";
+                      echo "<td>".$vrow1['instgram']."</td></tr>";
+                      echo "<tr><td class='text-left'><b>Twitter Account: </b></td>";
+                      echo "<td>".$vrow1['twitter']."</td></tr>";
+                      echo "<tr><td class='text-left'><b>Google Maps: </b></td>";
+                      echo "<td>".$vrow1['google_maps']."</td></tr>";
+                      echo "</table>";
+                      echo "<hr>";
+                      echo "</div>";
+                      echo "</div>";
+                  }
+                  ?>
+                  </ul>
+                  </div>
+                  <button class="btn btn-primary regbtn" type="button" onClick="printContent('plan')"><i class="fa fa-print"></i> Print</button>
+                  <button class="btn btn-primary" data-dismiss="modal" type="button">
+                    <i class="fa fa-times"></i>
+                    Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <?php } ?>
+     
   </body>
 
 </html>
