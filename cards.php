@@ -203,16 +203,59 @@ session_start();
     <ul class="navbar-nav">
 
       <li class="nav-item active">
-        <a class="nav-link" href="cards.php?cid=<?php if(isset($_GET['cid'])) echo $_GET['cid'];?>">All <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="cards.php?cid=<?php 
+                                  if(isset($_GET['cid'])){
+                                      if(isset($_GET['lid'])){
+                                          if(isset($_GET['p'])){
+                                              echo $_GET['cid']."&lid=".$_GET['lid']."&p=".$_GET['p'];
+                                          } else {
+                                              echo $_GET['cid']."&lid=".$_GET['lid']; 
+                                          }
+                                      } /*else if(isset($_GET['p'])){
+                                          if(isset($_GET['lid'])){
+                                            echo $_GET['cid']."&lid=".$_GET['lid']."&p=".$_GET['p'];
+                                          } else {
+                                              echo $_GET['cid']."&p=".$_GET['p'];
+                                          }
+                                      } */else {
+                                        echo $_GET['cid'];  
+                                      }
+                                  }?>">All <span class="sr-only">(current)</span></a>
       </li>
     <?php
     if(isset($_GET['cid'])){
     require('connect.php');
     $cid=$_GET['cid'];
-    $result = mysqli_query($db,"SELECT type_id,type_name FROM v_type WHERE type_id IN (SELECT type_id FROM vendor where vendor.vendor_id IN (SELECT belong.vendor_id FROM belong WHERE belong.category_id=$cid))");    
-    while ($myrow = mysqli_fetch_row($result)) {
-    printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d'>%s</a></li>",$myrow[0], $myrow[1]);
+    $result = mysqli_query($db,"SELECT type_id,type_name FROM v_type WHERE type_id IN (SELECT type_id FROM vendor where vendor.vendor_id IN (SELECT belong.vendor_id FROM belong WHERE belong.category_id=$cid))");
+    if(isset($_GET['lid'])){
+        $lid=$_GET['lid'];
+        if(isset($_GET['p'])){
+            $p=$_GET['p'];
+            while ($myrow = mysqli_fetch_row($result)) {
+                printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d&lid=$lid&p=$p'>%s</a></li>",$myrow[0], $myrow[1]);
             }
+        } else {
+            while ($myrow = mysqli_fetch_row($result)) {
+                printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d&lid=$lid'>%s</a></li>",$myrow[0], $myrow[1]);
+            }
+        }
+    } else if(isset($_GET['p'])){
+        $p=$_GET['p'];
+        if(isset($_GET['lid'])){
+            $lid=$_GET['lid'];
+            while ($myrow = mysqli_fetch_row($result)) {
+                printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d&lid=$lid&p=$p'>%s</a></li>",$myrow[0], $myrow[1]);
+                }
+            } else {
+                while ($myrow = mysqli_fetch_row($result)) {
+                printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d&p=$p'>%s</a></li>",$myrow[0], $myrow[1]);
+                }
+        }    
+    } else  {
+        while ($myrow = mysqli_fetch_row($result)) {
+            printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d'>%s</a></li>",$myrow[0], $myrow[1]);
+            }
+    }
         }
         ?>
         
@@ -224,16 +267,54 @@ session_start();
       $db=mysqli_connect('localhost','root','','partyorg');
         if(isset($_GET['cid'])){
             $cid=$_GET['cid'];
-            $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid");
+            if(isset($_GET['lid'])){
+                $lid=$_GET['lid'];
+                if(isset($_GET['p'])){
+                    $p=$_GET['p'];
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid AND vendor.start_price>=$p");    
+                } else {
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid");   
+                }
+            } else if(isset($_GET['p'])){
+                $p=$_GET['p'];
+                if(isset($_GET['lid'])){
+                    $lid=$_GET['lid'];
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid AND vendor.start_price>=$p");
+                } else {
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.start_price>=$p");
+                }
+            } else {
+                $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid"); 
+            }
         }
+          
           if(isset($_GET['tid'])&&$_GET['cid']){
-            $tid=$_GET['tid'];
-            $cid=$_GET['cid'];
-            $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid");  
+              $tid=$_GET['tid'];
+              $cid=$_GET['cid'];
+              if(isset($_GET['lid'])){
+                  $lid=$_GET['lid'];
+                  if(isset($_GET['p'])){
+                      $p=$_GET['p'];
+                      $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid AND vendor.location_id=$lid AND vendor.start_price>=$p");
+                  } else {
+                     $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid AND vendor.location_id=$lid"); 
+                  }
+              } else if(isset($_GET['p'])){
+                  $p=$_GET['p'];
+                  if(isset($_GET['lid'])){
+                      $lid=$_GET['lid'];
+                      $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid AND vendor.location_id=$lid AND vendor.start_price>=$p");
+                  } else {
+                      $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid  AND vendor.start_price>=$p");
+                  }
+              } else  {
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid");
+              }  
           }
     
       echo "<div class='row' style='padding:10pt;'>";
       if(isset($_GET['cid'])){
+          if($vendors->num_rows>0){
           while($vrow=mysqli_fetch_assoc($vendors)){
         ?>
        <div class="col-lg-4 col-sm-6 portfolio-item">
@@ -253,6 +334,9 @@ session_start();
       </div>
       </div>
       <?php  
+      } 
+      } else {
+           echo "<div class='alert alert-warning' role='alert'><strong>Sorry ..</strong> There are no such vendors that match the criteria</div>";   
       }
       } else {
           echo "<div class='alert alert-warning' role='alert'><strong>Sorry ..</strong> There are no vendors showing because you need to select a category first</div>";
@@ -277,7 +361,7 @@ Category:<br><br>
     <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
-        echo "<select name='category' class='loginform' >";
+        echo "<select name='category' class='loginform'>";
         while ($myrow = mysqli_fetch_row($result)) {
         printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
                 }
@@ -288,7 +372,8 @@ Location : <br><br>
         <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
-        echo "<select name='location' class='loginform' style='width: 130px'>";                
+        echo "<select name='location' class='loginform' style='width: 130px'>";
+        echo "<option value=''>All ..</option>";
         while ($myrow = mysqli_fetch_row($result)) {
         printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
                 }
@@ -301,7 +386,7 @@ Rating :<br><br>
 
 Budget : <br>
 <div class="""slidecontainer">
-  <input type="range" min="1000" max="5000" value="2500" class="slider" id="myRange">
+  <input type="range" min="500" max="5000" value="2500" class="slider" id="myRange" name="price">
   <p>Price: <span id="demo"></span></p>
 </div>
 
