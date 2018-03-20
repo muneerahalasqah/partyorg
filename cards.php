@@ -70,7 +70,7 @@ session_start();
             <button class="dropbtn" type="button"><i class="fa fa-chevron-circle-down"></i> <?php echo $fname;?></button>
             <div class="dropdown-content">
                 <a href="account.php"><i class="fa fa-user"></i> Account</a>
-                <a href="#" id="myBtn"><i class="fa fa-bars"></i> Party Plan
+                <a href="#" id="myBtn"><i class="fa fa-bars"></i> Party Plan</a>
                     <!-- The Modal -->
                     <div id="myModal" class="modal">
 
@@ -87,7 +87,7 @@ session_start();
                                   <th>Vendor Name</th>
                                   <th>Vendor Type</th>
                                   <th>Price</th>
-                                  <th style="color=red;">Delete</th>
+                                  <th style="color:red;">Delete</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -126,7 +126,7 @@ session_start();
                       </div>
 
                     </div>    
-                </a>
+                
                 <a href="logout.php"><i class="fa fa-power-off"></i> Logout</a>
             </div>
             </div>
@@ -249,6 +249,11 @@ session_start();
             ?>
             </p>
         <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a> 
+               <!------- BUTTON of VENDOR DETAILS-------------->
+                       
+<a class="portfolio-link btn btn-secondary" data-toggle="modal" href="#<?php echo $vrow['v_name'];?>" >
+   DETAILS          
+</a>         
      </div>
       </div>
       </div>
@@ -326,7 +331,7 @@ slider.oninput = function() {
 			<a href="#0" class="cd-close"><b>&times;</b></a>
 		</div> <!-- cd-filter -->
 
-		<a href="#0" class="cd-filter-trigger">Filters</a>
+		<a href="#0" class="cd-filter-trigger ">Filters</a>
 	</main> <!-- cd-main-content -->
 <script src="js/jquery-2.1.1.js"></script>
 <script src="js/main.js"></script> <!-- Resource jQuery -->
@@ -384,7 +389,82 @@ window.onclick = function(event) {
         </div>
       </div>
     </footer>
-   
+        
+      
+<!-- Portfolio Modals -->
+
+    
+<!-- Modal 1 -->
+  
+  <?php
+      $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid");
+      while($det=mysqli_fetch_assoc($vendors)){
+      ?>
+<div class="portfolio-modal modal fade" id="<?php echo $det['v_name'];?>" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 mx-auto">
+                <div class="modal-body">
+                  
+
+<!-- Project Details Go Here -->
+                  
+
+<h2 class="text-uppercase">"<?php echo $det['v_name'];?>"</h2>
+                 <div id="plan">
+                  
+                  <ul>
+                  <?php
+                 $vid=$det['vendor_id'];
+                 $vsql1 =  "SELECT v.v_name,v.description,v.start_price,v.phone,v.email,v.instgram,v.twitter,v.google_maps,v_type.type_name,loc.location_name FROM vendor v LEFT JOIN v_type ON v.type_id=v_type.type_id LEFT JOIN location loc ON v.location_id=loc.location_id WHERE v.vendor_id=$vid";
+                  $vq=mysqli_query($db,$vsql1);
+                  while($vrow1=mysqli_fetch_row($vq)){
+                      echo "<div class='container'>";
+                      echo $vrow1[1];
+                      echo "<br><br>";
+                      echo "<table style='text-align:left;width:50%'>";
+                      echo "<tr><td><b>Starting Price: </b></td>";
+                      echo "<td >$vrow1[2] <b>S.R.</b></td></tr>";
+                      echo "<tr><td><b>Type: </b></td>";
+                      echo "<td>$vrow1[8]</td></tr>";
+                      echo "<tr><td><b>City: </b></td>";
+                      echo "<td>$vrow1[9]</td></tr>";
+                      echo "<tr><td><b>Phone: </b></td>";
+                      echo "<td>$vrow1[3]</td></tr>";
+                      echo "<tr><td><b>Email: </b></td>";
+                      echo "<td>$vrow1[4]</td></tr>";
+                      echo "<tr><td><b>Instgram Account: </b></td>";
+                      echo "<td>$vrow1[5]</td></tr>";
+                      echo "<tr><td><b>Twitter Account: </b></td>";
+                      echo "<td>$vrow1[6]</td></tr>";
+                      echo "<tr><td><b>Google Maps: </b></td>";
+                      echo "<td>$vrow1[7]</td></tr>";
+                      echo "</table>";
+                      echo "<hr>";
+                      echo "</div>";
+                  }
+                  ?>
+                  </ul>
+                  </div>
+                 
+                  <button class="btn btn-primary" data-dismiss="modal" type="button">
+                    <i class="fa fa-times"></i>
+                    Close Project</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <?php } ?>
   </body>
 
 </html>
