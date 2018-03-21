@@ -538,7 +538,36 @@ window.onclick = function(event) {
                   ?>
                   </ul>
                   </div>
-                 
+   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+      <?php 
+      $s=mysqli_query($db,"SELECT samples.* FROM samples WHERE samples.v_id=$vid");
+          $i=1;
+          while($samp=mysqli_fetch_assoc($s)){
+              if($i==1){
+              echo " <div class='carousel-item active'>";
+              echo "<img class='d-block w-100' src='admin/".$samp['sample_path']."' >";
+              echo "</div>";  
+              } else {
+              echo " <div class='carousel-item'>";
+              echo "<img class='d-block w-100' src='".$samp['sample_path']."' >";
+              echo "</div>";  
+              }
+              $i++;
+          }
+      
+      ?>
+    
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     <i class="fa fa-times"></i>
                     Close Project</button>
