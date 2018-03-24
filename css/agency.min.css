@@ -80,6 +80,14 @@ text-transform:none;font-family:'Droid Serif','Helvetica Neue',Helvetica,Arial,s
     opacity: 0.8;
 }
 
+/* Rating Style */
+
+.fa-star  {
+    color:gray;
+}
+.fa-star:hover  {
+    color:gold;
+}
 
 #mainNav{background-color:#5b6771}
 
