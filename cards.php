@@ -322,9 +322,35 @@ session_start();
        <div class="card text-center h-100" style="padding:20pt">
         <div class="card-block">
         <h4 class="card-title"><?php echo $vrow['v_name'];?></h4>
-        <p class="card-text">
+            <!-- Vendor Rating -->
             <?php
               $vid=$vrow['vendor_id'];
+              $r1=mysqli_query($db,"SELECT AVG(rating.rate) AS rate FROM rating WHERE rating.v_id IN (SELECT vendor.vendor_id FROM vendor WHERE vendor.vendor_id=$vid)");
+              $r2=mysqli_fetch_row($r1);
+              $rate=$r2[0];
+              switch (round($rate)){
+                  case 5:
+                    echo "<i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star'style='color:#fed136'></i>";
+                    break;
+                  case 4:
+                    echo "<i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:gray'></i>";
+                    break;
+                  case 3:
+                      echo "<i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:gray'></i><i class='fa fa-star' style='color:gray'></i>";
+                      break;
+                  case 2:
+                      echo "<i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:gray'></i><i class='fa fa-star style='color:gray''></i><i class='fa fa-star' style='color:gray'></i>";
+                      break;
+                  case 1:
+                      echo "<i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:gray'></i><i class='fa fa-star' style='color:gray'></i><i class='fa fa-star' style='color:gray'></i><i class='fa fa-star' style='color:gray'></i>";
+                      break;
+                  case 0:
+                      echo "<div style='color:gray'><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i></div>";
+                      break;    
+              }
+            ?>
+        <p class="card-text">
+            <?php
               $r=mysqli_query($db,"SELECT v_type.type_name FROM v_type LEFT JOIN vendor ON v_type.type_id=vendor.type_id WHERE vendor.vendor_id=$vid");
               $type=mysqli_fetch_row($r);
               $r2=mysqli_query($db,"SELECT location.* FROM location LEFT JOIN vendor ON location.location_id=vendor.location_id WHERE vendor.vendor_id=$vid");
@@ -358,7 +384,6 @@ session_start();
               <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
               <?php
-              $vid=$vrow['vendor_id'];
               $sam=mysqli_query($db,"SELECT samples.* FROM samples WHERE samples.v_id IN(SELECT vendor.vendor_id FROM vendor WHERE vendor_id=$vid)");
               $i=1;
               while($sample=mysqli_fetch_assoc($sam)){

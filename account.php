@@ -64,7 +64,7 @@ session_start();
             <button class="dropbtn" type="button"><i class="fa fa-chevron-circle-down"></i> <?php echo $fname;?></button>
             <div class="dropdown-content">
                 <a href="account.php"><i class="fa fa-user"></i> Account</a>
-                <a href="#plan"id="myBtn" data-toggle="modal"><i class="fa fa-bars"></i> Party Plan</a> 
+                <a href="#"id="myBtn"><i class="fa fa-bars"></i> Party Plan</a> 
                 <div id="myModal" class="modal">
 
                       <!-- Modal content -->
@@ -80,7 +80,7 @@ session_start();
                                   <th>Vendor Name</th>
                                   <th>Vendor Type</th>
                                   <th>Price</th>
-                                  <th style="color=red;">Delete</th>
+                                  <th style="color:red;">Delete</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -114,7 +114,7 @@ session_start();
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="loginb regbtn" onclick="document.getElementById('myModal').style.display='none'">Close</button>
-                            <button class="loginb" type="submit">Commit</button>
+                            <button class="loginb" type="submit" onclick="plan.php">Commit</button>
                         </div>
                       </div>
 
@@ -211,7 +211,7 @@ session_start();
                     echo "<div class='form-group'>";
                     echo "<b>First Name: </b><input type='text' class='form-control' name='newfname' value='$fname'><br>";
                     echo "<b>Last Name: </b><input type='text' class='form-control' name='newlname' value='$lname'><br>";
-                    echo "<b>Email: </b><input type='email' class='form-control' name='newemail' value='$email'><br>";
+                    echo "<b>Email: </b><input type='email' class='form-control' value='$email' disabled><br>";
                     echo "<b>City: </b>";
                     $city = mysqli_query($db,"SELECT location_id,location_name FROM location");
                     echo "<select name='newloc' class='form-control'>";
@@ -235,7 +235,6 @@ session_start();
                     if($cid){
                         require_once('connect.php');
                         $cid = $_SESSION['cid'];
-                        
                         echo "<form method='POST' action='update.php'>";
                         echo "<div class='form-group'>";
                         echo "<b>New Password: </b><input type='password' class='form-control' placeholder='Enter the new password' name='newpass'><br/>";
@@ -253,7 +252,7 @@ session_start();
                 <?php
                 $sql2="SELECT * FROM party_plan WHERE c_id=$cid";
                 $query2=mysqli_query($db,$sql2);
-                if(mysqli_fetch_assoc($query2)!==NULL){
+                if(mysqli_num_rows($query2)>0){
                     $i=1;
                     echo "<div class='card-columns' style='padding:10pt;'>";
                     while($plan=mysqli_fetch_assoc($query2)){
@@ -371,8 +370,19 @@ window.onclick = function(event) {
                   while($vrow1=mysqli_fetch_assoc($vq)){
                       echo "<div class='container bg-white'>";
                       echo "<div class='container'>";
-                      echo "<h5>".$vrow1['v_name']."</li></h5>";
-                      echo $vrow1['description'];
+                      echo "<h5>".$vrow1['v_name']."</h5>";
+                     // Vendors Rating //
+                      echo "<b>Rate ".$vrow1['v_name'].": </b>";
+                      echo "<div class='part'>";
+                      echo "<div class='stars rate'>";
+                      foreach(range(1,5) as $rating):
+                      ?>
+                      <a href="rate.php?rate=<?php echo $rating.'&vid='.$vrow1['vendor_id']?>" title="<?php echo $rating?> out of 5" style="color:gray;"><i class="fa fa-star" id="star"></i></a>
+                      <?php
+                      endforeach; 
+                      echo "</div>";
+                      echo "</div>";
+                      echo "<br>".$vrow1['description'];
                       echo "<table style='margin-left:50px;width:50%'>";
                       echo "<tr><td class='text-left'><b>Starting Price: </b></td>";
                       echo "<td>".$vrow1['start_price']." <b>S.R.</b></td></tr>";
@@ -396,7 +406,7 @@ window.onclick = function(event) {
                       echo "<tr><td class='text-left'><b>Google Maps: </b></td>";
                       echo "<td>".$vrow1['google_maps']."</td></tr>";
                       echo "</table>";
-                      echo "<hr>";
+                      echo "<hr>"; 
                       echo "</div>";
                       echo "</div>";
                   }
@@ -417,5 +427,4 @@ window.onclick = function(event) {
       <?php } ?>
      
   </body>
-
 </html>
