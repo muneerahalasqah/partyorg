@@ -222,7 +222,7 @@ session_start();
                                       }
                                   }?>">All <span class="sr-only">(current)</span></a>
       </li>
-    <?php
+    <?php 
     if(isset($_GET['cid'])){
     require('connect.php');
     $cid=$_GET['cid'];
@@ -390,7 +390,7 @@ session_start();
             </div>
             <hr>
             <!--The rest of details-->
-            <table class="width:70%">
+            <table style="width:70%">
             <tbody>
             <tr>
                 <td class="text-left"><b>Strart Price:</b></td><td class="text-right"><?php echo $vrow['start_price']?> <b>S.R.</b></td></tr>
