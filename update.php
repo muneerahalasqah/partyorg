@@ -9,10 +9,9 @@ session_start();
         $cid=$_SESSION['cid'];
         $newfname=$_POST['newfname'];
         $newlname=$_POST['newlname'];
-        $newemail=$_POST['newemail'];
         $newlocation=$_POST['newloc'];
         //echo $cid,$newfname,$newlname,$newemail,$newlocation;
-        $sql="UPDATE customer SET fname='".$newfname."',lname='".$newlname."',email='".$newemail."',location_id='".$newlocation."' WHERE customer_id='".$cid."'";
+        $sql="UPDATE customer SET fname='".$newfname."',lname='".$newlname."',location_id='".$newlocation."' WHERE customer_id='".$cid."'";
         $query=mysqli_query($db,$sql);
         
         if($query){
@@ -30,9 +29,8 @@ session_start();
     </script>
     <?php 
           }            
-
-       
-    } else if(isset($_POST['uppass'])){
+    }
+    if(isset($_POST['uppass'])){
         $newpass=$_POST['newpass'];
         $confirm=$_POST['passconfirm'];
         $oldpass=$_POST['oldpass'];
@@ -40,12 +38,11 @@ session_start();
         $result=mysqli_query($db,"SELECT password FROM customer WHERE customer_id=$cid");
         $row=mysqli_fetch_row($result);
         $oldpassword=$row[0];
-        
         if($newpass!=$confirm){
             ?>
           <script>
             alert('The two passwords don not match');
-            window.location = "account.php#pass";
+            window.location = "account.php#pass";  
         </script>
     <?php
         } else if($oldpass != $oldpassword){
@@ -56,6 +53,7 @@ session_start();
         </script>
     <?php
         } else {
+            mysqli_query($db,"UPDATE customer SET password='$newpass' WHERE customer_id='$cid'");
             ?>
           <script>
             alert('Your password was updated successfuly!');

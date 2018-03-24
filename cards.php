@@ -121,7 +121,7 @@ session_start();
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="loginb regbtn" onclick="document.getElementById('myModal').style.display='none'">Close</button>
-                            <button class="loginb" type="submit">Commit</button>
+                            <button class="loginb" type="submit" onclick="plan.php">Commit</button>
                         </div>
                       </div>
 
@@ -311,14 +311,15 @@ session_start();
                     $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid");
               }  
           }
-    
+          
+    //  Vendor cards!      
       echo "<div class='row' style='padding:10pt;'>";
       if(isset($_GET['cid'])){
           if($vendors->num_rows>0){
           while($vrow=mysqli_fetch_assoc($vendors)){
         ?>
        <div class="col-lg-4 col-sm-6 portfolio-item">
-       <div class="card text-center h-100">
+       <div class="card text-center h-100" style="padding:20pt">
         <div class="card-block">
         <h4 class="card-title"><?php echo $vrow['v_name'];?></h4>
         <p class="card-text">
@@ -326,20 +327,99 @@ session_start();
               $vid=$vrow['vendor_id'];
               $r=mysqli_query($db,"SELECT v_type.type_name FROM v_type LEFT JOIN vendor ON v_type.type_id=vendor.type_id WHERE vendor.vendor_id=$vid");
               $type=mysqli_fetch_row($r);
+              $r2=mysqli_query($db,"SELECT location.* FROM location LEFT JOIN vendor ON location.location_id=vendor.location_id WHERE vendor.vendor_id=$vid");
+              $loc=mysqli_fetch_row($r2);
               echo $type[0];
-            ?>
+              echo "<br>";
+              echo "<i class='fa fa-map-marker'></i> ".$loc[1];
+            ?> 
             </p>
         <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a> 
                <!------- BUTTON of VENDOR DETAILS-------------->
-                       
-<a class="portfolio-link btn btn-secondary" data-toggle="modal" href="#<?php echo $vrow['v_name'];?>" >
-   DETAILS          
-</a>         
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#<?php echo $vrow['vendor_id']; ?>">DETAILS</button>        
      </div>
       </div>
       </div>
+          <!--Details-->
+        <div class="modal fade" id="<?php echo $vrow['vendor_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"><?php echo $vrow['v_name']; ?></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <!--Venor Details--->
+              <div class="modal-body text-center">
+              <b><?php echo $vrow['description'];?></b>
+              <hr>
+              <!-- Samples -->      
+              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+              <?php
+              $vid=$vrow['vendor_id'];
+              $sam=mysqli_query($db,"SELECT samples.* FROM samples WHERE samples.v_id IN(SELECT vendor.vendor_id FROM vendor WHERE vendor_id=$vid)");
+              $i=1;
+              while($sample=mysqli_fetch_assoc($sam)){
+                  if($i==1){
+                      ?>
+                  <div class="carousel-item active">
+                  <img class="d-block w-100" src="admin/<?php echo $sample['sample_path'];?>">
+                  </div>
+                  <?php
+                  } else {
+                  ?>
+                  <div class="carousel-item">
+                  <img class="d-block w-100" src="admin/<?php echo $sample['sample_path'];?>">
+                  </div>
+                  <?php
+                  }
+                  $i=$i+1;
+              }
+              ?>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+            <hr>
+            <!--The rest of details-->
+            <table class="width:70%">
+            <tbody>
+            <tr>
+                <td class="text-left"><b>Strart Price:</b></td><td class="text-right"><?php echo $vrow['start_price']?> <b>S.R.</b></td></tr>
+            <tr>
+                <td class="text-left"><b>Vendor Type:</b></td><td class="text-right"><?php echo $type[0]?></td></tr>
+            <tr>
+                <td class="text-left"><b>Location:</b></td><td class="text-right"><?php echo $loc[1]?></td></tr>
+            <tr>
+                <td class="text-left"><b>Phone:</b></td><td class="text-right"><?php echo $vrow['phone']?></td></tr>
+            <tr>
+                <td class="text-left"><b>Email:</b></td><td class="text-right"><?php echo $vrow['email']?></td></tr>
+            <tr>
+                <td class="text-left"><b>Instagram:</b></td><td class="text-right"><?php echo $vrow['instgram']?></td></tr>
+            <tr>
+                <td class="text-left"><b>Twitter:</b></td><td class="text-right"><?php echo $vrow['twitter']?></td></tr>
+            <tr>
+                <td class="text-left"><b>Google Maps:</b></td><td class="text-right"><a href="<?php echo $vrow['google_maps']?>"><?php echo $vrow['google_maps']?></a></td></tr>
+            </tbody>
+            </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a>
+              </div>
+            </div>
+          </div>
+        </div>
       <?php  
-      } 
+      }
       } else {
            echo "<div class='alert alert-warning' role='alert'><strong>Sorry ..</strong> There are no such vendors that match the criteria</div>";   
       }
@@ -349,21 +429,18 @@ session_start();
       echo "</div>";
       ?>
 </div>
+      
            </section>    
       
       
       
-  <!-----FILTER------->     
+        <!-----FILTER------->     
       
 		<div class="cd-filter">
-			<form  name="searchForm" method="post" action="filter.php" >
-
-    
-<div class="container">
-
-Category:<br><br>
-       
-    <?php
+        <form  name="searchForm" method="post" action="filter.php" >
+        <div class="container">
+        Category:<br><br>
+        <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
         echo "<select name='category' class='loginform'>";
@@ -372,8 +449,8 @@ Category:<br><br>
                 }
         echo "</select>";
         ?>
- <br><br>   
-Location : <br><br>
+        <br><br>   
+        Location : <br><br>
         <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
@@ -384,46 +461,38 @@ Location : <br><br>
                 }
         echo "</select>";
         ?>
-    
-    <br><br>
-    
-Rating :<br><br>
+        <br><br>
+        Rating :<br><br>
 
-Budget : <br>
-<div class="""slidecontainer">
-  <input type="range" min="500" max="5000" value="2500" class="slider" id="myRange" name="price">
-  <p>Price: <span id="demo"></span></p>
-</div>
+        Budget : <br>
+        <div class="""slidecontainer">
+        <input type="range" min="500" max="5000" value="2500" class="slider" id="myRange" name="price">
+        <p>Price: <span id="demo"></span></p>
+        </div>
+        <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
 
-<script>
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value;
+        slider.oninput = function() {
+          output.innerHTML = this.value;
+        }
+        </script>      
+        <br>
+        <button  class="btn btn-primary" name="submit" type="submit" class="btnRegister">Search</button> &nbsp;
+        <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>  
+        </form>
 
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
-</script>
-
-            
-<br>
-    <button  class="btn btn-primary" name="submit" type="submit" class="btnRegister">Search</button> &nbsp;
-    <button type="reset" class="btn btn-secondary">Reset</button>
-    </div>  
-                      
-</form>
-
-			<a href="#0" class="cd-close"><b>&times;</b></a>
+        <a href="#0" class="cd-close"><b>&times;</b></a>
 		</div> <!-- cd-filter -->
 
 		<a href="#0" class="cd-filter-trigger ">Filters</a>
-	</main> <!-- cd-main-content -->
-<script src="js/jquery-2.1.1.js"></script>
-<script src="js/main.js"></script> <!-- Resource jQuery -->
+	   </main> <!-- cd-main-content -->
+      <script src="js/jquery-2.1.1.js"></script>
+      <script src="js/main.js"></script>
   
-
-
-      <script>
+<script>
 // Get the modal
 var modal = document.getElementById('myModal');
 // Get the button that opens the modal
@@ -445,6 +514,7 @@ window.onclick = function(event) {
     }
 }
 </script>
+      
     <!-- Footer -->
     <footer  style="background-color:white">
       <div class="container">
@@ -474,111 +544,5 @@ window.onclick = function(event) {
         </div>
       </div>
     </footer>
-        
-      
-<!-- Portfolio Modals -->
-
-    
-<!-- Modal 1 -->
-  
-  <?php
-      $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid");
-      while($det=mysqli_fetch_assoc($vendors)){
-      ?>
-<div class="portfolio-modal modal fade" id="<?php echo $det['v_name'];?>" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-              <div class="rl"></div>
-            </div>
-          </div>
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-8 mx-auto">
-                <div class="modal-body">
-                  
-
-<!-- Project Details Go Here -->
-                  
-
-<h2 class="text-uppercase">"<?php echo $det['v_name'];?>"</h2>
-                 <div id="plan">
-                  
-                  <ul>
-                  <?php
-                 $vid=$det['vendor_id'];
-                 $vsql1 =  "SELECT v.v_name,v.description,v.start_price,v.phone,v.email,v.instgram,v.twitter,v.google_maps,v_type.type_name,loc.location_name FROM vendor v LEFT JOIN v_type ON v.type_id=v_type.type_id LEFT JOIN location loc ON v.location_id=loc.location_id WHERE v.vendor_id=$vid";
-                  $vq=mysqli_query($db,$vsql1);
-                  while($vrow1=mysqli_fetch_row($vq)){
-                      echo "<div class='container'>";
-                      echo $vrow1[1];
-                      echo "<br><br>";
-                      echo "<table style='text-align:left;width:50%'>";
-                      echo "<tr><td><b>Starting Price: </b></td>";
-                      echo "<td >$vrow1[2] <b>S.R.</b></td></tr>";
-                      echo "<tr><td><b>Type: </b></td>";
-                      echo "<td>$vrow1[8]</td></tr>";
-                      echo "<tr><td><b>City: </b></td>";
-                      echo "<td>$vrow1[9]</td></tr>";
-                      echo "<tr><td><b>Phone: </b></td>";
-                      echo "<td>$vrow1[3]</td></tr>";
-                      echo "<tr><td><b>Email: </b></td>";
-                      echo "<td>$vrow1[4]</td></tr>";
-                      echo "<tr><td><b>Instgram Account: </b></td>";
-                      echo "<td>$vrow1[5]</td></tr>";
-                      echo "<tr><td><b>Twitter Account: </b></td>";
-                      echo "<td>$vrow1[6]</td></tr>";
-                      echo "<tr><td><b>Google Maps: </b></td>";
-                      echo "<td>$vrow1[7]</td></tr>";
-                      echo "</table>";
-                      echo "<hr>";
-                      echo "</div>";
-                  }
-                  ?>
-                  </ul>
-                  </div>
-   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-      <?php 
-      $s=mysqli_query($db,"SELECT samples.* FROM samples WHERE samples.v_id=$vid");
-          $i=1;
-          while($samp=mysqli_fetch_assoc($s)){
-              if($i==1){
-              echo " <div class='carousel-item active'>";
-              echo "<img class='d-block w-100' src='admin/".$samp['sample_path']."' >";
-              echo "</div>";  
-              } else {
-              echo " <div class='carousel-item'>";
-              echo "<img class='d-block w-100' src='".$samp['sample_path']."' >";
-              echo "</div>";  
-              }
-              $i++;
-          }
-      
-      ?>
-    
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-                  <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fa fa-times"></i>
-                    Close Project</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-      <?php } ?>
   </body>
-
 </html>
