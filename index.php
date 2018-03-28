@@ -10,7 +10,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Besher - بِشر</title>
+    <title>Party org - بِشر</title>
       
       <!-----logo--------->
      <link rel="shortcut icon"
@@ -311,7 +311,7 @@ It is an opportunity to show our passion for creating such an application.
         </div>
         <div class="row">
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
+            <a class="portfolio-link" href="filter.php?cid=48">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -324,7 +324,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
+            <a class="portfolio-link" href="filter.php?cid=51">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -337,7 +337,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
+            <a class="portfolio-link" data-toggle="modal" href="filter.php?cid=52">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -350,7 +350,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
+            <a class="portfolio-link" data-toggle="modal" href="filter.php?cid=53">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -363,7 +363,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
+            <a class="portfolio-link" data-toggle="modal" href="filter.php?cid=54">
                 <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -376,7 +376,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
+            <a class="portfolio-link" href="filter.php?cid=49">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
