@@ -8,30 +8,29 @@ if(empty($_SESSION['plan'])) {
 if (in_array($_GET['id'],$_SESSION['plan'])){
         ?>
 <html>
+    <head>
+    <script src="js/sweetalert2.js"></script>
+    <link rel="stylesheet" href="css/sweetalert2.css">
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.js"
+      integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+      crossorigin="anonymous"></script>
+    </head>
 <body>
     <script>
-    alert('The vendor already exists in the party plan');
-    window.location.href="index.php";
+    swal({title:"This vendor already exists in the plan!",type: "warning"}).then(function(){window.location.href = "cards.php?cid=<?php echo $_GET['cid']?>";});
     </script>
-</body>
-</html>
+
 <?php
     
 } else {
     array_push($_SESSION['plan'],$_GET['id']);
     ?>
-<html>
-<body>
     <script>
-    alert('The vendor has been added successfully!');
-    window.location.href="cards.php?cid=<?php echo $_GET['cid']?>";
+    swal({title:"Done!",text:"Successfully added to the Party Plan", type: "success"}).then(function(){window.location.href = "cards.php?cid=<?php echo $_GET['cid']?>";});
     </script>
-</body>
-</html>
 <?php
 }
-
-
-
-
 ?>
+    </body>
+</html>

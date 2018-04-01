@@ -10,7 +10,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Party org - بِشر</title>
+    <title>Besher - بِشر</title>
       
       <!-----logo--------->
      <link rel="shortcut icon"

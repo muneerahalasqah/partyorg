@@ -27,31 +27,34 @@ if (isset($_POST['email']) AND isset($_POST['password']))
     $response->execute();
     $member = $response->Fetch();
     $response->CloseCursor();
-
+    
+    ?>
+<html>
+    <head>
+    <script src="js/sweetalert2.js"></script>
+    <link rel="stylesheet" href="css/sweetalert2.css">
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.js"
+      integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+      crossorigin="anonymous"></script>
+    </head>
+    <body>
+<?php
    // التأكد من أن العضو موجود في قاعدة البيانات 
    if(!$member){
         ?>
-    <html>
-        <body>
-            <script> alert('Sorry, You are not a register member');
-            window.location = "index.php";
+            <script>
+            swal({title:"Sorry,",text:"No user reistered with this email",type: "error"}).then(function(){window.location.href = "index.php";});
             </script>
-        </body>
-    </html>
         <?php  
    }
 
     // مقارنة كلمة المرور التي أرسلها العضو بالموجودة في القاعدة 
-   else if($password != $member['password']){
-      
+   else if($password != $member['password']){     
         ?>
-    <html>
-        <body>
-            <script> alert('Sorry, You have entered the wrong password.');
-            window.location = "index.php";
-            </script>
-        </body>
-    </html>
+        <script>
+            swal({title:"Incorrect!",text:"You entered the wrong password",type: "error"}).then(function(){window.location.href = "index.php";});
+        </script>
         <?php 
    } else {
         //ذا كان كل شيء على ما يرام . نقوم بإنشاء متغير الجلسة وطبع رسالة ترحيبية 
@@ -59,16 +62,17 @@ if (isset($_POST['email']) AND isset($_POST['password']))
    $fname= $member['fname'];
    // ثم تحويله تلقائيا إلى أي صفحة نريد 
     ?>
-    <html>
-        <body>
-            <script> alert('Hello '+'<?php echo $fname; ?>'+'!');
-            window.location = "index.php";
+            <script>
+             swal({title:"Welcome, <?php echo $fname; ?>",text:"You logged in successfully, redirecting you to Besher",type: "success",showConfirmButton: false,
+  timer: 2000}).then(function(){window.location.href = "index.php";});
             </script>
-        </body>
-    </html>
   <?php  
        
    }
+    ?>
+    </body>
+</html>
+        <?php
                                                  
 }
 ?>

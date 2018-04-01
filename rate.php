@@ -15,9 +15,18 @@ if(isset($_GET['vid'], $_GET['rate'])){
         
     }
         ?>
-<html><body><script>
-    alert('Thanks, your rating is noticed');
-    window.location.href="account.php";
+<html>
+    <head>
+    <script src="js/sweetalert2.js"></script>
+    <link rel="stylesheet" href="css/sweetalert2.css">
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.js"
+      integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+      crossorigin="anonymous"></script>
+    </head>
+    <body><script>
+    swal({title:"Thanks!",text:"Your reviews make us take better descisions", type: "success",showConfirmButton: false,
+  timer: 2500}).then(function(){window.location.href = "account.php";});
     </script></body></html>
 <?php
 

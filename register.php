@@ -100,8 +100,7 @@ if(!empty($_POST["register-user"])) {
 	border-radius: 4px;
 	margin-left: 250px;
 }
-
-    
+ 
     
 </style>
     <meta charset="utf-8">

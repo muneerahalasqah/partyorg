@@ -2,9 +2,17 @@
 session_start();
 ?>
 <html>
+    <head>
+    <script src="js/sweetalert2.js"></script>
+    <link rel="stylesheet" href="css/sweetalert2.css">
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.js"
+      integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+      crossorigin="anonymous"></script>
+    </head>
 <body>
     <?php
-    $db=mysqli_connect("localhost","root","","partyorg");
+    require_once 'connect.php';
     if(isset($_POST['update'])){
         $cid=$_SESSION['cid'];
         $newfname=$_POST['newfname'];
@@ -17,15 +25,14 @@ session_start();
         if($query){
             ?>
           <script>
-            alert('Updated your information successfuly!');
-            window.location = "account.php";
+            swal({title:"Success!",text:"Your account have been updated successfully", type: "success",showConfirmButton: false,
+  timer: 2500}).then(function(){window.location.href = "account.php";});
         </script>
     <?php
           } else {
            ?>
           <script>
-            alert('Problem in adding your information');
-            window.location = "account.php";
+            swal({title:"Oops!",text:"A problem occured when trying to update your account", type: "error",}).then(function(){window.location.href = "account.php";});
     </script>
     <?php 
           }            
@@ -41,23 +48,21 @@ session_start();
         if($newpass!=$confirm){
             ?>
           <script>
-            alert('The two passwords don not match');
-            window.location = "account.php#pass";  
+            swal({title:"Oops!",text:"The two passwords do not match", type: "warning",}).then(function(){window.location.href = "account.php";});  
         </script>
     <?php
         } else if($oldpass != $oldpassword){
             ?>
           <script>
-            alert('You need to enter the right password!');
-            window.location = "account.php";
+            swal({title:"Oops!",text:"You entered the wrong old password", type: "error",}).then(function(){window.location.href = "account.php";});
         </script>
     <?php
         } else {
             mysqli_query($db,"UPDATE customer SET password='$newpass' WHERE customer_id='$cid'");
             ?>
           <script>
-            alert('Your password was updated successfuly!');
-            window.location = "account.php";
+            swal({title:"Success!",text:"Your password have been updated successfully", type: "success",showConfirmButton: false,
+  timer: 2500}).then(function(){window.location.href = "account.php";});
         </script>
     <?php
         }
