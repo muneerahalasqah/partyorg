@@ -263,54 +263,136 @@ session_start();
   </div>
 </nav>
       <!-- The vendors cards -->
+          
       <?php
       $db=mysqli_connect('localhost','root','','partyorg');
-        if(isset($_GET['cid'])){
-            $cid=$_GET['cid'];
-            if(isset($_GET['lid'])){
+          // if category and type are set 
+        if(isset($_GET['tid'])&&$_GET['cid']){
+              $tid=$_GET['tid'];
+              $cid=$_GET['cid'];
+              if(isset($_GET['lid'])){
                 $lid=$_GET['lid'];
                 if(isset($_GET['p'])){
                     $p=$_GET['p'];
-                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid AND vendor.start_price>=$p");    
+                    if(isset($_GET['r'])){
+                    $r=$_GET['r'];
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND vendor.location_id=$lid AND vendor.start_price>=$p AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    } else {
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND vendor.location_id=$lid AND vendor.start_price>=$p");
+                    }
+    
                 } else {
-                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid");   
+                    if(isset($_GET['r'])){
+                    $r=$_GET['r'];
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND vendor.location_id=$lid AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    } else {
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND vendor.location_id=$lid");
+                    }  
                 }
             } else if(isset($_GET['p'])){
                 $p=$_GET['p'];
                 if(isset($_GET['lid'])){
                     $lid=$_GET['lid'];
-                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid AND vendor.start_price>=$p");
+                    if(isset($_GET['r'])){
+                    $r=$_GET['r'];
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND vendor.location_id=$lid AND vendor.start_price>=$p AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    } else {
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND vendor.location_id=$lid AND vendor.start_price>=$p");
+                    }
+ 
                 } else {
-                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.start_price>=$p");
+                    if(isset($_GET['r'])){
+                    $r=$_GET['r'];
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND vendor.start_price>=$p AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    } else {
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND vendor.start_price>=$p");
+                    }
                 }
-            } else {
-                $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid"); 
+            } else if(isset($_GET['r'])) {
+                $r=$_GET['r'];
+                if(isset($_GET['lid'])){
+                    $lid=$_GET['lid'];
+                    if(isset($_GET['p'])){
+                        $p=$_GET['p'];
+                        $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND vendor.location_id=$lid AND vendor.start_price>=$p AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    } else {
+                       $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND vendor.location_id=$lid AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    }
+                } else {
+                    if(isset($_GET['p'])){
+                        $p=$_GET['p'];
+                        $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND vendor.start_price>=$p AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    } else {
+                       $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                } }
+              } else {
+               $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid");  
+            }
+        }
+            // If only the category isset
+           else if(isset($_GET['cid'])){
+            $cid=$_GET['cid'];
+            if(isset($_GET['lid'])){
+                $lid=$_GET['lid'];
+                if(isset($_GET['p'])){
+                    $p=$_GET['p'];
+                    if(isset($_GET['r'])){
+                    $r=$_GET['r'];
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid AND vendor.start_price>=$p AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    } else {
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid AND vendor.start_price>=$p");
+                    }
+    
+                } else {
+                    if(isset($_GET['r'])){
+                    $r=$_GET['r'];
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    } else {
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid");
+                    }  
+                }
+            } else if(isset($_GET['p'])){
+                $p=$_GET['p'];
+                if(isset($_GET['lid'])){
+                    $lid=$_GET['lid'];
+                    if(isset($_GET['r'])){
+                    $r=$_GET['r'];
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid AND vendor.start_price>=$p AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    } else {
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid AND vendor.start_price>=$p");
+                    }
+ 
+                } else {
+                    if(isset($_GET['r'])){
+                    $r=$_GET['r'];
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.start_price>=$p AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    } else {
+                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.start_price>=$p");
+                    }
+                }
+            } else if(isset($_GET['r'])) {
+                $r=$_GET['r'];
+                if(isset($_GET['lid'])){
+                    $lid=$_GET['lid'];
+                    if(isset($_GET['p'])){
+                        $p=$_GET['p'];
+                        $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid AND vendor.start_price>=$p AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    } else {
+                       $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.location_id=$lid AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    }
+                } else {
+                    if(isset($_GET['p'])){
+                        $p=$_GET['p'];
+                        $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND vendor.start_price>=$p AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                    } else {
+                       $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                }
+            } } else {
+               $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid");  
             }
         }
           
-          if(isset($_GET['tid'])&&$_GET['cid']){
-              $tid=$_GET['tid'];
-              $cid=$_GET['cid'];
-              if(isset($_GET['lid'])){
-                  $lid=$_GET['lid'];
-                  if(isset($_GET['p'])){
-                      $p=$_GET['p'];
-                      $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid AND vendor.location_id=$lid AND vendor.start_price>=$p");
-                  } else {
-                     $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid AND vendor.location_id=$lid"); 
-                  }
-              } else if(isset($_GET['p'])){
-                  $p=$_GET['p'];
-                  if(isset($_GET['lid'])){
-                      $lid=$_GET['lid'];
-                      $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid AND vendor.location_id=$lid AND vendor.start_price>=$p");
-                  } else {
-                      $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid  AND vendor.start_price>=$p");
-                  }
-              } else  {
-                    $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE belong.category_id=$cid AND vendor.type_id=$tid");
-              }  
-          }
+          
           
     //  Vendor cards!      
       echo "<div class='row' style='padding:10pt;'>";
@@ -424,7 +506,7 @@ session_start();
             <tr>
                 <td class="text-left"><b>Location:</b></td><td class="text-right"><?php echo $loc[1]?></td></tr>
             <tr>
-                <td class="text-left"><b>Phone:</b></td><td class="text-right"><?php echo $vrow['phone']?></td></tr>
+                <td class="text-left"><b>Phone:</b></td><td class="text-right"><a href="api.whatsapp.com/send?<?php echo $vrow['phone'] ?>"><i class="fa fa-whatsapp"></i></a> <?php echo $vrow['phone']?></td></tr>
             <tr>
                 <td class="text-left"><b>Email:</b></td><td class="text-right"><?php echo $vrow['email']?></td></tr>
             <tr>
@@ -462,35 +544,49 @@ session_start();
         <!-----FILTER------->     
       
 		<div class="cd-filter">
-        <form  name="searchForm" method="post" action="filter.php" >
+        <form name="searchForm" method="post" action="filter.php" >
         <div class="container">
-        Category:<br><br>
+        <div class="form-group">
+        <label>Category:</label>
         <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
-        echo "<select name='category' class='loginform'>";
+        echo "<select name='category' class='form-control loginform'>";
         while ($myrow = mysqli_fetch_row($result)) {
-        printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
-                }
+            if(isset($_GET['cid']) && $_GET['cid']==$myrow[0]){
+                printf("<option value= '%d' seleted>%s</option>",$myrow[0], $myrow[1]);
+            } else 
+                printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);              }
         echo "</select>";
         ?>
-        <br><br>   
-        Location : <br><br>
+        </div>
+        <div class="form-group">
+        <label>Location:</label>
         <?php
         $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
-        echo "<select name='location' class='loginform' style='width: 130px'>";
-        echo "<option value=''>All ..</option>";
+        echo "<select name='location' class='form-control loginform'>";
+        echo "<option value=''>All</option>";
         while ($myrow = mysqli_fetch_row($result)) {
         printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
                 }
         echo "</select>";
-        ?>
-        <br><br>
-        Rating :<br><br>
-
-        Budget : <br>
-        <div class="""slidecontainer">
+        ?>    
+        </div>    
+        <div class="form-group">
+        <label>Rating</label>
+        <select name="rate" class="form-control loginform">
+            <option value=''>All</option>
+            <option value="5">★★★★★ Stars</option>
+            <option value="4">★★★★ Stars and More</option>
+            <option value="3">★★★ Stars and More</option>
+            <option value="2">★★ Stars and More</option>
+            <option value="1">★ Star and More</option>
+            </select>
+        </div>
+        <div class="form-group">
+        <label>Budget:</label>
+        <div class="slidecontainer">
         <input type="range" min="500" max="5000" value="2500" class="slider" id="myRange" name="price">
         <p>Price: <span id="demo"></span></p>
         </div>
@@ -503,7 +599,7 @@ session_start();
           output.innerHTML = this.value;
         }
         </script>      
-        <br>
+        </div>
         <button  class="btn btn-primary" name="submit" type="submit" class="btnRegister">Search</button> &nbsp;
         <button type="reset" class="btn btn-secondary">Reset</button>
         </div>  
