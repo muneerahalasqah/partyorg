@@ -70,7 +70,7 @@ session_start();
                                   <th>Vendor Name</th>
                                   <th>Vendor Type</th>
                                   <th>Price</th>
-                                  <th style="color=red;">Delete</th>
+                                  <th style="color:red;">Delete</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -311,7 +311,7 @@ It is an opportunity to show our passion for creating such an application.
         </div>
         <div class="row">
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" href="filter.php?cid=48">
+            <a class="portfolio-link" href="cards.php?cid=1">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -324,7 +324,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" href="filter.php?cid=51">
+            <a class="portfolio-link" href="cards.php?cid=2">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -337,7 +337,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="filter.php?cid=52">
+            <a class="portfolio-link"  href="cards.php?cid=3">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -350,7 +350,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="filter.php?cid=53">
+            <a class="portfolio-link"  href="cards.php?cid=4">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -363,7 +363,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="filter.php?cid=54">
+            <a class="portfolio-link" data-toggle="modal" href="cards.php?cid=5">
                 <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -376,7 +376,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" href="filter.php?cid=49">
+            <a class="portfolio-link" href="cards.php">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
