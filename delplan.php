@@ -1,9 +1,6 @@
 <?php
 session_start();
-
-if (($key = array_search($_GET['id'],$_SESSION['plan'])) !== false) {
-    unset($_SESSION['plan'][$key]);
-    ?>
+?>
     <html>
     <head>
     <script src="js/sweetalert2.js"></script>
@@ -14,11 +11,23 @@ if (($key = array_search($_GET['id'],$_SESSION['plan'])) !== false) {
       crossorigin="anonymous"></script>
     </head>
         <body>
+<?php
+if (($key = array_search($_GET['id'],$_SESSION['plan'])) !== false) {
+    unset($_SESSION['plan'][$key]);
+    if(isset($_GET['cid'])){
+        ?>
+            <script>
+                swal({title:"Done!",text:"Successfully deleted from the Party Plan", type: "success"}).then(function(){window.location.href = "cards.php?cid=<?php echo $_GET['cid']?>";});
+            </script>
+    <?php        
+    } else {
+      ?>
             <script>
                 swal({title:"Done!",text:"Successfully deleted from the Party Plan", type: "success"}).then(function(){window.location.href = "cards.php";});
             </script>
-        </body>
-    </html>
-    <?php
+    <?php  
+    }
 }
 ?>
+        </body>
+</html>

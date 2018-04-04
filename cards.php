@@ -102,7 +102,11 @@ session_start();
                                      echo "<td>$vrow[1]</td>";
                                      echo "<td>$vrow[3]</td>";
                                      echo "<td>$vrow[2]</td>";
-                                     echo "<td><a href='delplan.php?id=$vrow[0]'><i class='fa fa-trash'></i></a></td>";
+                                     if(isset($_GET['cid'])){
+                                      echo "<td><a href='delplan.php?id=$vrow[0]&cid=".$_GET['cid']."'><i class='fa fa-trash'></i></a></td>";   
+                                     } else {
+                                      echo "<td><a href='delplan.php?id=$vrow[0]'><i class='fa fa-trash'></i></a></td>";   
+                                     }
                                      echo "</tr>";
                                      $total = $total+$vrow[2];
                                   }
@@ -259,16 +263,16 @@ session_start();
                 printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d&lid=$lid&p=$p&r=$r'>%s</a></li>",$myrow[0], $myrow[1]); }
             } else {
                 while ($myrow = mysqli_fetch_row($result)) {
-                printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d&lid=$lid&p=$p&r=$r'>%s</a></li>",$myrow[0], $myrow[1]); }
+                printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d&lid=$lid&p=$p'>%s</a></li>",$myrow[0], $myrow[1]); }
             }
             } else {
             if(isset($_GET['r'])){
                 $r=$_GET['r'];
                 while ($myrow = mysqli_fetch_row($result)) {
-                printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d&lid=$lid&p=$p&r=$r'>%s</a></li>",$myrow[0], $myrow[1]); }
+                printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d&p=$p&r=$r'>%s</a></li>",$myrow[0], $myrow[1]); }
             } else {
                 while ($myrow = mysqli_fetch_row($result)) {
-                printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d&lid=$lid&p=$p'>%s</a></li>",$myrow[0], $myrow[1]); }
+                printf("<li class='nav-item'><a class='nav-link' href='cards.php?cid=$cid&tid=%d&p=$p'>%s</a></li>",$myrow[0], $myrow[1]); }
             }
         }
         } else if (isset($_GET['r'])){
