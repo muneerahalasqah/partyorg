@@ -104,7 +104,7 @@ session_start();
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="loginb regbtn" onclick="document.getElementById('myModal').style.display='none'">Close</button>
-                            <button class="loginb" type="submit">Commit</button>
+                            <button class="loginb" type="submit"  onclick="window.location.href='plan.php'">Commit</button>
                         </div>
                       </div>
 
