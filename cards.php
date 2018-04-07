@@ -307,10 +307,9 @@ session_start();
     </ul>
   </div>
 </nav>
-      <!-- The vendors cards -->
           
+      <!-- The vendors cards -->
       <?php
-      $db=mysqli_connect('localhost','root','','partyorg');
           // if category and type are set 
         if(isset($_GET['tid'])&&$_GET['cid']){
               $tid=$_GET['tid'];
@@ -434,14 +433,114 @@ session_start();
             } } else {
                $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid ORDER BY (round(v.score/v.score_user)) DESC");  
             }
-        }
-          
-          
-          
-    //  Vendor cards!      
-      echo "<div class='row' style='padding:10pt;'>";
+        }      
+      
       if(isset($_GET['cid'])){
           if($vendors->num_rows>0){
+              // The RECOMENDATION!
+              if(isset($_GET['cid'])&&isset($_GET['p'])&&isset($_GET['r'])){
+              $cid=$_GET['cid'];
+              if(isset($_GET['tid'])){
+                  $tid=$_GET['tid'];
+                  if(isset($_GET['lid'])){
+                      $lid=$_GET['lid'];
+                      $vendor_query=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.location_id=$lid"); 
+                  } else {
+                      $vendor_query=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid");  
+                  }
+              } else {
+                  $vendor_query=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid");  
+              }
+
+                  require "cosine.php";
+                  $p=$_GET['p'];
+                  $r=$_GET['r'];
+                  $a=array($p,$r);
+                  $max=0;
+                  while($db_vendor=mysqli_fetch_assoc($vendor_query)){
+                   $db_p=$db_vendor['start_price'];
+                   if($db_vendor['score_user']==NULL)
+                       $db_r=0;
+                  else
+                       $db_r=round($db_vendor['score']/$db_vendor['score_user']);
+                   $b=array($db_p,$db_r);
+                   $simi=cosinus($a,$b);
+                   if($simi>=$max){
+                       $max=$simi;
+                       $rec_id=$db_vendor['vendor_id'];
+                   }
+                  }
+                  $rec_query=mysqli_query($db,"SELECT * FROM vendor WHERE vendor_id=$rec_id");
+                  $rec_vendor=mysqli_fetch_assoc($rec_query);
+                  ?>
+                  <div class='alert' role='alert' style='background-image:url(img/stars.jpg)'>
+                    <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                    <h3><strong>We recommend you this vendor</strong></h3>
+                  <div class='card'>
+                  <div class='card-body'>
+                  <h5 class="card-title"><?php echo $rec_vendor['v_name'];?></h5>
+                                <!-- Vendor Rating -->
+                    <?php
+                      if($rec_vendor['score_user']>0){
+                          $rate=$rec_vendor['score']/$rec_vendor['score_user'];
+                      switch (round($rate)){
+                          case 5:
+                            echo "<i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star'style='color:#fed136'></i>";
+                              echo "&nbsp;";
+                              echo "<span class='badge badge-secondary'> By ".$rec_vendor['score_user']." users</span>";
+                            break;
+                          case 4:
+                            echo "<i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:gray'></i>";
+                              echo "&nbsp;";
+                              echo "<span class='badge badge-secondary'> By ".$rec_vendor['score_user']." users</span>";
+                            break;
+                          case 3:
+                              echo "<i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:gray'></i><i class='fa fa-star' style='color:gray'></i>";
+                              echo "&nbsp;";
+                              echo "<span class='badge badge-secondary'> By ".$rec_vendor['score_user']." users</span>";
+                              break;
+                          case 2:
+                              echo "<i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:gray'></i><i class='fa fa-star style='color:gray''></i><i class='fa fa-star' style='color:gray'></i>";
+                              echo "&nbsp;";
+                              echo "<span class='badge badge-secondary'> By ".$rec_vendor['score_user']." users</span>";
+                              break;
+                          case 1:
+                              echo "<i class='fa fa-star' style='color:#fed136'></i><i class='fa fa-star' style='color:gray'></i><i class='fa fa-star' style='color:gray'></i><i class='fa fa-star' style='color:gray'></i><i class='fa fa-star' style='color:gray'></i>";
+                              echo "&nbsp;";
+                              echo "<span class='badge badge-secondary'> By ".$rec_vendor['score_user']." users</span>";
+                              break;
+                      } } else {
+                          echo "<div style='color:gray'><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i></div>";
+                      }
+                    ?>
+                      <p class="card-text">
+                        <?php
+                          $r=mysqli_query($db,"SELECT v_type.type_name FROM v_type LEFT JOIN vendor ON v_type.type_id=vendor.type_id WHERE vendor.vendor_id=$rec_id");
+                          $type=mysqli_fetch_row($r);
+                          $r2=mysqli_query($db,"SELECT location.* FROM location LEFT JOIN vendor ON location.location_id=vendor.location_id WHERE vendor.vendor_id=$rec_id");
+                          $loc=mysqli_fetch_row($r2);
+                          echo $type[0];
+                          echo "<br>";
+                          echo "<i class='fa fa-map-marker'></i> ".$loc[1];
+                        ?> 
+                        </p>
+        <?php 
+              if (isset($_SESSION['cid'])) {
+                  ?>
+            <a href="addplan.php?id=<?php echo $rec_vendor['vendor_id']."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a>
+            <?php
+              }
+               ?>
+               <!------- BUTTON of VENDOR DETAILS-------------->
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#<?php echo $rec_vendor['vendor_id']; ?>">DETAILS</button>  
+                  </div>
+                      </div>
+                    </div>
+          <?php
+          }
+              
+              //  Vendor cards!
+          echo "<div class='row' style='padding:10pt;'>";
           while($vrow=mysqli_fetch_assoc($vendors)){
         ?>
        <div class="col-lg-4 col-sm-6 portfolio-item">
@@ -585,6 +684,7 @@ session_start();
            echo "<div class='alert alert-warning' role='alert'><strong>Sorry ..</strong> There are no such vendors that match the criteria</div>";   
       }
       } else {
+
           echo "<div class='alert alert-warning' role='alert'><strong>Sorry ..</strong> There are no vendors showing because you need to select a category first</div>";
       }
       echo "</div>";
