@@ -484,7 +484,13 @@ session_start();
               echo "<i class='fa fa-map-marker'></i> ".$loc[1];
             ?> 
             </p>
-        <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a> 
+        <?php 
+              if (isset($_SESSION['cid'])) {
+                  ?>
+            <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a>
+            <?php
+              }
+               ?>
                <!------- BUTTON of VENDOR DETAILS-------------->
         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#<?php echo $vrow['vendor_id']; ?>">DETAILS</button>        
      </div>
@@ -562,7 +568,13 @@ session_start();
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a>
+                <?php
+                  if(isset($_SESSION['cid'])){
+                      ?>
+                  <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a>
+                  <?php
+                  }
+                ?>
               </div>
             </div>
           </div>
