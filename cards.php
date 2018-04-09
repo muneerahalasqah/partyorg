@@ -473,12 +473,12 @@ session_start();
                   $rec_query=mysqli_query($db,"SELECT * FROM vendor WHERE vendor_id=$rec_id");
                   $rec_vendor=mysqli_fetch_assoc($rec_query);
                   ?>
-                  <div class='alert' role='alert' style='background-image:url(img/stars.jpg)'>
+                  <div class='alert' role='alert' style='background-color:#5b6771'>
                     <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-                    <h3><strong>We recommend you this vendor</strong></h3>
+                    <h3><strong style="color:#fed136">We recommend you this vendor</strong></h3>
                   <div class='card'>
-                  <div class='card-body'>
-                  <h5 class="card-title"><?php echo $rec_vendor['v_name'];?></h5>
+                  <div class='card-body'style="background-image:url(img/stars.jpg)">
+                  <h5 class="card-title" ><?php echo $rec_vendor['v_name'];?></h5>
                                 <!-- Vendor Rating -->
                     <?php
                       if($rec_vendor['score_user']>0){
