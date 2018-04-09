@@ -139,7 +139,7 @@ session_start();
               <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="faq.html">FAQ</a>
+              <a class="nav-link js-scroll-trigger" href="faq.php">FAQ</a>
               </li>
           </ul>
      
@@ -391,23 +391,7 @@ It is an opportunity to show our passion for creating such an application.
         </div>
       </div>
     </section>
-      
-      
-    <!-- party plan -->
-    <section id="plan">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">A Party Plan</h2>
-            <h3 class="text-muted">Our service provides you with the ability to put your party vendors in an orgnized format.
-            <br>
-              </h3>
-              <br><br>
-              <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#">Start Now!</a>
-          </div>
-        </div>
-      </div>
-    </section>
+   
 
     <!-- Contact -->
     <section id="contact">

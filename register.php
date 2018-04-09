@@ -179,7 +179,7 @@ if(!empty($_POST["register-user"])) {
                                   <th>Vendor Name</th>
                                   <th>Vendor Type</th>
                                   <th>Price</th>
-                                  <th style="color=red;">Delete</th>
+                                  <th style="color:red;">Delete</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -213,7 +213,7 @@ if(!empty($_POST["register-user"])) {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="loginb regbtn" onclick="document.getElementById('myModal').style.display='none'">Close</button>
-                            <button class="loginb" type="submit">Commit</button>
+                            <button class="loginb" type="submit" onclick="window.location.href='plan.php'">Commit</button>
                         </div>
                       </div>
 
@@ -238,16 +238,16 @@ if(!empty($_POST["register-user"])) {
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto text-left">
                 <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About us</a>
+              <a class="nav-link js-scroll-trigger" href="index.php#about">About us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#portfolio">Categories</a>
+              <a class="nav-link js-scroll-trigger" href="index.php#portfolio">Categories</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+              <a class="nav-link js-scroll-trigger" href="index.php#contact">Contact</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="faq.html">FAQ</a>
+              <a class="nav-link js-scroll-trigger" href="faq.php">FAQ</a>
               </li>
           </ul>
      

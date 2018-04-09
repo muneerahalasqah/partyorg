@@ -138,16 +138,16 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto text-left">
                 <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="index.php #about">About us</a>
+              <a class="nav-link js-scroll-trigger" href="index.php#about">About us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="index.php #portfolio">Categories</a>
+              <a class="nav-link js-scroll-trigger" href="index.php#portfolio">Categories</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="index.php #contact">Contact</a>
+              <a class="nav-link js-scroll-trigger" href="index.php#contact">Contact</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="faq.html">FAQ</a>
+              <a class="nav-link js-scroll-trigger" href="faq.php">FAQ</a>
               </li>
           </ul>
      
