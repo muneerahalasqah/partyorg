@@ -385,7 +385,7 @@ window.onclick = function(event) {
                       
                       
                       echo "<br>".$vrow1['description'];
-                      echo "<table style='margin-left:50px;width:50%'>";
+                      echo "<table style='margin-left:50px;width:70%'>";
                       echo "<tr><td class='text-left'><b>Starting Price: </b></td>";
                       echo "<td>".$vrow1['start_price']." <b>S.R.</b></td></tr>";
                       $vid=$vrow1['vendor_id'];
@@ -398,15 +398,15 @@ window.onclick = function(event) {
                       echo "<tr><td class='text-left'><b>City: </b></td>";
                       echo "<td>".$l['location_name']."</td></tr>";
                       echo "<tr><td class='text-left'><b>Phone: </b></td>";
-                      echo "<td>".$vrow1['phone']."</td></tr>";
+                      echo "<td>"?><a style="color:black" href="api.whatsapp.com/send?<?php echo $vrow1['phone'] ?>"><i class="fa fa-whatsapp"></i>&nbsp;<?php echo $vrow1['phone']?></a><?php echo "</td></tr>";
                       echo "<tr><td class='text-left'><b>Email: </b></td>";
-                      echo "<td>".$vrow1['email']."</td></tr>";
+                      echo "<td>"?><a style="color:black" href="mailto:<?php echo $vrow1['email']?>"><i class="fa fa-envelope"></i>&nbsp;<?php echo $vrow1['email']?></a><?php echo"</td></tr>";
                       echo "<tr><td class='text-left'><b>Instgram Account: </b></td>";
-                      echo "<td>".$vrow1['instgram']."</td></tr>";
+                      echo "<td>"?><a style="color:black" href="https://www.instagram.com/<?php echo $vrow1['instgram']?>"><i class="fa fa-instagram"></i>&nbsp;<?php echo $vrow1['instgram']?></a> <?php echo"</td></tr>";
                       echo "<tr><td class='text-left'><b>Twitter Account: </b></td>";
-                      echo "<td>".$vrow1['twitter']."</td></tr>";
+                      echo "<td>"?> <a style="color:black" href="https://twitter.com/<?php echo $vrow1['twitter']?>"><i class="fa fa-twitter"></i>&nbsp;<?php echo $vrow1['twitter']?></a><?php echo "</td></tr>";
                       echo "<tr><td class='text-left'><b>Google Maps: </b></td>";
-                      echo "<td>".$vrow1['google_maps']."</td></tr>";
+                      echo "<td>"?><a style="color:black" href="<?php echo $vrow1['google_maps']?>"><i class="fa fa-map-marker"></i>&nbsp;<?php echo $vrow1['google_maps']?></a> <?php echo"</td></tr>";
                       echo "</table>";
                       echo "<hr>"; 
                       echo "</div>";
