@@ -703,7 +703,6 @@ session_start();
         <div class="form-group">
         <label>Category:</label>
         <?php
-        $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
         echo "<select name='category' class='form-control loginform'>";
         while ($myrow = mysqli_fetch_row($result)) {
@@ -717,7 +716,6 @@ session_start();
         <div class="form-group">
         <label>Location:</label>
         <?php
-        $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
         echo "<select name='location' class='form-control loginform'>";
         echo "<option value=''>All</option>";

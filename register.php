@@ -45,7 +45,7 @@ if(!empty($_POST["register-user"])) {
     } }
      else {
 		 $sql = "INSERT INTO customer(fname,lname,email,password,location_id) VALUES('$fname','$lname','$email','$password','$location')";
-     $query = mysqli_query($db,$sql);
+     $query = mysqli_query($db,$sql) or ;
 		if($query) {
 			$error_message = "";
 			$success_message = "You have registered successfully!";	
@@ -151,7 +151,6 @@ if(!empty($_POST["register-user"])) {
         <?php
         if (isset($_SESSION['cid'])){
             $cid = $_SESSION['cid'];
-            $db=mysqli_connect('localhost','root','','partyorg');
             $result=mysqli_query($db,"SELECT fname FROM customer WHERE customer_id=$cid");
             $row=mysqli_fetch_row($result);
             $fname=$row[0];
@@ -319,7 +318,6 @@ if(!empty($_POST["register-user"])) {
  <br>
      <label><b >City</b></label> <br>
         <?php
-        $db=mysqli_connect('localhost', 'root', '','partyorg');
     $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
         echo "<select name='location' class='demoInputBox' style='width: 50%;'>";                
         while ($myrow = mysqli_fetch_row($result)) {

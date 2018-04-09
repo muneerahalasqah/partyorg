@@ -1,14 +1,7 @@
 <?php 
 session_start();
 
-try 
-{
-$db = new PDO('mysql:host=localhost;dbname=partyorg', 'root', '');
-} 
-catch(PDOException $e)
-{
-  die('error'. $e->getMessage());
-}
+require 'connect.php';
 
 
 // إذا نجح العضو في ملأ الإستمارة

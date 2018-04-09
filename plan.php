@@ -67,7 +67,7 @@ session_start();
         <?php
         if (isset($_SESSION['cid'])){
             $cid = $_SESSION['cid'];
-            $db=mysqli_connect('localhost','root','','partyorg');
+            require 'connect.php';
             $result=mysqli_query($db,"SELECT fname FROM customer WHERE customer_id=$cid");
             $row=mysqli_fetch_row($result);
             $fname=$row[0];
