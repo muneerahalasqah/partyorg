@@ -3,8 +3,7 @@ session_start();
 ?>
 <?php
 
-$db = mysqli_connect('localhost','root','','partyorg');
-
+require 'connect.php';
 
 if(!empty($_POST["register-user"])) {
 	/* Form Required Field Validation */
