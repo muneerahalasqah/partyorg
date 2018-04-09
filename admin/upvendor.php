@@ -36,7 +36,7 @@
     <legend>Updating Vendor</legend><br>
 
         <?php
-        $db = mysqli_connect("localhost","root","","partyorg");
+        require '../connect.php';
         session_start();
         if (isset($_POST['update-btn'])){
             $vid = $_POST['vendor'];
@@ -116,8 +116,7 @@
             
     </div>
     <?php
-        $db = mysqli_connect("localhost","root","","partyorg");
-
+        
         if(isset($_POST['update'])){
             $newname=$_POST['newname'];
             $newemail=$_POST['newemail'];

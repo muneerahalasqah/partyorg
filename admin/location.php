@@ -51,7 +51,7 @@
             <br>
             Location:
                <?php
-                $db=mysqli_connect('localhost', 'root', '','partyorg');
+                require '../connect.php';
                 $result = mysqli_query($db,"SELECT location_name FROM location");
 
                 echo "<select name='location_name' style='width: 60%;'>";
@@ -76,8 +76,7 @@
             <br>
             Location:
                 <?php
-                $db=mysqli_connect('localhost', 'root', '','partyorg');
-
+                
                 $result = mysqli_query($db,"SELECT location_name FROM location");
 
                 echo "<select name='location1' style='width: 60%;'>";
@@ -95,12 +94,11 @@
         </div>
         
      <?php
-        $db1 = mysqli_connect("localhost", "root", "", "partyorg");
         if(isset($_POST['update-btn'])){
         $location_name = $_POST['location_name'];
         $new_name = $_POST['new_name'];
         $sql1 = "UPDATE location SET location_name='$new_name' WHERE location_name='$location_name'";
-        $query1 = mysqli_query($db1, $sql1);
+        $query1 = mysqli_query($db, $sql1);
         
         if ($query1 === TRUE) { 
         //header('location: profile.html');

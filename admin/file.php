@@ -2,7 +2,7 @@
 <body>
 <?php   
 
-$db=mysqli_connect("localhost","root","","partyorg");
+require '../connect.php';
 //$name = $_FILES['samples']['name'];
 //$tmp_name = $_FILES['samples']['tmp_name'];
 

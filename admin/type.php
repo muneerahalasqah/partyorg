@@ -51,7 +51,7 @@
             <br>
             Vendor Type:
                 <?php
-                $db=mysqli_connect('localhost', 'root', '','partyorg');
+                require '../connect.php';
                 $result = mysqli_query($db,"SELECT type_name FROM v_type");
 
                 echo "<select name='type_name' style='width: 60%;'>";
@@ -76,7 +76,6 @@
             <br>
             Vendor Type:
                 <?php
-                $db=mysqli_connect('localhost', 'root', '','partyorg');
                 $result = mysqli_query($db,"SELECT type_name FROM v_type");
 
                 echo "<select name='type1' style='width: 60%;'>";
@@ -93,12 +92,11 @@
             </form>
         </div>
     <?php
-        $db1 = mysqli_connect("localhost", "root", "", "partyorg");
         if(isset($_POST['update-btn'])){
         $type_name = $_POST['type_name'];
         $new_name = $_POST['new_name'];
         $sql1 = "UPDATE v_type SET type_name='$new_name' WHERE type_name='$type_name'";
-        $query1 = mysqli_query($db1, $sql1);
+        $query1 = mysqli_query($db, $sql1);
         
         if ($query1 === TRUE) { 
         

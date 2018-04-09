@@ -49,7 +49,7 @@
         </div>
        <?php
         
-        $db = mysqli_connect("localhost", "root", "", "partyorg");
+        require '../connect.php';
         
         if (isset($_POST['delete-btn'])){
         $email = $_POST['email'];

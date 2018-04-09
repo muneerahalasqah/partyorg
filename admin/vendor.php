@@ -43,7 +43,7 @@
         Email:<br><input type="email" size="40" name="email"><br><br>  
         Type:<br>
         <?php
-        $db=mysqli_connect('localhost', 'root', '','partyorg');
+        require '../connect.php';
         $result = mysqli_query($db,"SELECT type_id,type_name FROM v_type");
         echo "<select name='type' style='width: 40%;'>";                
         while ($myrow = mysqli_fetch_row($result)) {
@@ -60,7 +60,6 @@
      
         Category: <br>
         <?php
-        $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT category_id,category_name FROM category");
         echo "<select name='category[]' multiple='multiple' style='width: 40%;'>";
         while ($myrow = mysqli_fetch_row($result)) {
@@ -73,7 +72,6 @@
      
         Location :<br>
         <?php
-        $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
         echo "<select name='location' style='width: 40%;'>";                
         while ($myrow = mysqli_fetch_row($result)) {
@@ -107,7 +105,6 @@
     <legend>Uploading Vendor Samples</legend><br>
     Vendor:  
         <?php
-        $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT vendor_id, v_name FROM vendor");
         echo "<select name='vendor' style='width: 60%;'>";                
         while ($myrow = mysqli_fetch_row($result)) {
@@ -131,7 +128,6 @@
     <legend>Vendor delete</legend><br>
     Vendor:  
           <?php
-        $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT vendor_id, v_name FROM vendor");
         echo "<select name='vendor' style='width: 60%;'>";                
         while ($myrow = mysqli_fetch_row($result)) {
@@ -151,7 +147,6 @@
     <legend>Updating Vendor</legend><br>
     Vendor:  
         <?php
-        $db=mysqli_connect('localhost', 'root', '','partyorg');
         $result = mysqli_query($db,"SELECT vendor_id, v_name FROM vendor");
         echo "<select name='vendor' style='width: 60%;'>";                
         while ($myrow = mysqli_fetch_row($result)) {
@@ -168,8 +163,7 @@
         
     <?php
         
-        $db = mysqli_connect("localhost", "root", "", "partyorg");
-        
+                
         if (isset($_POST['delete-btn'])){
         $vendor = $_POST['vendor'];
         $result = mysqli_query($db,"SELECT v_name FROM vendor WHERE vendor_id=$vendor");

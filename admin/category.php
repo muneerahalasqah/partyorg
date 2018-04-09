@@ -48,7 +48,7 @@
             <br>
             Category:
                 <?php
-                $db=mysqli_connect('localhost', 'root', '','partyorg');
+                require '../connect.php';
                 $result = mysqli_query($db,"SELECT category_name FROM category");
 
                 echo "<select name='category_name' style='width: 60%;'>";
@@ -73,8 +73,7 @@
             <br>
             Category:
                 <?php
-                $db=mysqli_connect('localhost', 'root', '','partyorg');
-
+                
                 //$sql = "SELECT category_name FROM category";
                 $result = mysqli_query($db,"SELECT category_name FROM category");
 
@@ -95,12 +94,11 @@
 
        
         <?php
-        $db1 = mysqli_connect("localhost", "root", "", "partyorg");
         if(isset($_POST['update-btn'])){
         $category_name = $_POST['category_name'];
         $new_name = $_POST['new_name'];
         $sql1 = "UPDATE category SET category_name='$new_name' WHERE category_name='$category_name'";
-        $query1 = mysqli_query($db1, $sql1);
+        $query1 = mysqli_query($db, $sql1);
         
         if ($query1 === TRUE) { 
         //header('location: profile.html');
@@ -125,7 +123,7 @@
         else if (isset($_POST['delete-btn'])){
         $category1 = $_POST['category1'];
         $sql2 = "DELETE FROM category WHERE category_name='$category1'";
-        $query2 = mysqli_query($db1, $sql2);
+        $query2 = mysqli_query($db, $sql2);
         
         if ($query2 === TRUE) { 
         ?>
