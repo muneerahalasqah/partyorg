@@ -45,7 +45,7 @@ if(!empty($_POST["register-user"])) {
     } }
      else {
 		 $sql = "INSERT INTO customer(fname,lname,email,password,location_id) VALUES('$fname','$lname','$email','$password','$location')";
-     $query = mysqli_query($db,$sql) or ;
+     $query = mysqli_query($db,$sql);
 		if($query) {
 			$error_message = "";
 			$success_message = "You have registered successfully!";	
