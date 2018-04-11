@@ -435,8 +435,8 @@ session_start();
             }
         }      
       
-      if(isset($_GET['cid'])){
-          if($vendors && $vendors->num_rows>0){
+      if(isset($_GET['cid'])&&$_GET['cid']!=NULL){
+          if($vendors->num_rows>0){
               // The RECOMENDATION!
               if(isset($_GET['cid'])&&isset($_GET['p'])&&isset($_GET['r'])){
               $cid=$_GET['cid'];
