@@ -311,7 +311,7 @@ It is an opportunity to show our passion for creating such an application.
         </div>
         <div class="row">
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" href="cards.php?cid=1">
+            <a class="portfolio-link" href="cards.php?cid=55">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -324,7 +324,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" href="cards.php?cid=2">
+            <a class="portfolio-link" href="cards.php?cid=57">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -337,7 +337,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link"  href="cards.php?cid=3">
+            <a class="portfolio-link"  href="cards.php?cid=58">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -350,7 +350,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link"  href="cards.php?cid=4">
+            <a class="portfolio-link"  href="cards.php?cid=59">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -363,7 +363,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="cards.php?cid=5">
+            <a class="portfolio-link" data-toggle="modal" href="cards.php?cid=60">
                 <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
@@ -376,7 +376,7 @@ It is an opportunity to show our passion for creating such an application.
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" href="cards.php">
+            <a class="portfolio-link" href="cards.php?cid=56">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-search fa-3x"></i>
