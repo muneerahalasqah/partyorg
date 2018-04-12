@@ -120,10 +120,10 @@
         } 
                                         } 
 
-        else if (isset($_POST['delete-btn'])){
+        if (isset($_POST['delete-btn'])){
         $location1 = $_POST['location1'];
         $sql2 = "DELETE FROM location WHERE location_name='$location1'";
-        $query2 = mysqli_query($db1, $sql2);
+        $query2 = mysqli_query($db, $sql2);
         
         if ($query2 === TRUE) { 
         ?>
