@@ -653,7 +653,7 @@ session_start();
             <tr>
                 <td class="text-left"><b>Location:</b></td><td class="text-right"><?php echo $loc[1]?></td></tr>
             <tr>
-                <td class="text-left"><b>Phone:</b></td><td class="text-right"><a style="color:black" href="api.whatsapp.com/send?<?php echo $vrow['phone'] ?>"><i class="fa fa-whatsapp"></i>&nbsp;<?php echo $vrow['phone']?></a> </td></tr>
+                <td class="text-left"><b>Phone:</b></td><td class="text-right"><a style="color:black" href="https://api.whatsapp.com/send?phone=<?php echo '966'.$vrow['phone'] ?>"><i class="fa fa-whatsapp"></i>&nbsp;<?php echo '0'.$vrow['phone']?></a> </td></tr>
             <tr>
                 <td class="text-left"><b>Email:</b></td><td class="text-right "><a style="color:black" href="mailto:<?php echo $vrow['email']?>"><i class="fa fa-envelope"></i>&nbsp;<?php echo $vrow['email']?></a></td></tr>
             <tr>
