@@ -227,8 +227,8 @@ session_start();
                                   }?>">All <span class="sr-only">(current)</span></a>
       </li>
     <?php 
-    if(isset($_GET['cid'])){
     require('connect.php');
+    if(isset($_GET['cid'])&&$_GET['cid']!=NULL){
     $cid=$_GET['cid'];
     $result = mysqli_query($db,"SELECT type_id,type_name FROM v_type WHERE type_id IN (SELECT type_id FROM vendor where vendor.vendor_id IN (SELECT belong.vendor_id FROM belong WHERE belong.category_id=$cid))");
     if(isset($_GET['lid'])){
@@ -435,7 +435,7 @@ session_start();
             }
         }      
       
-      if(isset($_GET['cid'])){
+      if(isset($_GET['cid'])&&$_GET['cid']!=NULL){
           if($vendors->num_rows>0){
               // The RECOMENDATION!
               if(isset($_GET['cid'])&&isset($_GET['p'])&&isset($_GET['r'])){
@@ -707,7 +707,7 @@ session_start();
         echo "<select name='category' class='form-control loginform'>";
         while ($myrow = mysqli_fetch_row($result)) {
             if(isset($_GET['cid']) && $_GET['cid']==$myrow[0]){
-                printf("<option value= '%d' seleted>%s</option>",$myrow[0], $myrow[1]);
+                printf("<option value= '%d' selected>%s</option>",$myrow[0], $myrow[1]);
             } else 
                 printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);              }
         echo "</select>";
@@ -720,6 +720,9 @@ session_start();
         echo "<select name='location' class='form-control loginform'>";
         echo "<option value=''>All</option>";
         while ($myrow = mysqli_fetch_row($result)) {
+            if(isset($_GET['lid']) && $_GET['lid']==$myrow[0]){
+                printf("<option value= '%d' selected>%s</option>",$myrow[0], $myrow[1]);
+            } else
         printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
                 }
         echo "</select>";
@@ -729,17 +732,17 @@ session_start();
         <label>Rating</label>
         <select name="rate" class="form-control loginform">
             <option value=''>All</option>
-            <option value="5">★★★★★ Stars</option>
-            <option value="4">★★★★ Stars and More</option>
-            <option value="3">★★★ Stars and More</option>
-            <option value="2">★★ Stars and More</option>
-            <option value="1">★ Star and More</option>
+            <option value="5" <?php if(isset($_GET['r']) && $_GET['r']==5) echo 'selected'; ?>>★★★★★ Stars</option>
+            <option value="4" <?php if(isset($_GET['r']) && $_GET['r']==4) echo 'selected'; ?>>★★★★ Stars and More</option>
+            <option value="3" <?php if(isset($_GET['r']) && $_GET['r']==3) echo 'selected'; ?>>★★★ Stars and More</option>
+            <option value="2" <?php if(isset($_GET['r']) && $_GET['r']==2) echo 'selected'; ?>>★★ Stars and More</option>
+            <option value="1" <?php if(isset($_GET['r']) && $_GET['r']==1) echo 'selected'; ?>>★ Star and More</option>
             </select>
         </div>
         <div class="form-group">
         <label>Budget:</label>
         <div class="slidecontainer">
-        <input type="range" min="500" max="5000" value="2500" class="slider" id="myRange" name="price">
+        <input type="range" min="500" max="5000" value="<?php if(isset($_GET['p'])) echo $_GET['p']; else echo '600'; ?>" class="slider" id="myRange" name="price">
         <p>Price: <span id="demo"></span></p>
         </div>
         <script>
