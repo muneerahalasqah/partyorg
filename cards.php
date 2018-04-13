@@ -644,7 +644,7 @@ session_start();
             </div>
             <hr>
             <!--The rest of details-->
-            <table class="table" style="width:70%">
+            <table class="table" >
             <tbody>
             <tr>
                 <td class="text-left"><b>Strart Price:</b></td><td class="text-right"><?php echo $vrow['start_price']?> <b>S.R.</b></td></tr>
