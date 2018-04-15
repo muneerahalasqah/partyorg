@@ -81,6 +81,7 @@ session_start();
                             <img src ="img/Logo33.png"width="80" height="40"/>
                         </div>
                         <div class="modal-body">
+                            <div class="table-responsive">
                           <table class="table">
                               <thead class="thead-default">
                                 <tr>
@@ -109,11 +110,13 @@ session_start();
                                      }
                                      echo "</tr>";
                                      $total = $total+$vrow[2];
+                                     
                                   }
+                                     $_SESSION['total']=$total;
                                   ?>
                                   <tr>
                                       <td colspan="3" style="text-align:right"><b>Total=</b></td>
-                                      <td><?php echo $total;?> <b>S.R.</b></td>
+                                      <td><?php echo $_SESSION['total'];?> <b>S.R.</b></td>
                                   </tr>
                                   <?php
                                  } else {
@@ -122,6 +125,7 @@ session_start();
                                   ?>
                               </tbody>
                             </table>
+                                </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="loginb regbtn" onclick="document.getElementById('myModal').style.display='none'">Close</button>
@@ -613,7 +617,7 @@ session_start();
               <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
               <?php
-              $sam=mysqli_query($db,"SELECT samples.* FROM samples WHERE samples.v_id IN(SELECT vendor.vendor_id FROM vendor WHERE vendor_id=$vid)");
+              $sam=mysqli_query($db,"SELECT * FROM samples WHERE v_id=$vid)");
               $i=1;
               while($sample=mysqli_fetch_assoc($sam)){
                   if($i==1){
@@ -644,7 +648,8 @@ session_start();
             </div>
             <hr>
             <!--The rest of details-->
-            <table class="table" style="width:70%">
+            <div class="table-responsive">
+            <table class="table">
             <tbody>
             <tr>
                 <td class="text-left"><b>Strart Price:</b></td><td class="text-right"><?php echo $vrow['start_price']?> <b>S.R.</b></td></tr>
@@ -664,6 +669,7 @@ session_start();
                 <td class="text-left"><b>Google Maps:</b></td><td class="text-right"><a style="color:black" href="<?php echo $vrow['google_maps']?>"><i class="fa fa-map-marker"></i>&nbsp;<?php echo $vrow['google_maps']?></a></td></tr>
             </tbody>
             </table>
+                  </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
