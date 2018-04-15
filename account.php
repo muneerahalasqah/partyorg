@@ -74,6 +74,7 @@ session_start();
                             <img src ="img/Logo33.png"width="80" height="40"/>
                         </div>
                         <div class="modal-body">
+                            <div class="table-responsive">
                           <table class="table">
                               <thead class="thead-default">
                                 <tr>
@@ -110,7 +111,7 @@ session_start();
                                  }
                                   ?>
                               </tbody>
-                            </table>
+                                </table></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="loginb regbtn" onclick="document.getElementById('myModal').style.display='none'">Close</button>
@@ -385,7 +386,8 @@ window.onclick = function(event) {
                       
                       
                       echo "<br>".$vrow1['description'];
-                      echo "<table style='margin-left:50px;width:70%'>";
+                      echo "<div class='table-responsive'>";
+                      echo "<table >";
                       echo "<tr><td class='text-left'><b>Starting Price: </b></td>";
                       echo "<td>".$vrow1['start_price']." <b>S.R.</b></td></tr>";
                       $vid=$vrow1['vendor_id'];
@@ -409,6 +411,7 @@ window.onclick = function(event) {
                       echo "<td>"?><a style="color:black" href="<?php echo $vrow1['google_maps']?>"><i class="fa fa-map-marker"></i>&nbsp;<?php echo $vrow1['google_maps']?></a> <?php echo"</td></tr>";
                       echo "</table>";
                       echo "<hr>"; 
+                      echo "</div>";
                       echo "</div>";
                       echo "</div>";
                   }

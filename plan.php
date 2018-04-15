@@ -87,6 +87,7 @@ session_start();
                             <img src ="img/Logo33.png"width="80" height="40"/>
                         </div>
                         <div class="modal-body">
+                            <div class="table-responsive">
                           <table class="table">
                               <thead class="thead-default">
                                 <tr>
@@ -123,7 +124,7 @@ session_start();
                                  }
                                   ?>
                               </tbody>
-                            </table>
+                                </table></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="loginb regbtn" onclick="document.getElementById('myModal').style.display='none'">Close</button>
@@ -215,6 +216,7 @@ session_start();
                       echo "<div class='container'>";
                       echo "<h5><li>$vrow1[0]</li></h5>";
                       echo $vrow1[1];
+                      echo "<div class='table-responsive'>";
                       echo "<table style='margin-left:50px;width:50%'>";
                       echo "<tr><td><b>Starting Price: </b></td>";
                       echo "<td >$vrow1[2] <b>S.R.</b></td></tr>";
@@ -239,6 +241,7 @@ session_start();
                       $vrow1[7]</td></tr>";
                       echo "</table>";
                       echo "<hr>";
+                      echo "</div>";
                       echo "</div>";
                       echo "</div>";
                   }

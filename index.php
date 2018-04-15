@@ -64,6 +64,7 @@ session_start();
                             <img src ="img/Logo33.png"width="80" height="40"/>
                         </div>
                         <div class="modal-body">
+                            <div class="table-responsive">
                           <table class="table">
                               <thead class="thead-default">
                                 <tr>
@@ -100,7 +101,7 @@ session_start();
                                  }
                                   ?>
                               </tbody>
-                            </table>
+                                </table></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="loginb regbtn" onclick="document.getElementById('myModal').style.display='none'">Close</button>
