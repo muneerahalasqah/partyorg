@@ -648,12 +648,9 @@ session_start();
             </div>
             <hr>
             <!--The rest of details-->
-<<<<<<< HEAD
+
             <div class="table-responsive">
-            <table class="table">
-=======
             <table class="table" >
->>>>>>> cca5ab10accddbc6395f3849255c60bb8d643de7
             <tbody>
             <tr>
                 <td class="text-left"><b>Strart Price:</b></td><td class="text-right"><?php echo $vrow['start_price']?> <b>S.R.</b></td></tr>
