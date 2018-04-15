@@ -617,7 +617,7 @@ session_start();
               <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
               <?php
-              $sam=mysqli_query($db,"SELECT * FROM samples WHERE v_id=$vid)");
+              $sam=mysqli_query($db,"SELECT samples.* FROM samples WHERE samples.v_id IN(SELECT vendor.vendor_id FROM vendor WHERE vendor_id=$vid)");
               $i=1;
               while($sample=mysqli_fetch_assoc($sam)){
                   if($i==1){
