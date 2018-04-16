@@ -255,7 +255,6 @@ the BEFORE:pseudo element. This will represent the number of stars in the actual
 it floats above the AFTER element.
 */
 	.stars:BEFORE {
-		content:"★★★★★";
 		position:absolute;
 		overflow:hidden;
 		z-index:1;
