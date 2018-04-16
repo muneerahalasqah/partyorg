@@ -77,12 +77,12 @@
             Location:
                 <?php
                 
-                $result = mysqli_query($db,"SELECT location_name FROM location");
+                $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
 
-                echo "<select name='location1' style='width: 60%;'>";
+                echo "<select name='loc' style='width: 60%;'>";
                                 
                 while ($myrow = mysqli_fetch_row($result)) {
-                printf("<option value= '%s'> %s </option>",$myrow[0], $myrow[0]);
+                printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
                 }
                 echo "</select>";
                 ?>
@@ -121,14 +121,14 @@
                                         } 
 
         if (isset($_POST['delete-btn'])){
-        $location1 = $_POST['location1'];
-        $sql2 = "DELETE FROM location WHERE location_name='$location1'";
+        $loc = $_POST['loc'];
+        $sql2 = "DELETE FROM location WHERE location_id='$loc'";
         $query2 = mysqli_query($db, $sql2);
         
         if ($query2 === TRUE) { 
         ?>
-
-       <script> alert('The location '+'<?php echo $location1; ?>'+' has been deleted sucessfully!'); 
+        
+       <script> alert('The location has been deleted sucessfully!'); 
          window.location = "location.php";
         </script>
         
