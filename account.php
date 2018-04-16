@@ -295,7 +295,7 @@ session_start();
                             echo "<b>Rate ".$vrow['v_name'].": </b><br>";
                             
                             //Vendors Rating//
-                            echo "<div class='stars rate text-center' style='left: 20px'>";
+                            echo "<div class='stars rate text-center' >";
                             foreach(range(1,5) as $rating):
                             ?>
                             <a href="rate.php?rate=<?php echo $rating.'&vid='.$vrow['vendor_id']?>" title="<?php echo $rating?> out of 5" class="fa fa-star"></a>
