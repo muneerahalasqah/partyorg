@@ -305,7 +305,7 @@ turn all sthe start "ON" by default.
 		text-shadow:0px 1px 0 #000, 0 -1px 0 #fff;
 	}
 /*
-optional style for the specific star control a user is directly above.
+optional style for the speceific star control a user is directly above.
 */
   .stars.rate:HOVER > A:HOVER {
 		color:#FC0;
