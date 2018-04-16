@@ -271,6 +271,76 @@ session_start();
                     <a href="#<?php echo $plan['party_id'];?>" class="btn btn-primary" data-toggle="modal">More</a>
                     </div>
                 </div>
+                <!-- the more modal -->
+                <div class="modal fade" id="<?php echo $plan['party_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Party Plan #<?php echo $plan['party_id'];?></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body text-center">
+                <div id="plan">
+                  <div class="text-center"><img src="img/Logo33.png" alt="log" width="30%"></div>
+                        <?php
+                        $pid=$plan['party_id'];
+                        $vsql="SELECT vendor.* FROM vendor LEFT JOIN contain ON vendor.vendor_id=contain.v_id WHERE contain.p_id=$pid";
+                        $vq=mysqli_query($db,$vsql);
+                        while($vrow=mysqli_fetch_assoc($vq)){
+                            echo "<h5>".$vrow['v_name']."</h5>";
+                            echo "<br>".$vrow['description'];
+                            echo "<hr>";
+                            echo "<b>Rate ".$vrow['v_name'].": </b><br>";
+                            
+                            //Vendors Rating//
+                            echo "<div class='stars rate text-center'>";
+                            foreach(range(1,5) as $rating):
+                            ?>
+                            <a href="rate.php?rate=<?php echo $rating.'&vid='.$vrow['vendor_id']?>" title="<?php echo $rating?> out of 5" class="fa fa-star"></a>
+                            <?php
+                            endforeach; 
+                            echo "</div>";
+                            
+                            echo "<div class='table-responsive'>";
+                            echo "<table class='table'>";
+                            echo "<tr><td class='text-left'><b>Starting Price: </b></td>";
+                            echo "<td>".$vrow['start_price']." <b>S.R.</b></td></tr>";
+                            $vid=$vrow['vendor_id'];
+                            $type= mysqli_query($db,"SELECT v_type.type_name FROM v_type WHERE v_type.type_id IN (SELECT vendor.type_id FROM vendor WHERE vendor.vendor_id=$vid)");
+                            $t=mysqli_fetch_assoc($type);
+                            echo "<tr><td class='text-left'><b>Type: </b></td>";
+                            echo "<td>".$t['type_name']."</td></tr>";
+                            $loc= mysqli_query($db,"SELECT * FROM location WHERE location.location_id IN (SELECT vendor.location_id FROM vendor WHERE vendor.vendor_id=$vid)");
+                            $l=mysqli_fetch_assoc($loc);
+                            echo "<tr><td class='text-left'><b>City: </b></td>";
+                            echo "<td>".$l['location_name']."</td></tr>";
+                            echo "<tr><td class='text-left'><b>Phone: </b></td>";
+                            echo "<td>"?><a style="color:black" href="https://api.whatsapp.com/send?phone=<?php echo '966'.$vrow['phone'] ?>"><i class="fa fa-whatsapp"></i>&nbsp;<?php echo     $vrow['phone']?></a><?php echo "</td></tr>";
+                            echo "<tr><td class='text-left'><b>Email: </b></td>";
+                            echo "<td>"?><a style="color:black" href="mailto:<?php echo $vrow['email']?>"><i class="fa fa-envelope"></i>&nbsp;<?php echo $vrow['email']?></a><?php echo"</td></tr>";
+                            echo "<tr><td class='text-left'><b>Instgram Account: </b></td>";
+                            echo "<td>"?><a style="color:black" href="https://www.instagram.com/<?php echo $vrow['instgram']?>"><i class="fa fa-instagram"></i>&nbsp;<?php echo $vrow['instgram']?></a> <?php       echo"</td></tr>";
+                            echo "<tr><td class='text-left'><b>Twitter Account: </b></td>";
+                            echo "<td>"?> <a style="color:black" href="https://twitter.com/<?php echo $vrow['twitter']?>"><i class="fa fa-twitter"></i>&nbsp;<?php echo $vrow['twitter']?></a><?php echo "</td></tr>";
+                            echo "<tr><td class='text-left'><b>Google Maps: </b></td>";
+                            echo "<td>"?><a style="color:black" href="<?php echo $vrow['google_maps']?>"><i class="fa fa-map-marker"></i>&nbsp;<?php echo $vrow['google_maps']?></a> <?php echo"</td></tr>";
+                            echo "</table>";
+                            echo "</div>";
+                            echo "<hr>";
+                            echo "<br>";
+                        }
+                        ?>
+                </div>
+                </div>
+                <div class="modal-footer">
+                <button class="btn btn-primary regbtn" type="button" onClick="printContent('plan')"><i class="fa fa-print"></i> Print</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
                 <?php
                     }
                     echo "</div>";
@@ -343,93 +413,7 @@ window.onclick = function(event) {
         </div>
       </div>
     </footer>
-      <?php
-      $query2=mysqli_query($db,"SELECT * FROM party_plan WHERE c_id=$cid");
-      while($plan1=mysqli_fetch_assoc($query2)){
-      ?>
-      <div class="portfolio-modal modal fade" id="<?php echo $plan1['party_id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-              <div class="rl"></div>
-            </div>
-          </div>
-          <div class="container">
-            <div class="row">
-              <div class="col-sm mx-auto">
-                <div class="modal-body">
-                  <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Party Plan #<?php echo $plan1['party_id'];?></h2>
-                  <div id="plan">
-                      <div class="tevt-center"><img src="img/Logo33.png" alt="log" width="30%"></div>
-                  <ul>
-                  <?php
-                 $pid=$plan1['party_id'];
-                 $vsql1 = "SELECT vendor.* FROM vendor LEFT JOIN contain ON vendor.vendor_id=contain.v_id WHERE contain.p_id=$pid";
-                  $vq=mysqli_query($db,$vsql1);
-                  while($vrow1=mysqli_fetch_assoc($vq)){
-                      echo "<div class='container bg-white'>";
-                      echo "<div class='container'>";
-                      echo "<h5>".$vrow1['v_name']."</h5>";
-                     // Vendors Rating //
-                      echo "<b>Rate ".$vrow1['v_name'].": </b>";
-                      
-                      
-                      echo "<div class='stars rate'>";
-                      foreach(range(1,5) as $rating):
-                      ?>
-                      <a href="rate.php?rate=<?php echo $rating.'&vid='.$vrow1['vendor_id']?>" title="<?php echo $rating?> out of 5" class="fa fa-star"></a>
-                      <?php
-                      endforeach; 
-                      echo "</div>";
-                      
-                      
-                      echo "<br>".$vrow1['description'];
-                      echo "<div class='table-responsive'>";
-                      echo "<table >";
-                      echo "<tr><td class='text-left'><b>Starting Price: </b></td>";
-                      echo "<td>".$vrow1['start_price']." <b>S.R.</b></td></tr>";
-                      $vid=$vrow1['vendor_id'];
-                      $type= mysqli_query($db,"SELECT v_type.type_name FROM v_type WHERE v_type.type_id IN (SELECT vendor.type_id FROM vendor WHERE vendor.vendor_id=$vid)");
-                      $t=mysqli_fetch_assoc($type);
-                      echo "<tr><td class='text-left'><b>Type: </b></td>";
-                      echo "<td>".$t['type_name']."</td></tr>";
-                      $loc= mysqli_query($db,"SELECT * FROM location WHERE location.location_id IN (SELECT vendor.location_id FROM vendor WHERE vendor.vendor_id=$vid)");
-                      $l=mysqli_fetch_assoc($loc);
-                      echo "<tr><td class='text-left'><b>City: </b></td>";
-                      echo "<td>".$l['location_name']."</td></tr>";
-                      echo "<tr><td class='text-left'><b>Phone: </b></td>";
-                      echo "<td>"?><a style="color:black" href="api.whatsapp.com/send?<?php echo $vrow1['phone'] ?>"><i class="fa fa-whatsapp"></i>&nbsp;<?php echo $vrow1['phone']?></a><?php echo "</td></tr>";
-                      echo "<tr><td class='text-left'><b>Email: </b></td>";
-                      echo "<td>"?><a style="color:black" href="mailto:<?php echo $vrow1['email']?>"><i class="fa fa-envelope"></i>&nbsp;<?php echo $vrow1['email']?></a><?php echo"</td></tr>";
-                      echo "<tr><td class='text-left'><b>Instgram Account: </b></td>";
-                      echo "<td>"?><a style="color:black" href="https://www.instagram.com/<?php echo $vrow1['instgram']?>"><i class="fa fa-instagram"></i>&nbsp;<?php echo $vrow1['instgram']?></a> <?php echo"</td></tr>";
-                      echo "<tr><td class='text-left'><b>Twitter Account: </b></td>";
-                      echo "<td>"?> <a style="color:black" href="https://twitter.com/<?php echo $vrow1['twitter']?>"><i class="fa fa-twitter"></i>&nbsp;<?php echo $vrow1['twitter']?></a><?php echo "</td></tr>";
-                      echo "<tr><td class='text-left'><b>Google Maps: </b></td>";
-                      echo "<td>"?><a style="color:black" href="<?php echo $vrow1['google_maps']?>"><i class="fa fa-map-marker"></i>&nbsp;<?php echo $vrow1['google_maps']?></a> <?php echo"</td></tr>";
-                      echo "</table>";
-                      echo "<hr>"; 
-                      echo "</div>";
-                      echo "</div>";
-                      echo "</div>";
-                  }
-                  ?>
-                  </ul>
-                  </div>
-                  <button class="btn btn-primary regbtn" type="button" onClick="printContent('plan')"><i class="fa fa-print"></i> Print</button>
-                  <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fa fa-times"></i>
-                    Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-      <?php } ?>
+ 
      
   </body>
 </html>
