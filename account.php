@@ -379,7 +379,7 @@ window.onclick = function(event) {
                       echo "<div class='stars rate'>";
                       foreach(range(1,5) as $rating):
                       ?>
-                      <a href="rate.php?rate=<?php echo $rating.'&vid='.$vrow1['vendor_id']?>" title="<?php echo $rating?> out of 5"><i class="fa fa-star"></i></a>
+                      <a href="rate.php?rate=<?php echo $rating.'&vid='.$vrow1['vendor_id']?>" title="<?php echo $rating?> out of 5" class="fa fa-star"></a>
                       <?php
                       endforeach; 
                       echo "</div>";
