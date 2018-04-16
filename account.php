@@ -357,7 +357,7 @@ window.onclick = function(event) {
           </div>
           <div class="container">
             <div class="row">
-              <div class="col-lg-8 mx-auto">
+              <div class="col-sm mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
                   <h2 class="text-uppercase">Party Plan #<?php echo $plan1['party_id'];?></h2>
@@ -374,12 +374,12 @@ window.onclick = function(event) {
                       echo "<h5>".$vrow1['v_name']."</h5>";
                      // Vendors Rating //
                       echo "<b>Rate ".$vrow1['v_name'].": </b>";
-                      echo "<br/>";                      
+                      
                       
                       echo "<div class='stars rate'>";
                       foreach(range(1,5) as $rating):
                       ?>
-                      <a href="rate.php?rate=<?php echo $rating.'&vid='.$vrow1['vendor_id']?>" title="<?php echo $rating?> out of 5" class="fa fa-star"></a>
+                      <a href="rate.php?rate=<?php echo $rating.'&vid='.$vrow1['vendor_id']?>" title="<?php echo $rating?> out of 5"><i class="fa fa-star"></i></a>
                       <?php
                       endforeach; 
                       echo "</div>";
