@@ -416,10 +416,6 @@ It is an opportunity to show our passion for creating such an application.
                     <input class="form-control" id="email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
                     <p class="help-block text-danger"></p>
                   </div>
-                  <div class="form-group">
-                    <input class="form-control" id="phone" type="tel" placeholder="Your Phone">
-                    <p class="help-block text-danger"></p>
-                  </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
