@@ -247,7 +247,7 @@ span.psw {
 		display:inline-block;
 		width:auto;
 		position:relative;
-		font-size:28px;
+		font-size:18px;
     	margin:5px;
 	}
 /*
@@ -255,7 +255,7 @@ the BEFORE:pseudo element. This will represent the number of stars in the actual
 it floats above the AFTER element.
 */
 	.stars:BEFORE {
-		position:absolute;
+		position:relative;
 		overflow:hidden;
 		z-index:1;
 		left:0px;
