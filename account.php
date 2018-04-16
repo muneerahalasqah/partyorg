@@ -374,7 +374,7 @@ window.onclick = function(event) {
                       echo "<h5>".$vrow1['v_name']."</h5>";
                      // Vendors Rating //
                       echo "<b>Rate ".$vrow1['v_name'].": </b>";
-                      
+                      echo "<br/>";                      
                       
                       echo "<div class='stars rate'>";
                       foreach(range(1,5) as $rating):
