@@ -1,13 +1,23 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+include_once "PHPMailer/PHPMailer.php";
+include_once "PHPMailer/Exception.php";
 
-$name = strip_tags(htmlspecialchars($_POST['name']));
-$email = strip_tags(htmlspecialchars($_POST['email']));
-$message = strip_tags(htmlspecialchars($_POST['message']));
-
-$formcontent="From: $name \n Message: $message";
-$recipient = "besher.service@gmail.com";
-$subject = "Contact Form";
-$mailheader = "From: $email \r\n";
-mail($recipient, $subject, $formcontent, $mailheader);
+if(isset($_POST['submit'])){
+    $name=$_POST['name'];
+    $subject="From: ".$name;
+    $email=$_POST['email'];
+    $message=$_POST['message'];
+    
+    $mail = new PHPMailer();
+    $mail->addAddress('besher.service@gmail.com');
+    $mail->setFrom($email);
+    $mail->Subject = $subject;
+    $mail->isHTML(true);
+    $mail->Body = $message;
+    
+    if($mail->send())
+        echo "sent succefully";
+}
 
 ?>
