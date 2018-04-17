@@ -12,13 +12,13 @@ if (($key = array_search($_GET['id'],$_SESSION['plan'])) !== false) {
     if(isset($_GET['cid'])){
         ?>
             <script>
-                swal({title:"Done!",text:"Successfully deleted from the Party Plan", type: "success"}).then(function(){window.location.href = "cards.php?cid=<?php echo $_GET['cid']?>";});
+                swal({title:"Done!",text:"Successfully deleted from the Party Plan", type: "success"}).then(function(){window.location.href = "cards.php<?php if(isset($_GET['cid'])) echo "?cid=".$_GET['cid']; if(isset($_GET['lid'])) echo '&lid='.$_GET['lid']; if(isset($_GET['p'])) echo '&p='.$_GET['p']; if(isset($_GET['r'])) echo '&r='.$_GET['r']; ?>";});
             </script>
     <?php        
     } else {
       ?>
             <script>
-                swal({title:"Done!",text:"Successfully deleted from the Party Plan", type: "success"}).then(function(){window.location.href = "cards.php";});
+                swal({title:"Done!",text:"Successfully deleted from the Party Plan", type: "success"}).then(function(){window.location.href = "cards.php<?php if(isset($_GET['cid'])) echo "?cid=".$_GET['cid']; if(isset($_GET['lid'])) echo '&lid='.$_GET['lid']; if(isset($_GET['p'])) echo '&p='.$_GET['p']; if(isset($_GET['r'])) echo '&r='.$_GET['r']; ?>";});
             </script>
     <?php  
     }

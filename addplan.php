@@ -14,7 +14,7 @@ if(empty($_SESSION['plan'])) {
 if (in_array($_GET['id'],$_SESSION['plan'])){
         ?>
     <script>
-    swal({title:"This vendor already exists in the plan!",type: "warning"}).then(function(){window.location.href = "cards.php?cid=<?php echo $_GET['cid']?>";});
+    swal({title:"This vendor already exists in the plan!",type: "warning"}).then(function(){window.location.href = "cards.php?cid=<?php echo $_GET['cid']; if(isset($_GET['lid'])) echo '&lid='.$_GET['lid']; if(isset($_GET['p'])) echo '&p='.$_GET['p']; if(isset($_GET['r'])) echo '&r='.$_GET['r'];?>";});
     </script>
 <?php
     
@@ -23,7 +23,7 @@ if (in_array($_GET['id'],$_SESSION['plan'])){
     ?>
     <script>
         swal({title:"Done!",text:"Successfully added to the Party Plan",type: "success",showConfirmButton: false,
-  timer: 2000}).then(function(){window.location.href = "cards.php?cid=<?php echo $_GET['cid']?>";});
+  timer: 2000}).then(function(){window.location.href = "cards.php?cid=<?php echo $_GET['cid']; if(isset($_GET['lid'])) echo '&lid='.$_GET['lid']; if(isset($_GET['p'])) echo '&p='.$_GET['p']; if(isset($_GET['r'])) echo '&r='.$_GET['r']; ?>";});
     </script>
 <?php
 }

@@ -104,7 +104,11 @@ session_start();
                                      echo "<td>$vrow[3]</td>";
                                      echo "<td>$vrow[2]</td>";
                                      if(isset($_GET['cid'])){
-                                      echo "<td><a href='delplan.php?id=$vrow[0]&cid=".$_GET['cid']."'><i class='fa fa-trash'></i></a></td>";   
+                                      echo "<td>";
+                                    ?>
+                                  <a href='delplan.php?id=<?php echo $vrow[0]."&cid=".$_GET['cid']; if(isset($_GET['lid'])) echo '&lid='.$_GET['lid']; if(isset($_GET['p'])) echo '&p='.$_GET['p']; if(isset($_GET['r'])) echo '&r='.$_GET['r'];?>'><i class='fa fa-trash'></i></a>
+                                  <?php
+                                     echo "</td>";   
                                      } else {
                                       echo "<td><a href='delplan.php?id=$vrow[0]'><i class='fa fa-trash'></i></a></td>";   
                                      }
@@ -115,7 +119,7 @@ session_start();
                                      $_SESSION['total']=$total;
                                   ?>
                                   <tr>
-                                      <td colspan="3" style="text-align:right"><b>Total=</b></td>
+                                      <td colspan="3" style="text-align:right"><b>Estimated Cost=</b></td>
                                       <td><?php echo $_SESSION['total'];?> <b>S.R.</b></td>
                                   </tr>
                                   <?php
@@ -590,7 +594,7 @@ session_start();
         <?php 
               if (isset($_SESSION['cid'])) {
                   ?>
-            <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a>
+            <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid']; if(isset($_GET['lid'])) echo '&lid='.$_GET['lid']; if(isset($_GET['p'])) echo '&p='.$_GET['p']; if(isset($_GET['r'])) echo '&r='.$_GET['r'];?>" class="btn btn-primary">ADD</a>
             <?php
               }
                ?>
@@ -677,7 +681,7 @@ session_start();
                 <?php
                   if(isset($_SESSION['cid'])){
                       ?>
-                  <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid'];?>" class="btn btn-primary">ADD</a>
+                    <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid']; if(isset($_GET['lid'])) echo '&lid='.$_GET['lid']; if(isset($_GET['p'])) echo '&p='.$_GET['p']; if(isset($_GET['r'])) echo '&r='.$_GET['r'];?>" class="btn btn-primary">ADD</a>
                   <?php
                   }
                 ?>
