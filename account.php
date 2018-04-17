@@ -283,19 +283,19 @@ session_start();
                 </div>
                 <div class="modal-body text-center">
                 <div id="plan">
-                  <div class="text-center"><img src="img/Logo33.png" alt="log" width="30%"></div>
+                  <div class="text-center"><img src="img/Logo33.png" alt="log" width="30%"></div><br><br>
                         <?php
                         $pid=$plan['party_id'];
                         $vsql="SELECT vendor.* FROM vendor LEFT JOIN contain ON vendor.vendor_id=contain.v_id WHERE contain.p_id=$pid";
                         $vq=mysqli_query($db,$vsql);
-                        while($vrow=mysqli_fetch_assoc($vq)){
+                        while($vrow=mysqli_fetch_assoc($vq)){ 
                             echo "<h5>".$vrow['v_name']."</h5>";
-                            echo "<br>".$vrow['description'];
-                            echo "<hr>";
+                            echo $vrow['description'];
+                            echo "<br>";
                             echo "<b>Rate ".$vrow['v_name'].": </b><br>";
                             
                             //Vendors Rating//
-                            echo "<div class='stars rate text-center'>";
+                            echo "<div class='stars rate text-center' >";
                             foreach(range(1,5) as $rating):
                             ?>
                             <a href="rate.php?rate=<?php echo $rating.'&vid='.$vrow['vendor_id']?>" title="<?php echo $rating?> out of 5" class="fa fa-star"></a>
@@ -335,7 +335,7 @@ session_start();
                 </div>
                 </div>
                 <div class="modal-footer">
-                <button class="btn btn-primary regbtn" type="button" onClick="printContent('plan')"><i class="fa fa-print"></i> Print</button>
+                <button class="btn btn-primary " type="button" onClick="printContent('plan')"><i class="fa fa-print"></i> Print</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
