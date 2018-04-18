@@ -20,7 +20,9 @@ if(isset($_GET['vid'], $_GET['rate'])){
         ?>
 <html>
         <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
     </head>
     <body><script>
     swal({title:"Thanks!",text:"Your reviews make us take better descisions", type: "success",showConfirmButton: false,
