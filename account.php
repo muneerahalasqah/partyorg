@@ -102,7 +102,7 @@ session_start();
                                   }
                                   ?>
                                   <tr>
-                                      <td colspan="3" style="text-align:right"><b>Total=</b></td>
+                                      <td colspan="3" style="text-align:right"><b>Estimated Cost=</b></td>
                                       <td><?php echo $total;?> <b>S.R.</b></td>
                                   </tr>
                                   <?php
@@ -268,6 +268,7 @@ session_start();
                         while($v=mysqli_fetch_assoc($ven)){ echo $v['v_name'].", ";}
                         ?></p>
                         <p><b>Estimated Cost: </b><?php echo $plan['estimated_cost'];?> <b> S.R.</b></p>
+                        <button class="btn btn-secondary" type="button" onClick="printContent('plan<?php echo $plan['party_id']; ?>')"><i class="fa fa-print"></i> Print</button>
                     <a href="#<?php echo $plan['party_id'];?>" class="btn btn-primary" data-toggle="modal">More</a>
                     </div>
                 </div>
@@ -282,7 +283,7 @@ session_start();
                 </button>
                 </div>
                 <div class="modal-body text-center">
-                <div id="plan">
+                <div id="plan<?php echo $plan['party_id']; ?>">
                   <div class="text-center"><img src="img/Logo33.png" alt="log" width="30%"></div><br><br>
                         <?php
                         $pid=$plan['party_id'];
@@ -335,7 +336,6 @@ session_start();
                 </div>
                 </div>
                 <div class="modal-footer">
-                <button class="btn btn-primary " type="button" onClick="printContent('plan')"><i class="fa fa-print"></i> Print</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>

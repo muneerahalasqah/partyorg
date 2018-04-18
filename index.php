@@ -92,7 +92,7 @@ session_start();
                                   }
                                   ?>
                                   <tr>
-                                      <td colspan="3" style="text-align:right"><b>Total=</b></td>
+                                      <td colspan="3" style="text-align:right"><b>Estimated Cost=</b></td>
                                       <td><?php echo $total;?> <b>S.R.</b></td>
                                   </tr>
                                   <?php
