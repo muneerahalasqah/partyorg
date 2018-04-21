@@ -544,6 +544,92 @@ session_start();
                   </div>
                       </div>
                     </div>
+                   <!--Details-->
+        <div class="modal fade" id="<?php echo $vrow['vendor_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"><?php echo $vrow['v_name']; ?></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <!--Venor Details--->
+              <div class="modal-body text-center">
+              <b><?php echo $vrow['description'];?></b>
+              <hr>
+              <!-- Samples -->      
+              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+              <?php
+              $sam=mysqli_query($db,"SELECT samples.* FROM samples WHERE samples.v_id IN(SELECT vendor.vendor_id FROM vendor WHERE vendor_id=$vid)");
+              $i=1;
+              while($sample=mysqli_fetch_assoc($sam)){
+                  if($i==1){
+                      ?>
+                  <div class="carousel-item active">
+                  <img class="d-block w-100" src="admin/<?php echo $sample['sample_path'];?>">
+                  </div>
+                  <?php
+                  } else {
+                  ?>
+                  <div class="carousel-item">
+                  <img class="d-block w-100" src="admin/<?php echo $sample['sample_path'];?>">
+                  </div>
+                  <?php
+                  }
+                  $i=$i+1;
+              }
+              ?>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+            <hr>
+            <!--The rest of details-->
+
+            <div class="table-responsive">
+            <table class="table" >
+            <tbody>
+            <tr>
+                <td class="text-left"><b>Strart Price:</b></td><td class="text-right"><?php echo $vrow['start_price']?> <b>S.R.</b></td></tr>
+            <tr>
+                <td class="text-left"><b>Vendor Type:</b></td><td class="text-right"><?php echo $type[0]?></td></tr>
+            <tr>
+                <td class="text-left"><b>Location:</b></td><td class="text-right"><?php echo $loc[1]?></td></tr>
+            <tr>
+                <td class="text-left"><b>Phone:</b></td><td class="text-right"><a style="color:black" href="https://api.whatsapp.com/send?phone=<?php echo '966'.$vrow['phone'] ?>"><i class="fa fa-whatsapp"></i>&nbsp;<?php echo '0'.$vrow['phone']?></a> </td></tr>
+            <tr>
+                <td class="text-left"><b>Email:</b></td><td class="text-right "><a style="color:black" href="mailto:<?php echo $vrow['email']?>"><i class="fa fa-envelope"></i>&nbsp;<?php echo $vrow['email']?></a></td></tr>
+            <tr>
+                <td class="text-left"><b>Instagram:</b></td><td class="text-right"><a style="color:black" href="https://www.instagram.com/<?php echo $vrow['instgram']?>"><i class="fa fa-instagram"></i>&nbsp;<?php echo $vrow['instgram']?></a></td></tr>
+            <tr>
+                <td class="text-left"><b>Twitter:</b></td><td class="text-right"><a style="color:black" href="https://twitter.com/<?php echo $vrow['twitter']?>"><i class="fa fa-twitter"></i>&nbsp;<?php echo $vrow['twitter']?></a></td></tr>
+            <tr>
+                <td class="text-left"><b>Google Maps:</b></td><td class="text-right"><a style="color:black" href="<?php echo $vrow['google_maps']?>"><i class="fa fa-map-marker"></i>&nbsp;<?php echo $vrow['google_maps']?></a></td></tr>
+            </tbody>
+            </table>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <?php
+                  if(isset($_SESSION['cid'])){
+                      ?>
+                    <a href="addplan.php?id=<?php echo $vrow['vendor_id']."&cid=".$_GET['cid']; if(isset($_GET['lid'])) echo '&lid='.$_GET['lid']; if(isset($_GET['p'])) echo '&p='.$_GET['p']; if(isset($_GET['r'])) echo '&r='.$_GET['r'];?>" class="btn btn-primary">ADD</a>
+                  <?php
+                  }
+                ?>
+              </div>
+            </div>
+          </div>
+        </div>
           <?php
           }
               
