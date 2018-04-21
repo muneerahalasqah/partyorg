@@ -328,9 +328,9 @@ session_start();
                     $p=$_GET['p'];
                     if(isset($_GET['r'])){
                     $r=$_GET['r'];
-                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.location_id=$lid AND v.start_price>=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
+                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.location_id=$lid AND v.start_price<=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                     } else {
-                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.location_id=$lid AND v.start_price>=$p ORDER BY (round(v.score/v.score_user)) DESC");
+                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.location_id=$lid AND v.start_price<=$p ORDER BY (round(v.score/v.score_user)) DESC");
                     }
     
                 } else {
@@ -347,17 +347,17 @@ session_start();
                     $lid=$_GET['lid'];
                     if(isset($_GET['r'])){
                     $r=$_GET['r'];
-                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.location_id=$lid AND v.start_price>=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
+                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.location_id=$lid AND v.start_price<=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                     } else {
-                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.location_id=$lid AND v.start_price>=$p ORDER BY (round(v.score/v.score_user)) DESC");
+                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.location_id=$lid AND v.start_price<=$p ORDER BY (round(v.score/v.score_user)) DESC");
                     }
  
                 } else {
                     if(isset($_GET['r'])){
                     $r=$_GET['r'];
-                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.start_price>=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
+                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.start_price<=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                     } else {
-                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.start_price>=$p ORDER BY (round(v.score/v.score_user)) DESC");
+                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.start_price<=$p ORDER BY (round(v.score/v.score_user)) DESC");
                     }
                 }
             } else if(isset($_GET['r'])) {
@@ -366,14 +366,14 @@ session_start();
                     $lid=$_GET['lid'];
                     if(isset($_GET['p'])){
                         $p=$_GET['p'];
-                        $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.location_id=$lid AND v.start_price>=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
+                        $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.location_id=$lid AND v.start_price<=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                     } else {
                        $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.location_id=$lid AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                     }
                 } else {
                     if(isset($_GET['p'])){
                         $p=$_GET['p'];
-                        $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.start_price>=$p AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
+                        $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.type_id=$tid AND v.start_price<=$p AND $r<=(SELECT round(avg(rating.rate)) FROM rating WHERE vendor.vendor_id=rating.v_id)");
                     } else {
                        $vendors=mysqli_query($db,"SELECT vendor.* FROM vendor LEFT JOIN belong ON vendor.vendor_id=belong.vendor_id WHERE category_id=$cid AND type_id=$tid AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                 } }
@@ -390,9 +390,9 @@ session_start();
                     $p=$_GET['p'];
                     if(isset($_GET['r'])){
                     $r=$_GET['r'];
-                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.location_id=$lid AND v.start_price>=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
+                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.location_id=$lid AND v.start_price<=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                     } else {
-                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.location_id=$lid AND v.start_price>=$p ORDER BY (round(v.score/v.score_user)) DESC");
+                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.location_id=$lid AND v.start_price<=$p ORDER BY (round(v.score/v.score_user)) DESC");
                     }
                 } else {
                     if(isset($_GET['r'])){
@@ -408,17 +408,17 @@ session_start();
                     $lid=$_GET['lid'];
                     if(isset($_GET['r'])){
                     $r=$_GET['r'];
-                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.location_id=$lid AND v.start_price>=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
+                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.location_id=$lid AND v.start_price<=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                     } else {
-                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.location_id=$lid AND v.start_price>=$p ORDER BY (round(v.score/v.score_user)) DESC");
+                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.location_id=$lid AND v.start_price<=$p ORDER BY (round(v.score/v.score_user)) DESC");
                     }
  
                 } else {
                     if(isset($_GET['r'])){
                     $r=$_GET['r'];
-                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.start_price>=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
+                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.start_price<=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                     } else {
-                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.start_price>=$p ORDER BY (round(v.score/v.score_user)) DESC");
+                    $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.start_price<=$p ORDER BY (round(v.score/v.score_user)) DESC");
                     }
                 }
             } else if(isset($_GET['r'])) {
@@ -427,14 +427,14 @@ session_start();
                     $lid=$_GET['lid'];
                     if(isset($_GET['p'])){
                         $p=$_GET['p'];
-                        $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.location_id=$lid AND v.start_price>=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
+                        $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.location_id=$lid AND v.start_price<=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                     } else {
                        $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.location_id=$lid AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                     }
                 } else {
                     if(isset($_GET['p'])){
                         $p=$_GET['p'];
-                        $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.start_price>=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
+                        $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND v.start_price<=$p AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                     } else {
                        $vendors=mysqli_query($db,"SELECT v.* FROM vendor v LEFT JOIN belong b ON v.vendor_id=b.vendor_id WHERE b.category_id=$cid AND $r<=(round(v.score/v.score_user)) ORDER BY (round(v.score/v.score_user)) DESC");
                 }
