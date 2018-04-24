@@ -819,7 +819,7 @@ session_start();
         while ($myrow = mysqli_fetch_row($result)) {
             if(isset($_GET['lid']) && $_GET['lid']==$myrow[0]){
                 if($myrow[0]==9){
-                    printf("<option value= '%d' hidden> %s </option>",$myrow[0], $myrow[1]);   
+                    printf("<option value= '%d' style='display: none;'> %s </option>",$myrow[0], $myrow[1]);   
             } else 
                 printf("<option value= '%d' selected>%s</option>",$myrow[0], $myrow[1]);
             } else
