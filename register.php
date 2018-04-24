@@ -322,7 +322,10 @@ if(!empty($_POST["register-user"])) {
     $result = mysqli_query($db,"SELECT location_id,location_name FROM location");
         echo "<select name='location' class='demoInputBox' style='width: 50%;'>";               
         while ($myrow = mysqli_fetch_row($result)) {
-        printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
+            if($myrow[0]==9){
+             printf("<option value= '%d' hidden> %s </option>",$myrow[0], $myrow[1]);   
+            } else 
+            printf("<option value= '%d'> %s </option>",$myrow[0], $myrow[1]);
                 }
         echo "</select>";
         ?>
