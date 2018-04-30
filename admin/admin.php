@@ -19,7 +19,7 @@ if($username == 'admin' && $password == '1995')
     <html>
         <body>
             <script> alert('Sorry, Wrong Info!');
-            window.location = "admin.html";
+            window.location = "index.html";
             </script>
         </body>
     </html>

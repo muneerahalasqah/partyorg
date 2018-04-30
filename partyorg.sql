@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 08, 2018 at 11:18 AM
+-- Generation Time: Apr 30, 2018 at 08:02 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `location` (
   `location_id` int(10) NOT NULL AUTO_INCREMENT,
   `location_name` varchar(40) NOT NULL,
   PRIMARY KEY (`location_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -173,40 +173,40 @@ CREATE TABLE IF NOT EXISTS `v_type` (
 -- Constraints for table `belong`
 --
 ALTER TABLE `belong`
-  ADD CONSTRAINT `belong_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
-  ADD CONSTRAINT `belong_ibfk_2` FOREIGN KEY (`vendor_id`) REFERENCES `vendor` (`vendor_id`);
+  ADD CONSTRAINT `belong_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `belong_ibfk_2` FOREIGN KEY (`vendor_id`) REFERENCES `vendor` (`vendor_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `contain`
 --
 ALTER TABLE `contain`
-  ADD CONSTRAINT `contain_ibfk_1` FOREIGN KEY (`v_id`) REFERENCES `vendor` (`vendor_id`),
-  ADD CONSTRAINT `contain_ibfk_2` FOREIGN KEY (`p_id`) REFERENCES `party_plan` (`party_id`);
+  ADD CONSTRAINT `contain_ibfk_1` FOREIGN KEY (`v_id`) REFERENCES `vendor` (`vendor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `contain_ibfk_2` FOREIGN KEY (`p_id`) REFERENCES `party_plan` (`party_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `customer`
 --
 ALTER TABLE `customer`
-  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`);
+  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `party_plan`
 --
 ALTER TABLE `party_plan`
-  ADD CONSTRAINT `party_plan_ibfk_1` FOREIGN KEY (`c_id`) REFERENCES `customer` (`customer_id`);
+  ADD CONSTRAINT `party_plan_ibfk_1` FOREIGN KEY (`c_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `samples`
 --
 ALTER TABLE `samples`
-  ADD CONSTRAINT `samples_ibfk_1` FOREIGN KEY (`v_id`) REFERENCES `vendor` (`vendor_id`);
+  ADD CONSTRAINT `samples_ibfk_1` FOREIGN KEY (`v_id`) REFERENCES `vendor` (`vendor_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `vendor`
 --
 ALTER TABLE `vendor`
-  ADD CONSTRAINT `vendor_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`),
-  ADD CONSTRAINT `vendor_ibfk_2` FOREIGN KEY (`type_id`) REFERENCES `v_type` (`type_id`);
+  ADD CONSTRAINT `vendor_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vendor_ibfk_2` FOREIGN KEY (`type_id`) REFERENCES `v_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
