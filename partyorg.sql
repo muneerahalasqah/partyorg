@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 30, 2018 at 08:02 PM
+-- Generation Time: May 15, 2018 at 09:30 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -187,7 +187,7 @@ ALTER TABLE `contain`
 -- Constraints for table `customer`
 --
 ALTER TABLE `customer`
-  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `party_plan`
@@ -205,8 +205,8 @@ ALTER TABLE `samples`
 -- Constraints for table `vendor`
 --
 ALTER TABLE `vendor`
-  ADD CONSTRAINT `vendor_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `vendor_ibfk_2` FOREIGN KEY (`type_id`) REFERENCES `v_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `vendor_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `vendor_ibfk_2` FOREIGN KEY (`type_id`) REFERENCES `v_type` (`type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
